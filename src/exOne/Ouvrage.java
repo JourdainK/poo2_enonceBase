@@ -8,6 +8,7 @@ public abstract class Ouvrage {
     protected byte ageMin;
     protected  double prixLocation;
     protected List<Auteur> listAuteurs;
+    protected List<Exemplaire> listExemplaire;
 
     public Ouvrage(String titre, String dateParution, String langue, String genre, String typeOuvrage, byte ageMin, double prixLocation) {
         this.titre = titre;
@@ -17,7 +18,7 @@ public abstract class Ouvrage {
         this.typeOuvrage = typeOuvrage;
         this.ageMin = ageMin;
         this.prixLocation = prixLocation;
-        this.listAuteurs = new ArrayList<>();
+        this.listExemplaire = new ArrayList<>();
     }
 
     public String getTitre() {
@@ -47,7 +48,8 @@ public abstract class Ouvrage {
     public double getPrixLocation() {
         return prixLocation;
     }
-    public void setListAuteurs(Auteur auteur) {
-        this.listAuteurs.add(auteur);
+
+    public void setListAuteurs(List<Auteur> listAuteurs) {
+        this.listAuteurs = listAuteurs;
     }
 }
