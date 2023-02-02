@@ -5,10 +5,12 @@ import java.util.Objects;
 public class Exemplaire {
     private long matricule;
     private String descriptionEtat;
+    private Rayon rayonExamplaire;
 
-    public Exemplaire(long matricule, String descriptionEtat){
+    public Exemplaire(long matricule, String descriptionEtat, Rayon rayonExemplaire){
         this.matricule = matricule;
         this.descriptionEtat = descriptionEtat;
+        this.rayonExamplaire = rayonExemplaire;
     }
 
     public long getMatricule() {
@@ -17,6 +19,10 @@ public class Exemplaire {
 
     public String getDescriptionEtat() {
         return descriptionEtat;
+    }
+
+    public void setRayonExamplaire(Rayon rayonExamplaire) {
+        this.rayonExamplaire = rayonExamplaire;
     }
 
     @Override
@@ -36,7 +42,8 @@ public class Exemplaire {
     public String toString() {
         return "\n-- Exemplaire --" +
                 "\nMatricule : " + matricule +
-                "\tÉtat de l'exemplaire : " + descriptionEtat;
+                "\tÉtat de l'exemplaire : " + descriptionEtat +
+                "\nRayon : " + rayonExamplaire.getCodeRayon();
     }
 
 
