@@ -87,9 +87,7 @@ public abstract class Ouvrage {
      */
     //add a copy to the List "listExemplaire" => return true > success
     public boolean addExemplaire(Exemplaire copy){
-        Exemplaire exTmp;
         boolean isCopyIn,isCopyAdded;
-        Scanner sc = new Scanner(System.in);
         isCopyIn = isExemplaireIn(copy);
 
         if(isCopyIn){
