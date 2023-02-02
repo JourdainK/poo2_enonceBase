@@ -79,42 +79,5 @@ public abstract class Ouvrage {
         }
     }
 
-    //instantiate and copy (examplaire) inside the "Ouvrage"
-    public boolean addExamplaire(Long matricule, String descriptionEtat, Rayon rayon){
-        boolean checkIsIn, checkIfAdded;
-
-        Exemplaire exTmp;
-        exTmp = new Exemplaire(matricule,descriptionEtat,rayon);
-        checkIsIn = isExemplaireIn(exTmp);
-
-        if(checkIsIn){
-            System.out.println("L'exemplaire est déja présent dans la liste");
-            checkIfAdded = false;
-        }
-        else{
-            listExemplaire.add(exTmp);
-            System.out.println("Exemplaire ajouté");
-            checkIfAdded = true;
-        }
-
-        return checkIfAdded;
-    }
-
-    //check if copy is in listExamplaire ==> return true if found
-    public boolean isExemplaireIn(Exemplaire copy){
-        boolean checkCopy = false;
-
-        for(Exemplaire c:listExemplaire){
-            if(copy.equals(c)){
-                checkCopy = true;
-            }
-        }
-
-        return checkCopy;
-    }
-
-    //TODO make a method that get an Exemplaire ( to add to the location)
-    //TODO !!! availability of said copy > check  +   change status of the copy > make unavailable
-
 
 }
