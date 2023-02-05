@@ -24,6 +24,10 @@ public class Rayon {
         return genre;
     }
 
+    public List<Exemplaire> getListExemplaires() {
+        return listExemplaires;
+    }
+
     public void setCodeRayon(String codeRayon) {
         this.codeRayon = codeRayon;
     }

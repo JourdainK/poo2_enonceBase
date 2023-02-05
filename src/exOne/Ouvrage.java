@@ -52,6 +52,14 @@ public abstract class Ouvrage {
         return prixLocation;
     }
 
+    public List<Auteur> getListAuteurs() {
+        return listAuteurs;
+    }
+
+    public List<Exemplaire> getListExemplaire() {
+        return listExemplaire;
+    }
+
     public void setListAuteurs(List<Auteur> listAuteurs) {
         this.listAuteurs = listAuteurs;
     }

@@ -7,13 +7,15 @@ import java.util.Objects;
 public class Exemplaire {
     private long matricule;
     private String descriptionEtat;
+    private Ouvrage ouvrage;
     private Rayon rayonExamplaire;
     private List<Location> listLocations;
 
-    public Exemplaire(long matricule, String descriptionEtat, Rayon rayonExemplaire){
+    public Exemplaire(long matricule, String descriptionEtat, Ouvrage ouvrage){
         this.matricule = matricule;
         this.descriptionEtat = descriptionEtat;
-        this.rayonExamplaire = rayonExemplaire;
+        this.ouvrage = ouvrage;
+        this.ouvrage.getListExemplaire().add(this);
         this.listLocations = new ArrayList<>();
     }
 
@@ -34,7 +36,11 @@ public class Exemplaire {
     }
 
     public void setRayonExamplaire(Rayon rayonExamplaire) {
+        // check /understand/ fix ==> get list of copies , remove 'this' from the list of the 'Rayon'
+        if(this.rayonExamplaire!=null) this.rayonExamplaire.getListExemplaires().remove(this);
         this.rayonExamplaire = rayonExamplaire;
+        //add the copy to the bookshelf (objects -> communication)
+        this.rayonExamplaire.getListExemplaires().add(this);
     }
 
     @Override
