@@ -26,6 +26,12 @@ public class Auteur {
         return nationalite;
     }
 
+    public void setListOuvrages(List<Ouvrage> listOuvrages) {
+        this.listOuvrages = listOuvrages;
+    }
+
+    //TODO make IsOuvrageIn ==> Check if added Ouvrage isn't already inside List of Ouvrages
+
     //TODO check the equals
     @Override
     public boolean equals(Object o) {
@@ -33,7 +39,8 @@ public class Auteur {
         if (o == null || getClass() != o.getClass()) return false;
         Auteur auteur = (Auteur) o;
         return Objects.equals(nom, auteur.nom) &&
-                Objects.equals(prenom, auteur.prenom);
+                Objects.equals(prenom, auteur.prenom) &&
+                Objects.equals(nationalite, auteur.nationalite);
     }
 
     @Override
@@ -41,7 +48,4 @@ public class Auteur {
         return Objects.hash(nom);
     }
 
-    public void setListOuvrages(Ouvrage ouvrage) {
-        this.listOuvrages.add(ouvrage);
-    }
 }

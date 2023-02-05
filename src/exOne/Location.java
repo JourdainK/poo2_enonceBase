@@ -2,6 +2,7 @@ package exOne;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Location {
     private String dateLoc, dateRestitution;
@@ -9,12 +10,15 @@ public class Location {
     private Exemplaire exemplaire;
     private Lecteur lecteurLocation;
 
+    /*
     public Location (String dateRestitution){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
         String today = LocalDate.now().format(formatter);
         //System.out.println(todday);
         this.dateLoc = today;
     }
+
+     */
 
     public Location(String dateLoc, String dateRestitution, Exemplaire exemplaire,Lecteur lecteurLocation) {
         this.dateLoc = dateLoc;
@@ -24,12 +28,9 @@ public class Location {
         this.amende = 0;
     }
 
-    public Location(String dateLoc, String dateRestitution,Exemplaire exemplaire, double amende, Lecteur lecteurLocation) {
-        this.dateLoc = dateLoc;
-        this.dateRestitution = dateRestitution;
+    public Location(Exemplaire exemplaire,  Lecteur lecteurLocation) {
         this.exemplaire = exemplaire;
         this.lecteurLocation = lecteurLocation;
-        this.amende = amende;
     }
 
     public String getDateLoc() {
@@ -60,5 +61,16 @@ public class Location {
         this.lecteurLocation = lecteurLocation;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return Objects.equals(dateLoc, location.dateLoc) && Objects.equals(exemplaire, location.exemplaire) && Objects.equals(lecteurLocation, location.lecteurLocation);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(dateLoc, exemplaire, lecteurLocation);
+    }
 }
