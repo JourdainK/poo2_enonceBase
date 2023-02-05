@@ -54,6 +54,30 @@ public abstract class Ouvrage {
         this.listAuteurs = listAuteurs;
     }
 
+    @Override
+    public String toString() {
+        String listAuts = "", listExempls="";
+
+        for(Auteur l:listAuteurs){
+            listAuts += l.getNom() + " " + l.getPrenom() + "\n";
+        }
+
+        for(Exemplaire e:listExemplaire){
+            listExempls += e.getMatricule() + "\tRayon : " + e.getRayonExamplaire().getCodeRayon() + "\n";
+        }
+
+        return
+                "Titre :" + titre +
+                "\nDate de parution : " + dateParution +
+                "\tLangue : " + langue +
+                "\nGenre : " + genre +
+                "\tType d'ouvrage : " + typeOuvrage +
+                "\nÂge minimum : " + ageMin +
+                "\tPrix de la location : " + prixLocation +
+                "\nAuteurs :" + listAuts +
+                "\nExemplaires  :" + listExempls;
+    }
+
     //check if author is in listAuteurs ==> return true if author is found in listAuteurs
     public boolean isAuthorIn(Auteur author){
         boolean checkAuthor = false;

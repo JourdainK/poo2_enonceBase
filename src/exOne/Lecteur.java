@@ -1,11 +1,25 @@
 package exOne;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Lecteur {
     private long numLecteur;
     private String nom, prenom, dateNaiss, mail, adresse, tel;
+    private List<Location> listLocatLecteur;
 
+    //TODO make init to test
+    public Lecteur(){
+        this.numLecteur = -1;
+        this.nom = "";
+        this.prenom = "";
+        this.dateNaiss = "";
+        this.mail = "";
+        this.adresse = "";
+        this.tel = "";
+        this.listLocatLecteur = new ArrayList<>();
+    }
     public Lecteur(long numLecteur, String nom, String prenom, String dateNaiss, String mail, String adresse, String tel) {
         this.numLecteur = numLecteur;
         this.nom = nom;
@@ -14,6 +28,7 @@ public class Lecteur {
         this.mail = mail;
         this.adresse = adresse;
         this.tel = tel;
+        this.listLocatLecteur = new ArrayList<>();
     }
 
     public long getNumLecteur() {
@@ -42,6 +57,10 @@ public class Lecteur {
 
     public String getTel() {
         return tel;
+    }
+
+    public List<Location> getListLocatLecteur() {
+        return listLocatLecteur;
     }
 
     public void setAdresse(String adresse) {
