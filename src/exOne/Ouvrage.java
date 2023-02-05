@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class Ouvrage {
-    protected String titre, dateParution, langue, genre, typeOuvrage;
+    protected String titre, dateParution, langue, genre;
+    protected TypeOuvrage typeOuvrage;
     protected byte ageMin;
     protected  double prixLocation;
     protected List<Auteur> listAuteurs;
     protected List<Exemplaire> listExemplaire;
 
-    public Ouvrage(String titre, String dateParution, String langue, String genre, String typeOuvrage, byte ageMin, double prixLocation) {
+    public Ouvrage(String titre, String dateParution, String langue, String genre, TypeOuvrage typeOuvrage, byte ageMin, double prixLocation) {
         this.titre = titre;
         this.dateParution = dateParution;
         this.langue = langue;
@@ -20,6 +21,7 @@ public abstract class Ouvrage {
         this.ageMin = ageMin;
         this.prixLocation = prixLocation;
         this.listExemplaire = new ArrayList<>();
+        this.listAuteurs = new ArrayList<>();
     }
 
     public String getTitre() {
@@ -38,7 +40,7 @@ public abstract class Ouvrage {
         return genre;
     }
 
-    public String getTypeOuvrage() {
+    public TypeOuvrage getTypeOuvrage() {
         return typeOuvrage;
     }
 
@@ -52,6 +54,10 @@ public abstract class Ouvrage {
 
     public void setListAuteurs(List<Auteur> listAuteurs) {
         this.listAuteurs = listAuteurs;
+    }
+
+    public void setListExemplaire(List<Exemplaire> listExemplaire) {
+        this.listExemplaire = listExemplaire;
     }
 
     @Override
