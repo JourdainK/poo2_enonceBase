@@ -1,18 +1,20 @@
 package exOne;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public abstract class Ouvrage {
-    protected String titre, dateParution, langue, genre;
+    protected String titre, langue, genre;
+    protected LocalDate dateParution;
     protected TypeOuvrage typeOuvrage;
     protected byte ageMin;
     protected  double prixLocation;
     protected List<Auteur> listAuteurs;
     protected List<Exemplaire> listExemplaire;
 
-    public Ouvrage(String titre, String dateParution, String langue, String genre, TypeOuvrage typeOuvrage, byte ageMin, double prixLocation) {
+    public Ouvrage(String titre, LocalDate dateParution, String langue, String genre, TypeOuvrage typeOuvrage, byte ageMin, double prixLocation) {
         this.titre = titre;
         this.dateParution = dateParution;
         this.langue = langue;
@@ -28,7 +30,7 @@ public abstract class Ouvrage {
         return titre;
     }
 
-    public String getDateParution() {
+    public LocalDate getDateParution() {
         return dateParution;
     }
 

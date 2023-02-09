@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Location {
-    private String dateLoc, dateRestitution;
+    private LocalDate dateLoc, dateRestitution;
     private double amende;
     private Exemplaire exemplaire;
     private Lecteur lecteurLocation;
@@ -20,7 +20,7 @@ public class Location {
 
      */
 
-    public Location(String dateLoc, String dateRestitution, Exemplaire exemplaire,Lecteur lecteurLocation) {
+    public Location(LocalDate dateLoc, LocalDate dateRestitution, Exemplaire exemplaire,Lecteur lecteurLocation) {
         this.dateLoc = dateLoc;
         this.dateRestitution = dateRestitution;
         this.exemplaire = exemplaire;
@@ -33,11 +33,11 @@ public class Location {
         this.lecteurLocation = lecteurLocation;
     }
 
-    public String getDateLoc() {
+    public LocalDate getDateLoc() {
         return dateLoc;
     }
 
-    public String getDateRestitution() {
+    public LocalDate getDateRestitution() {
         return dateRestitution;
     }
 
@@ -49,7 +49,7 @@ public class Location {
         this.amende = amende;
     }
 
-    public void setDateRestitution(String dateRestitution) {
+    public void setDateRestitution(LocalDate dateRestitution) {
         this.dateRestitution = dateRestitution;
     }
 

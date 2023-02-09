@@ -6,12 +6,13 @@ import java.util.Objects;
 
 public class Auteur {
     private String nom, prenom, nationalite;
-    private List<Ouvrage> listOuvrages = new ArrayList<>();
+    private List<Ouvrage> listOuvrages;
 
     public Auteur(String nom, String prenom, String nationalite) {
         this.nom = nom;
         this.prenom = prenom;
         this.nationalite = nationalite;
+        this.listOuvrages = new ArrayList<>();
     }
 
     public String getNom() {
@@ -48,4 +49,14 @@ public class Auteur {
         return Objects.hash(nom);
     }
 
+
+    @Override
+    public String toString() {
+        return "\n-- Auteur :" +
+                "\n\tNom : " + nom + '\'' +
+                "\t\tPrénom : " + prenom + '\'' +
+                "\nNationalite : " + nationalite + '\'' +
+                ", listOuvrages=" + listOuvrages +
+                '}';
+    }
 }
