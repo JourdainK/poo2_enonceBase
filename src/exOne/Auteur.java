@@ -52,11 +52,9 @@ public class Auteur {
 
     @Override
     public String toString() {
-        return "\n-- Auteur :" +
-                "\n\tNom : " + nom + '\'' +
-                "\t\tPrénom : " + prenom + '\'' +
-                "\nNationalite : " + nationalite + '\'' +
-                ", listOuvrages=" + listOuvrages +
-                '}';
+        return "\n-- Auteur --" +
+                "\nNom : " + nom +
+                "\t\tPrénom : " + prenom +
+                "\nNationalite : " + nationalite;
     }
 }

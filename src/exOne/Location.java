@@ -10,27 +10,12 @@ public class Location {
     private Exemplaire exemplaire;
     private Lecteur lecteurLocation;
 
-    /*
-    public Location (String dateRestitution){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-        String today = LocalDate.now().format(formatter);
-        //System.out.println(todday);
-        this.dateLoc = today;
-    }
-
-     */
-
     public Location(LocalDate dateLoc, LocalDate dateRestitution, Exemplaire exemplaire,Lecteur lecteurLocation) {
         this.dateLoc = dateLoc;
         this.dateRestitution = dateRestitution;
         this.exemplaire = exemplaire;
         this.lecteurLocation = lecteurLocation;
         this.amende = 0;
-    }
-
-    public Location(Exemplaire exemplaire,  Lecteur lecteurLocation) {
-        this.exemplaire = exemplaire;
-        this.lecteurLocation = lecteurLocation;
     }
 
     public LocalDate getDateLoc() {
@@ -72,5 +57,15 @@ public class Location {
     @Override
     public int hashCode() {
         return Objects.hash(dateLoc, exemplaire, lecteurLocation);
+    }
+
+    @Override
+    public String toString() {
+        return "-- Location --\n" +
+                "\nDate de la location : " + dateLoc +
+                "\nDate de la restitution : " + dateRestitution +
+                "\nAmende : " + amende +
+                "\n" + exemplaire +
+                "\n" + lecteurLocation;
     }
 }
