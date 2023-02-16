@@ -43,34 +43,6 @@ public class Auteur {
         return checkOeuvreIn;
     }
 
-    public boolean addOuvrage(Ouvrage oeuvre){
-        boolean checkIsin;
-
-        checkIsin = isOuvrageIn(oeuvre);
-        if(checkIsin){
-            System.out.println(oeuvre.getTitre() + " est déja inscrit dans la liste des oeuvres de " + this.getNom());
-            return false;
-        }
-        else{
-            listOuvrages.add(oeuvre);
-            return true;
-        }
-    }
-
-    public boolean suppressOuvrage(Ouvrage oeuvre){
-        boolean isIn;
-        isIn = isOuvrageIn(oeuvre);
-        if(isIn){
-            listOuvrages.remove(oeuvre);
-            System.out.println(oeuvre.getTitre() + " a été effacé de la liste des oeuvres de " + this.nom);
-            return true;
-        }
-
-        else{
-            System.out.println(oeuvre.getTitre() + " n'était pas présent dans la liste de " + this.nom + " et n'as donc pas pu être retiré.");
-            return false;
-        }
-    }
 
     //TODO check the equals
     @Override
@@ -96,4 +68,16 @@ public class Auteur {
                 "\t\tPrénom : " + prenom +
                 "\nNationalite : " + nationalite;
     }
+
+
+    public void addOuvrage(Ouvrage o){
+        listOuvrages.add(o);
+        o.listAuteurs.add(this);
+    }
+
+    public void suppressOuvrage(Ouvrage o){
+        listOuvrages.remove(o);
+        o.listAuteurs.remove(this);
+    }
+
 }

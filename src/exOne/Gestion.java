@@ -7,6 +7,11 @@ import java.time.format.DateTimeFormatter;
 public class Gestion {
     public static void main(String[] args) {
 
+
+    }
+
+    private static void populate(){
+
         Auteur aut1 = new Auteur("Carlin","George","USA");
         System.out.println("\nAuteur");
         System.out.println(aut1);
@@ -42,8 +47,5 @@ public class Gestion {
         Location loc1 = new Location(date, dateRest,e1,lect1);
         System.out.println("test location : ");
         System.out.println(loc1);
-
-
-
     }
 }
