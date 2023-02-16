@@ -11,6 +11,7 @@ public class Exemplaire {
     private Rayon rayonExamplaire;
     private List<Location> listLocations;
 
+
     public Exemplaire(long matricule, String descriptionEtat, Ouvrage ouvrage){
         this.matricule = matricule;
         this.descriptionEtat = descriptionEtat;
@@ -23,6 +24,9 @@ public class Exemplaire {
         return matricule;
     }
 
+    public Ouvrage getOuvrage() {
+        return ouvrage;
+    }
     public String getDescriptionEtat() {
         return descriptionEtat;
     }
@@ -30,6 +34,8 @@ public class Exemplaire {
     public Rayon getRayonExamplaire() {
         return rayonExamplaire;
     }
+
+
 
     public List<Location> getListLocations() {
         return listLocations;

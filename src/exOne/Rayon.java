@@ -53,4 +53,14 @@ public class Rayon {
                 "\tGenre :" + genre;
     }
 
+    public void listerExemplaires(){
+        int i = 1;
+
+        for(Exemplaire l:listExemplaires){
+            System.out.println( i + " - matricule : " + l.getMatricule() + "\t\tÉtat : " + l.getDescriptionEtat());
+            System.out.println("\t\tTitre de l'ouvrage : " + l.getOuvrage().getTitre());
+            i++;
+        }
+    }
+
 }
