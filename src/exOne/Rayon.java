@@ -53,7 +53,7 @@ public class Rayon {
                 "\tGenre :" + genre;
     }
 
-    public void listerExemplaires(){
+    public void listerExamplaires(){
         int i = 1;
 
         for(Exemplaire l:listExemplaires){

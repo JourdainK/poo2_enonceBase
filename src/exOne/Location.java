@@ -16,6 +16,7 @@ public class Location {
         this.exemplaire = exemplaire;
         this.lecteurLocation = lecteurLocation;
         this.amende = 0;
+        this.exemplaire.getListLocations().add(this);
     }
 
     public LocalDate getDateLoc() {
@@ -24,6 +25,10 @@ public class Location {
 
     public LocalDate getDateRestitution() {
         return dateRestitution;
+    }
+
+    public Lecteur getLecteurLocation() {
+        return lecteurLocation;
     }
 
     public double getAmende() {

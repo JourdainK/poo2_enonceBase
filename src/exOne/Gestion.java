@@ -18,8 +18,13 @@ public class Gestion {
     public static void main(String[] args) {
 
         populate();
-        System.out.println("\n\n\n TEST lister exemp  -----\n");
-        lRayons.get(0).listerExemplaires();
+        //TODO delete those after testing !
+        System.out.println("Test listExamplaires (Classe Rayon)\n");
+        lRayons.get(0).listerExamplaires();
+        System.out.println("Test ListeExemplaires (Classe ouvrage)");
+        lOuvrage.get(0).listerExemplaires();
+        System.out.println("\n\nTest methods lecteurs (classe Exemplaire)");
+        lExemp.get(0).lecteurs();
 
 
     }
@@ -27,8 +32,6 @@ public class Gestion {
 
         Auteur aut1 = new Auteur("Carlin","George","USA");
         lAuteurs.add(aut1);
-        System.out.println("\nAuteur");
-        System.out.println(aut1);
 
         LocalDate date = LocalDate.of(1993,2,9);
         /*
@@ -40,32 +43,35 @@ public class Gestion {
         LocalDate dateRest = LocalDate.of(2023,06,01);
         Livre l1 = new Livre("When will Jesus Bring the porkchop",date,"English","Comédie", (byte) 18,2.5,"978-1401308216",TypeLivre.ESSAI,"Here we go again . . . George Carlin's hilarious When Will Jesus Bring the Pork Chops!",319);
         lOuvrage.add(l1);
+        /*
         System.out.println("Test livre : ");
         System.out.println(l1);
-
+         */
         Rayon r1 = new Rayon("ra001","ESSAI");
         lRayons.add(r1);
+        /*
         System.out.println("test rayon : ");
         System.out.println(r1);
-
-
+         */
         Exemplaire e1 = new Exemplaire(1,"Disponible",l1);
         lExemp.add(e1);
-        //ajout de l'exemplaire créé au rayon
-        r1.getListExemplaires().add(e1);
+        //ajout de l'exemplaire créé au rayon -> rayonExamplaire.getListExemplaires().add(this);
         e1.setRayonExamplaire(r1);
-        System.out.println("test exemplaire : ");
-        System.out.println(e1);
+
 
         Lecteur lect1 = new Lecteur(2989,"Pithivier","Inconnu","12.12.1934","pithiver@gmail.com","Rue 7ème compagnie","0478/55.66.99");
         lLects.add(lect1);
+        /*
         System.out.println("test lecteur : ");
-        System.out.println(lect1);
-
+        System.out.println(lect1)
+         */
         Location loc1 = new Location(date, dateRest,e1,lect1);
         lLocs.add(loc1);
+        /*
         System.out.println("test location : ");
         System.out.println(loc1);
+         */
+
     }
 
     public void menu(){
@@ -83,6 +89,7 @@ public class Gestion {
             }while(choice < 1 || choice > 8);
 
             switch(choice){
+                //TODO create methods of the menu
                 case 1 -> System.out.println("Ajout aut");
                 case 2 -> System.out.println("Ajout OUvr");
                 case 3 -> System.out.println("Ajout lect");
@@ -95,7 +102,6 @@ public class Gestion {
             }
 
         }while(choice != 8);
-
 
     }
 

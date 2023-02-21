@@ -110,11 +110,7 @@ public abstract class Ouvrage {
         }
     }
 
-    /*
-    had hesitation about whether to created "Exemplaire" inside or outside "Ouvrage"
-    => After asking chatGpt : chosen to create it outside "Ouvrage" for more flexibility
-    ?? make the reference null after having created the "Exemplaire" => so the only ref is within "Ouvrage"
-     */
+
     //add a copy to the List "listExemplaire" => return true > success
     public boolean addExemplaire(Exemplaire copy){
         boolean isCopyIn,isCopyAdded;
@@ -145,5 +141,22 @@ public abstract class Ouvrage {
         return checkIfIsIn;
     }
 
+    public void listerExemplaires(){
+        int i=1;
+
+        for(Exemplaire l:listExemplaire){
+            System.out.print("\n" + i + " ) ");
+            System.out.println(l.getOuvrage() + "\n");
+            i++;
+        }
+    }
+
+    //TODO listerExamplaires -> todo method EnLocation in Examplaire 1st
+    //public void listerExemplaires(boolean Enlocation)
+
+    //TODO AmendeRetard -> abstract -> methods in DVD,CD , Livre
+    //??? comment récuperer le prix de l'amende ? -> qui se trouve dans Location...?
+    //calculerAmende dans Location ????
+    //public abstract double amendeRetard(int njours);
 
 }

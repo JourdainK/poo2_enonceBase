@@ -70,5 +70,26 @@ public class Exemplaire {
                 "\nRayon : " + rayonExamplaire.getCodeRayon();
     }
 
+    public void modifierEtat(String etat){
+        this.descriptionEtat = etat;
+    }
+
+
+    //TODO check si l'exemplaire est loué à la date d'aujourd'hui ?
+    // après avoir fait enLocation > si oui chercher lecteur, si non -> sout(pas loué atm)
+    //public void lecteurActuel()
+
+   //parcourir la liste des locations et afficher le(s) lecteurs
+    public void lecteurs(){
+        int j = 1;
+        System.out.println("--- liste des lecteurs de l'exemplaire de '" + this.getOuvrage().getTitre() + "' ---\n");
+
+        for(Location lo:listLocations){
+            System.out.println(j + " ) Matricule : " + lo.getLecteurLocation().getNumLecteur() + "\tNom : " + lo.getLecteurLocation().getNom() + "\tPrénom : "+ lo.getLecteurLocation().getPrenom());
+            j++;
+        }
+    }
+
+
 
 }
