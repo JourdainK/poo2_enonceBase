@@ -1,8 +1,10 @@
 package exOne;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import static exOne.TypeOuvrage.DVD;
 
 public class DVD extends Ouvrage{
     private long code;
@@ -10,8 +12,8 @@ public class DVD extends Ouvrage{
     private byte nbreBonus;
     private List<String> autresLangues, sousTitres;
 
-    public DVD(String titre, String dateParution, String langue, String genre, TypeOuvrage typeOuvrage, byte ageMin, double prixLocation, long code, String dureeTotale, byte nbreBonus) {
-        super(titre, dateParution, langue, genre, typeOuvrage, ageMin, prixLocation);
+    public DVD(String titre, LocalDate dateParution, String langue, String genre, byte ageMin, double prixLocation, Auteur auteur, long code, String dureeTotale, byte nbreBonus) {
+        super(titre, dateParution, langue, genre, DVD, ageMin, prixLocation, auteur);
         this.code = code;
         this.dureeTotale = dureeTotale;
         this.nbreBonus = nbreBonus;
@@ -55,24 +57,10 @@ public class DVD extends Ouvrage{
     //TODO check this method
     @Override
     public String toString() {
-        String listLangs = "", listSubs = "";
-        int i=1, j=1;
-
-        for(String l:autresLangues){
-            listLangs += i + " - "+ l + "\n";
-            i++;
-        }
-
-        for(String s:autresLangues){
-            listSubs += j + " - " + s + "\n";
-            j++;
-        }
 
         return "\n-- DVD --\n" + super.toString() +
                 "\nCode : " + code +
                 "\nDurée Totale : " + dureeTotale +
-                "\tNombre de bonus : " + nbreBonus +
-                "\nLangues disponibles :\n" + listLangs +
-                "\nSous-titres disponbles : \n" + listSubs;
+                "\tNombre de bonus : " + nbreBonus;
     }
 }

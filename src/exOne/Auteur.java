@@ -6,12 +6,13 @@ import java.util.Objects;
 
 public class Auteur {
     private String nom, prenom, nationalite;
-    private List<Ouvrage> listOuvrages = new ArrayList<>();
+    private List<Ouvrage> listOuvrages;
 
     public Auteur(String nom, String prenom, String nationalite) {
         this.nom = nom;
         this.prenom = prenom;
         this.nationalite = nationalite;
+        this.listOuvrages = new ArrayList<>();
     }
 
     public String getNom() {
@@ -30,9 +31,19 @@ public class Auteur {
         this.listOuvrages = listOuvrages;
     }
 
-    //TODO make IsOuvrageIn ==> Check if added Ouvrage isn't already inside List of Ouvrages
+    // return true if oeuvre found in listOuvrages
+    public boolean isOuvrageIn(Ouvrage oeuvre){
+        boolean checkOeuvreIn = false;
+        for(Ouvrage o:listOuvrages){
+            if(oeuvre.equals(o)){
+                checkOeuvreIn = true;
+            }
+        }
 
-    //TODO check the equals
+        return checkOeuvreIn;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,6 +57,48 @@ public class Auteur {
     @Override
     public int hashCode() {
         return Objects.hash(nom);
+    }
+
+
+    @Override
+    public String toString() {
+        return "\n-- Auteur --" +
+                "\nNom : " + nom +
+                "\t\tPrénom : " + prenom +
+                "\nNationalite : " + nationalite;
+    }
+
+
+    public void addOuvrage(Ouvrage o){
+        listOuvrages.add(o);
+        o.listAuteurs.add(this);
+    }
+
+    public void suppressOuvrage(Ouvrage o){
+        listOuvrages.remove(o);
+        o.listAuteurs.remove(this);
+    }
+
+    public void listerOuvrages(){
+        int i = 1;
+
+        System.out.println("Auteur : " + this.getNom() + "\t" + this.getPrenom() + "\n");
+        for(Ouvrage o:listOuvrages){
+            System.out.print(i + " ) ");
+            System.out.println(o);
+        }
+    }
+
+    public void listerOuvrages(TypeOuvrage typeOuvrage, TypeLivre typeLivre){
+        int j=1;
+
+        System.out.println("Auteur : " + this.getNom() + "\t" + this.getPrenom() + "\n");
+        for(Ouvrage ou:listOuvrages){
+            if(((Livre) ou).getTypeLivre().equals(typeLivre) && ou instanceof Livre){
+                System.out.print(j + " ) ");
+                System.out.println(ou);
+            }
+        }
     }
 
 }

@@ -11,6 +11,7 @@ public class Exemplaire {
     private Rayon rayonExamplaire;
     private List<Location> listLocations;
 
+
     public Exemplaire(long matricule, String descriptionEtat, Ouvrage ouvrage){
         this.matricule = matricule;
         this.descriptionEtat = descriptionEtat;
@@ -23,6 +24,9 @@ public class Exemplaire {
         return matricule;
     }
 
+    public Ouvrage getOuvrage() {
+        return ouvrage;
+    }
     public String getDescriptionEtat() {
         return descriptionEtat;
     }
@@ -30,6 +34,8 @@ public class Exemplaire {
     public Rayon getRayonExamplaire() {
         return rayonExamplaire;
     }
+
+
 
     public List<Location> getListLocations() {
         return listLocations;
@@ -63,6 +69,30 @@ public class Exemplaire {
                 "\tÉtat de l'exemplaire : " + descriptionEtat +
                 "\nRayon : " + rayonExamplaire.getCodeRayon();
     }
+
+    public void modifierEtat(String etat){
+        this.descriptionEtat = etat;
+    }
+
+
+    //TODO check si l'exemplaire est loué à la date d'aujourd'hui ?
+    // après avoir fait enLocation > si oui chercher lecteur, si non -> sout(pas loué atm)
+    //public void lecteurActuel()
+
+   //parcourir la liste des locations et afficher le(s) lecteurs
+    public void lecteurs(){
+        int j = 1;
+        System.out.println("--- liste des lecteurs de l'exemplaire de '" + this.getOuvrage().getTitre() + "' ---\n");
+
+        for(Location lo:listLocations){
+            System.out.println(j + " ) Matricule : " + lo.getLecteurLocation().getNumLecteur() + "\tNom : " + lo.getLecteurLocation().getNom() + "\tPrénom : "+ lo.getLecteurLocation().getPrenom());
+            j++;
+        }
+    }
+
+    //TODO enLocation(): boolean > check si l'état de l'exemplaire est loué / libre ?
+    //
+
 
 
 }

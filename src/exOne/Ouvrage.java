@@ -1,18 +1,20 @@
 package exOne;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public abstract class Ouvrage {
-    protected String titre, dateParution, langue, genre;
+    protected String titre, langue, genre;
+    protected LocalDate dateParution;
     protected TypeOuvrage typeOuvrage;
     protected byte ageMin;
     protected  double prixLocation;
     protected List<Auteur> listAuteurs;
     protected List<Exemplaire> listExemplaire;
 
-    public Ouvrage(String titre, String dateParution, String langue, String genre, TypeOuvrage typeOuvrage, byte ageMin, double prixLocation) {
+    public Ouvrage(String titre, LocalDate dateParution, String langue, String genre, TypeOuvrage typeOuvrage, byte ageMin, double prixLocation, Auteur auteur) {
         this.titre = titre;
         this.dateParution = dateParution;
         this.langue = langue;
@@ -22,13 +24,16 @@ public abstract class Ouvrage {
         this.prixLocation = prixLocation;
         this.listExemplaire = new ArrayList<>();
         this.listAuteurs = new ArrayList<>();
+        this.listAuteurs.add(auteur);
+        //TODO Ask teacher about this ???? seems wrong but works ? mustn't be good pratice
+        this.listAuteurs.get(this.listAuteurs.indexOf(auteur)).addOuvrage(this);
     }
 
     public String getTitre() {
         return titre;
     }
 
-    public String getDateParution() {
+    public LocalDate getDateParution() {
         return dateParution;
     }
 
@@ -70,26 +75,16 @@ public abstract class Ouvrage {
 
     @Override
     public String toString() {
-        String listAuts = "", listExempls="";
 
-        for(Auteur l:listAuteurs){
-            listAuts += l.getNom() + " " + l.getPrenom() + "\n";
-        }
-
-        for(Exemplaire e:listExemplaire){
-            listExempls += e.getMatricule() + "\tRayon : " + e.getRayonExamplaire().getCodeRayon() + "\n";
-        }
 
         return
                 "Titre :" + titre +
-                "\nDate de parution : " + dateParution +
-                "\tLangue : " + langue +
+                "\n\nDate de parution : " + dateParution +
+                "\t\tLangue : " + langue +
                 "\nGenre : " + genre +
-                "\tType d'ouvrage : " + typeOuvrage +
+                "\t\tType d'ouvrage : " + typeOuvrage +
                 "\nÂge minimum : " + ageMin +
-                "\tPrix de la location : " + prixLocation +
-                "\nAuteurs :" + listAuts +
-                "\nExemplaires  :" + listExempls;
+                "\t\tPrix de la location : " + prixLocation ;
     }
 
     //check if author is in listAuteurs ==> return true if author is found in listAuteurs
@@ -118,11 +113,7 @@ public abstract class Ouvrage {
         }
     }
 
-    /*
-    had hesitation about whether to created "Exemplaire" inside or outside "Ouvrage"
-    => After asking chatGpt : chosen to create it outside "Ouvrage" for more flexibility
-    ?? make the reference null after having created the "Exemplaire" => so the only ref is within "Ouvrage"
-     */
+
     //add a copy to the List "listExemplaire" => return true > success
     public boolean addExemplaire(Exemplaire copy){
         boolean isCopyIn,isCopyAdded;
@@ -153,5 +144,22 @@ public abstract class Ouvrage {
         return checkIfIsIn;
     }
 
+    public void listerExemplaires(){
+        int i=1;
+
+        for(Exemplaire l:listExemplaire){
+            System.out.print("\n" + i + " ) ");
+            System.out.println(l.getOuvrage() + "\n");
+            i++;
+        }
+    }
+
+    //TODO listerExamplaires -> todo method EnLocation in Examplaire 1st
+    //public void listerExemplaires(boolean Enlocation)
+
+    //TODO AmendeRetard -> abstract IN OUVRAGE-> methods in DVD,CD , Livre
+    //??? comment récuperer le prix de l'amende ? -> qui se trouve dans Location...?
+    //calculerAmende dans Location ????
+    //public abstract double amendeRetard(int njours);
 
 }

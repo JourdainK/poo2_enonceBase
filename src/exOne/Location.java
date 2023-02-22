@@ -5,40 +5,30 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Location {
-    private String dateLoc, dateRestitution;
+    private LocalDate dateLoc, dateRestitution;
     private double amende;
     private Exemplaire exemplaire;
     private Lecteur lecteurLocation;
 
-    /*
-    public Location (String dateRestitution){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-        String today = LocalDate.now().format(formatter);
-        //System.out.println(todday);
-        this.dateLoc = today;
-    }
-
-     */
-
-    public Location(String dateLoc, String dateRestitution, Exemplaire exemplaire,Lecteur lecteurLocation) {
+    public Location(LocalDate dateLoc, LocalDate dateRestitution, Exemplaire exemplaire,Lecteur lecteurLocation) {
         this.dateLoc = dateLoc;
         this.dateRestitution = dateRestitution;
         this.exemplaire = exemplaire;
         this.lecteurLocation = lecteurLocation;
         this.amende = 0;
+        this.exemplaire.getListLocations().add(this);
     }
 
-    public Location(Exemplaire exemplaire,  Lecteur lecteurLocation) {
-        this.exemplaire = exemplaire;
-        this.lecteurLocation = lecteurLocation;
-    }
-
-    public String getDateLoc() {
+    public LocalDate getDateLoc() {
         return dateLoc;
     }
 
-    public String getDateRestitution() {
+    public LocalDate getDateRestitution() {
         return dateRestitution;
+    }
+
+    public Lecteur getLecteurLocation() {
+        return lecteurLocation;
     }
 
     public double getAmende() {
@@ -49,7 +39,7 @@ public class Location {
         this.amende = amende;
     }
 
-    public void setDateRestitution(String dateRestitution) {
+    public void setDateRestitution(LocalDate dateRestitution) {
         this.dateRestitution = dateRestitution;
     }
 
@@ -72,5 +62,15 @@ public class Location {
     @Override
     public int hashCode() {
         return Objects.hash(dateLoc, exemplaire, lecteurLocation);
+    }
+
+    @Override
+    public String toString() {
+        return "-- Location --\n" +
+                "\nDate de la location : " + dateLoc +
+                "\nDate de la restitution : " + dateRestitution +
+                "\nAmende : " + amende +
+                "\n" + exemplaire +
+                "\n" + lecteurLocation;
     }
 }

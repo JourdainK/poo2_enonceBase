@@ -1,5 +1,6 @@
 package exOne;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Rayon {
@@ -9,11 +10,13 @@ public class Rayon {
     public Rayon(){
         this.codeRayon = "";
         this.genre = "";
+        listExemplaires = new ArrayList<>();
     }
 
     public Rayon(String codeRayon, String genre){
         this.codeRayon = codeRayon;
         this.genre = genre;
+        listExemplaires = new ArrayList<>();
     }
 
     public String getCodeRayon() {
@@ -45,16 +48,19 @@ public class Rayon {
 
     @Override
     public String toString() {
-        String listCopies = "";
-
-        for(Exemplaire l:listExemplaires) {
-            listCopies += String.valueOf(l.getMatricule());
-            listCopies += " \tétat : " + l.getDescriptionEtat() + "\n";
-        }
 
         return "\nRayon n° :" + codeRayon +
-                "\tGenre :" + genre +
-                "Liste des exemplaires : " + listCopies;
+                "\tGenre :" + genre;
+    }
+
+    public void listerExamplaires(){
+        int i = 1;
+
+        for(Exemplaire l:listExemplaires){
+            System.out.println( i + " - matricule : " + l.getMatricule() + "\t\tÉtat : " + l.getDescriptionEtat());
+            System.out.println("\t\tTitre de l'ouvrage : " + l.getOuvrage().getTitre());
+            i++;
+        }
     }
 
 }

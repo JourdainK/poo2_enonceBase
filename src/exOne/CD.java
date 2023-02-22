@@ -1,14 +1,16 @@
 package exOne;
 
+import java.time.LocalDate;
 import java.util.Objects;
+import static exOne.TypeOuvrage.*;
 
 public class CD extends Ouvrage{
     private long code;
     private byte nbrePlages;
     private String dureeTotale;
 
-    public CD(String titre, String dateParution, String langue, String genre, TypeOuvrage typeOuvrage, byte ageMin, double prixLocation, long code, byte nbrePlages, String dureeTotale) {
-        super(titre, dateParution, langue, genre, typeOuvrage, ageMin, prixLocation);
+    public CD(String titre, LocalDate dateParution, String langue, String genre, byte ageMin, double prixLocation, Auteur auteur, long code, byte nbrePlages, String dureeTotale) {
+        super(titre, dateParution, langue, genre, CD, ageMin, prixLocation, auteur);
         this.code = code;
         this.nbrePlages = nbrePlages;
         this.dureeTotale = dureeTotale;
@@ -47,7 +49,7 @@ public class CD extends Ouvrage{
     public String toString() {
         return "\n-- CD --\n" + super.toString() +
                 "\nCode : " + code +
-                "\nNoombre de pistes : " + nbrePlages +
+                "\nNombre de pistes : " + nbrePlages +
                 "\tDurée totale : " + dureeTotale;
     }
 
