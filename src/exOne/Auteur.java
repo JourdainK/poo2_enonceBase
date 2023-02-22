@@ -86,6 +86,7 @@ public class Auteur {
         for(Ouvrage o:listOuvrages){
             System.out.print(i + " ) ");
             System.out.println(o);
+            i++;
         }
     }
 
@@ -97,6 +98,21 @@ public class Auteur {
             if(((Livre) ou).getTypeLivre().equals(typeLivre) && ou instanceof Livre){
                 System.out.print(j + " ) ");
                 System.out.println(ou);
+                j++;
+            }
+        }
+    }
+
+    public void listerOuvrages(TypeLivre typeLivre){
+        int k = 1;
+
+        System.out.println("Auteur : " + this.getNom() + "\t" + this.getPrenom() + "\n");
+
+        for(Ouvrage ouv:listOuvrages){
+            if(((Livre) ouv).getTypeLivre().equals(typeLivre)){
+                System.out.print(k + " ) ");
+                System.out.println(ouv);
+                k++;
             }
         }
     }

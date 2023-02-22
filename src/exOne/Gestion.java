@@ -32,7 +32,10 @@ public class Gestion {
         lAuteurs.get(0).listerOuvrages();
         System.out.println("\n\nTEst method listerOuvrages (typeOUvrage typeLivre) (classe auteur)");
         lAuteurs.get(0).listerOuvrages(LIVRE,ESSAI);
-
+        System.out.println("\n\nTest metho liesterOuvrages (TypeLivre typlivre) (classe auteur)\n");
+        lAuteurs.get(0).listerOuvrages(ESSAI);
+        System.out.println("\n\nTest metho liesterOuvrages (TypeLivre typlivre) (classe auteur)\n\nV II\n\n");
+        lAuteurs.get(0).listerOuvrages(ROMAN);
 
     }
     private static void populate(){
