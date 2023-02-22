@@ -36,6 +36,14 @@ public class Gestion {
         lAuteurs.get(0).listerOuvrages(ESSAI);
         System.out.println("\n\nTest metho liesterOuvrages (TypeLivre typlivre) (classe auteur)\n\nV II\n\n");
         lAuteurs.get(0).listerOuvrages(ROMAN);
+        DateTimeFormatter mformat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        System.out.println("\n\nTest method enRetard (Classe exemplaire\n");
+        System.out.println("Date restit : ");
+        System.out.println(lExemp.get(0).getListLocations().get(0).getDateRestitution().format(mformat));
+        System.out.println("essai format date : ");
+
+
+        System.out.println(lExemp.get(0).enRetard());
 
     }
     private static void populate(){
@@ -45,6 +53,7 @@ public class Gestion {
 
 
         LocalDate date = LocalDate.of(1993,2,9);
+        //TODO use this for dates
         /*
         DateTimeFormatter mformat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         System.out.println("essai format date : ");
@@ -64,9 +73,8 @@ public class Gestion {
         System.out.println("test rayon : ");
         System.out.println(r1);
          */
-        Exemplaire e1 = new Exemplaire(1,"Disponible",l1);
+        Exemplaire e1 = new Exemplaire(1,l1);
         lExemp.add(e1);
-        //ajout de l'exemplaire créé au rayon -> rayonExamplaire.getListExemplaires().add(this);
         e1.setRayonExamplaire(r1);
 
 

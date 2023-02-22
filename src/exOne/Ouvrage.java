@@ -154,8 +154,18 @@ public abstract class Ouvrage {
         }
     }
 
-    //TODO listerExamplaires -> todo method EnLocation in Examplaire 1st
-    //public void listerExemplaires(boolean Enlocation)
+    //TODO verify this when correction comes in
+    public void listerExemplaires(boolean Enlocation){
+        int j = 1;
+
+        for(Exemplaire le:listExemplaire){
+            if(le.enLocation()){
+                System.out.print(j + " ) ");
+                System.out.println(le);
+                j++;
+            }
+        }
+    }
 
     //TODO AmendeRetard -> abstract IN OUVRAGE-> methods in DVD,CD , Livre
     //??? comment récuperer le prix de l'amende ? -> qui se trouve dans Location...?

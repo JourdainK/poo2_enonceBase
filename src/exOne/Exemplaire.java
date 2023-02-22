@@ -1,5 +1,8 @@
 package exOne;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,9 +15,9 @@ public class Exemplaire {
     private List<Location> listLocations;
 
 
-    public Exemplaire(long matricule, String descriptionEtat, Ouvrage ouvrage){
+    public Exemplaire(long matricule,  Ouvrage ouvrage){
         this.matricule = matricule;
-        this.descriptionEtat = descriptionEtat;
+        this.descriptionEtat = "Disponible";
         this.ouvrage = ouvrage;
         this.ouvrage.getListExemplaire().add(this);
         this.listLocations = new ArrayList<>();
@@ -71,7 +74,12 @@ public class Exemplaire {
     }
 
     public void modifierEtat(String etat){
-        this.descriptionEtat = etat;
+        if(this.descriptionEtat.equals("Disponible")){
+            this.descriptionEtat = "Indisponible";
+        }
+        else{
+            this.descriptionEtat = "Disponible";
+        }
     }
 
 
@@ -90,8 +98,27 @@ public class Exemplaire {
         }
     }
 
-    //TODO enLocation(): boolean > check si l'état de l'exemplaire est loué / libre ?
-    //
+    public boolean enLocation(){
+
+        if(this.descriptionEtat.equals("Disponible")){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public boolean enRetard(){
+        LocalDate today = LocalDate.now();
+
+        System.out.println("test index of this -----> " + listLocations.indexOf(this));
+
+
+        boolean checkRetard = listLocations.get(listLocations.indexOf(this)+1).getDateRestitution().isBefore(today);
+
+        return checkRetard;
+    }
+
 
 
 
