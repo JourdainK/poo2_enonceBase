@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static exOne.TypeLivre.*;
+import static exOne.TypeOuvrage.*;
+
 public class Gestion {
     private static List<Auteur> lAuteurs = new ArrayList<>();
     private static List<Ouvrage> lOuvrage = new ArrayList<>();
@@ -25,6 +28,10 @@ public class Gestion {
         lOuvrage.get(0).listerExemplaires();
         System.out.println("\n\nTest methods lecteurs (classe Exemplaire)");
         lExemp.get(0).lecteurs();
+        System.out.println("\n\nTest method listerOuvrages (classe Auteur)");
+        lAuteurs.get(0).listerOuvrages();
+        System.out.println("\n\nTEst method listerOuvrages (typeOUvrage typeLivre) (classe auteur)");
+        lAuteurs.get(0).listerOuvrages(LIVRE,ESSAI);
 
 
     }
@@ -32,6 +39,7 @@ public class Gestion {
 
         Auteur aut1 = new Auteur("Carlin","George","USA");
         lAuteurs.add(aut1);
+
 
         LocalDate date = LocalDate.of(1993,2,9);
         /*
@@ -41,7 +49,7 @@ public class Gestion {
          */
 
         LocalDate dateRest = LocalDate.of(2023,06,01);
-        Livre l1 = new Livre("When will Jesus Bring the porkchop",date,"English","Comédie", (byte) 18,2.5,"978-1401308216",TypeLivre.ESSAI,"Here we go again . . . George Carlin's hilarious When Will Jesus Bring the Pork Chops!",319);
+        Livre l1 = new Livre("When will Jesus Bring the porkchop",date,"English","Comédie", (byte) 18,2.5, aut1,"978-1401308216", ESSAI,"Here we go again . . . George Carlin's hilarious When Will Jesus Bring the Pork Chops!",319);
         lOuvrage.add(l1);
         /*
         System.out.println("Test livre : ");

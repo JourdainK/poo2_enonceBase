@@ -9,8 +9,8 @@ public class CD extends Ouvrage{
     private byte nbrePlages;
     private String dureeTotale;
 
-    public CD(String titre, LocalDate dateParution, String langue, String genre, byte ageMin, double prixLocation, long code, byte nbrePlages, String dureeTotale) {
-        super(titre, dateParution, langue, genre, CD, ageMin, prixLocation);
+    public CD(String titre, LocalDate dateParution, String langue, String genre, byte ageMin, double prixLocation, Auteur auteur, long code, byte nbrePlages, String dureeTotale) {
+        super(titre, dateParution, langue, genre, CD, ageMin, prixLocation, auteur);
         this.code = code;
         this.nbrePlages = nbrePlages;
         this.dureeTotale = dureeTotale;

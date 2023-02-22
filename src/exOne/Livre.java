@@ -11,8 +11,8 @@ public class Livre extends Ouvrage{
     private int nombrePages;
 
 
-    public Livre(String titre, LocalDate dateParution, String langue, String genre, byte ageMin, double prixLocation, String isbn, TypeLivre typeLivre, String resume, int nombrePages) {
-        super(titre, dateParution, langue, genre, LIVRE, ageMin, prixLocation);
+    public Livre(String titre, LocalDate dateParution, String langue, String genre, byte ageMin, double prixLocation, Auteur auteur, String isbn, TypeLivre typeLivre, String resume, int nombrePages) {
+        super(titre, dateParution, langue, genre, LIVRE, ageMin, prixLocation, auteur);
         this.isbn = isbn;
         this.resume = resume;
         this.tl = typeLivre;

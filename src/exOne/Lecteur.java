@@ -9,17 +9,6 @@ public class Lecteur {
     private String nom, prenom, dateNaiss, mail, adresse, tel;
     private List<Location> listLocatLecteur;
 
-    //TODO make init to test
-    public Lecteur(){
-        this.numLecteur = -1;
-        this.nom = "";
-        this.prenom = "";
-        this.dateNaiss = "";
-        this.mail = "";
-        this.adresse = "";
-        this.tel = "";
-        this.listLocatLecteur = new ArrayList<>();
-    }
     public Lecteur(long numLecteur, String nom, String prenom, String dateNaiss, String mail, String adresse, String tel) {
         this.numLecteur = numLecteur;
         this.nom = nom;

@@ -14,7 +14,7 @@ public abstract class Ouvrage {
     protected List<Auteur> listAuteurs;
     protected List<Exemplaire> listExemplaire;
 
-    public Ouvrage(String titre, LocalDate dateParution, String langue, String genre, TypeOuvrage typeOuvrage, byte ageMin, double prixLocation) {
+    public Ouvrage(String titre, LocalDate dateParution, String langue, String genre, TypeOuvrage typeOuvrage, byte ageMin, double prixLocation, Auteur auteur) {
         this.titre = titre;
         this.dateParution = dateParution;
         this.langue = langue;
@@ -24,6 +24,9 @@ public abstract class Ouvrage {
         this.prixLocation = prixLocation;
         this.listExemplaire = new ArrayList<>();
         this.listAuteurs = new ArrayList<>();
+        this.listAuteurs.add(auteur);
+        //TODO Ask teacher about this ???? seems wrong but works ? mustn't be good pratice
+        this.listAuteurs.get(this.listAuteurs.indexOf(auteur)).addOuvrage(this);
     }
 
     public String getTitre() {
@@ -154,7 +157,7 @@ public abstract class Ouvrage {
     //TODO listerExamplaires -> todo method EnLocation in Examplaire 1st
     //public void listerExemplaires(boolean Enlocation)
 
-    //TODO AmendeRetard -> abstract -> methods in DVD,CD , Livre
+    //TODO AmendeRetard -> abstract IN OUVRAGE-> methods in DVD,CD , Livre
     //??? comment récuperer le prix de l'amende ? -> qui se trouve dans Location...?
     //calculerAmende dans Location ????
     //public abstract double amendeRetard(int njours);

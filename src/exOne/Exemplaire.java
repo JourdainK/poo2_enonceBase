@@ -90,6 +90,9 @@ public class Exemplaire {
         }
     }
 
+    //TODO enLocation(): boolean > check si l'état de l'exemplaire est loué / libre ?
+    //
+
 
 
 }

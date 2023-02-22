@@ -12,8 +12,8 @@ public class DVD extends Ouvrage{
     private byte nbreBonus;
     private List<String> autresLangues, sousTitres;
 
-    public DVD(String titre, LocalDate dateParution, String langue, String genre, byte ageMin, double prixLocation, long code, String dureeTotale, byte nbreBonus) {
-        super(titre, dateParution, langue, genre, DVD, ageMin, prixLocation);
+    public DVD(String titre, LocalDate dateParution, String langue, String genre, byte ageMin, double prixLocation, Auteur auteur, long code, String dureeTotale, byte nbreBonus) {
+        super(titre, dateParution, langue, genre, DVD, ageMin, prixLocation, auteur);
         this.code = code;
         this.dureeTotale = dureeTotale;
         this.nbreBonus = nbreBonus;

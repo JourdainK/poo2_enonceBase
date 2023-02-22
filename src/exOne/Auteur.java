@@ -44,7 +44,6 @@ public class Auteur {
     }
 
 
-    //TODO check the equals
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,6 +77,28 @@ public class Auteur {
     public void suppressOuvrage(Ouvrage o){
         listOuvrages.remove(o);
         o.listAuteurs.remove(this);
+    }
+
+    public void listerOuvrages(){
+        int i = 1;
+
+        System.out.println("Auteur : " + this.getNom() + "\t" + this.getPrenom() + "\n");
+        for(Ouvrage o:listOuvrages){
+            System.out.print(i + " ) ");
+            System.out.println(o);
+        }
+    }
+
+    public void listerOuvrages(TypeOuvrage typeOuvrage, TypeLivre typeLivre){
+        int j=1;
+
+        System.out.println("Auteur : " + this.getNom() + "\t" + this.getPrenom() + "\n");
+        for(Ouvrage ou:listOuvrages){
+            if(((Livre) ou).getTypeLivre().equals(typeLivre) && ou instanceof Livre){
+                System.out.print(j + " ) ");
+                System.out.println(ou);
+            }
+        }
     }
 
 }
