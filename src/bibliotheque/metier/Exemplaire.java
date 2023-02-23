@@ -1,5 +1,6 @@
 package bibliotheque.metier;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -90,15 +91,26 @@ public class Exemplaire {
     }
 
     public void modifierEtat(String etat){
-        //TODO modifier etat exemplaire
+        this.descriptionEtat = etat;
     }
 
     public Lecteur lecteurActuel(){
-        //TODO lecteur actuel exemplaire
-        return null;
+        Lecteur lectAtm;
+        lectAtm = lloc.get(lloc.size()-1).getLoueur();
+        LocalDate restit= lloc.get(lloc.size()-1).getDateRestitution();
+
+        if(restit != null){
+            return lectAtm;
+        }
+        else{
+            System.out.println("Pas de lecteur actuel");
+            return null;
+        }
+
     }
     public List<Lecteur> lecteurs(){
-        //lecteurs exemplaire
+        List<Lecteur> lectsList;
+
         return null;
     }
 

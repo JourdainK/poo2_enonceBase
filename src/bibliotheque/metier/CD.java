@@ -53,15 +53,17 @@ public class CD extends Ouvrage{
     }
     @Override
     public double amendeRetard(int njours) {
-        //TODO amendeRetard CD
-        return 0;
+        double fine;
+
+        fine = njours * 1;
+
+        return fine;
     }
     @Override
     public String toString() {
-        return super.toString()+"CD{" +
-                "code=" + code +
-                ", nbrePlages=" + nbrePlages +
-                ", dureeTotale='" + dureeTotale + '\'' +
-                "} " + super.toString();
+        return  "\n-- CD --\n" + super.toString() +
+                "\nCode : " + code +
+                "\nNombre de pistes : " + nbrePlages +
+                "\tDurée totale : " + dureeTotale;
     }
 }

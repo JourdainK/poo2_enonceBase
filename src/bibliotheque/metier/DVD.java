@@ -73,17 +73,19 @@ public class DVD extends Ouvrage{
     }
     @Override
     public double amendeRetard(int njours) {
-        //TODO amendeRetard DVD
-        return 0;
+        double fine;
+
+        fine = njours * 2;
+
+        return fine;
     }
     @Override
     public String toString() {
-        return super.toString()+"DVD{" +
-                "code=" + code +
-                ", dureeTotale='" + dureeTotale + '\'' +
-                ", nbreBonus=" + nbreBonus +
-                ", autresLangues=" + autresLangues +
-                ", sousTitres=" + sousTitres +
-                "} " + super.toString();
+        return "\n-- DVD --\n" + super.toString() +
+                "\nCode : " + code +
+                "\nDurée Totale : " + dureeTotale +
+                "\nSous titres :" + sousTitres +
+                "\n Nombre de langues : " + autresLangues +
+                "\nNombre de bonus : " + nbreBonus;
     }
 }
