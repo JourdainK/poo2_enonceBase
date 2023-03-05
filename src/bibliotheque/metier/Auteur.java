@@ -64,11 +64,10 @@ public class Auteur {
 
     @Override
     public String toString() {
-        return "Auteur{" +
-                "nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", nationalite='" + nationalite + '\'' +
-                '}';
+        return "\n-- Auteur --" +
+                "\nNom : " + nom +
+                "\t\tPrénom : " + prenom +
+                "\nNationalité : " + nationalite;
     }
 
     public void addOuvrage(Ouvrage o ){

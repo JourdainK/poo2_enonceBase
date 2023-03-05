@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
 public class Gestion {
     Scanner sc = new Scanner(System.in);
 
@@ -62,20 +61,33 @@ public class Gestion {
         e = new Exemplaire("d12","griffé",d);
         lex.add(e);
 
+        Exemplaire e2 = new Exemplaire("d13","Parfait",d);
+        e2.setRayon(r);
+        lex.add(e2);
+
         e.setRayon(r);
 
 
         Lecteur lec = new Lecteur(1,"Dupont","Jean",LocalDate.of(2000,1,4),"Mons","jean.dupont@mail.com","0458774411");
         llect.add(lec);
 
+        Lecteur lec2 = new Lecteur(2,"Pithivier","Inconnu",LocalDate.of(1978,1,4),"Paris","pithivier@mail.com","0555555");
+        llect.add(lec2);
+
         Location loc = new Location(LocalDate.of(2023,2,1),LocalDate.of(2023,3,1),lec,e);
         lloc.add(loc);
         loc.setDateRestitution(LocalDate.of(2023,2,4));
 
-        lec = new Lecteur(1,"Durant","Aline",LocalDate.of(1980,10,10),"Binche","aline.durant@mail.com","045874444");
+        Location loc2 = new Location(LocalDate.of(2023,3,2),LocalDate.of(2023,3,16),lec2,e);
+        lloc.add(loc2);
+        loc2.setDateRestitution(LocalDate.of(2023,4,21));
+
+
+
+        lec = new Lecteur(3,"Durant","Aline",LocalDate.of(1980,10,10),"Binche","aline.durant@mail.com","045874444");
         llect.add(lec);
 
-        loc = new Location(LocalDate.of(2023,2,5),LocalDate.of(2023,3,5),lec,e);
+        loc = new Location(LocalDate.of(2023,2,5),LocalDate.of(2022,3,5),lec,e);
         lloc.add(loc);
     }
 
@@ -233,7 +245,56 @@ public class Gestion {
     public static void main(String[] args) {
         Gestion g = new Gestion();
         g.populate();
-        g.menu();
+        /*
+        //Test envoiMailLecteurActuel(Mail mail) --> classe Exemplaire
+        Mail m1 = new Mail("Plop","test test", "01/01/0001");
+        lex.get(1).envoiMailLecteurActuel(m1);
+         */
+
+        /*
+            //test envoiMailLecteurs(Mail mail) --> classe Exemplaire
+            Mail m1 = new Mail("Plop","test test", "01/01/0001");
+            lex.get(1).envoiMailLecteurs(m1);
+         */
+
+
+        /*
+
+        //test enRetard --> classe Exemplaire
+        System.out.println("\nTEST enRetard ---\n");
+        System.out.println(lex.get(1).enRetard());
+
+         */
+
+        /*
+
+        //test enRetard --> classe exemplaire
+
+        System.out.println(lex.get(1).enRetard());
+        if(lex.get(1).enRetard()){
+            System.out.println("En retard de +/- " + lex.get(1).joursRetard() + " jours ");
+        }
+
+         */
+
+        //TODO erase //
+        //g.menu();
+
+    }
+
+    public String saisie(String regex, String message) {
+        Scanner sc = new Scanner(System.in);
+        boolean check = false;
+        String phrase;
+        do {
+            phrase = sc.nextLine();
+            if (phrase.matches(regex)) {
+                check = true;
+            } else {
+                System.out.println(message);
+            }
+        } while (!check);
+        return phrase;
     }
 
   

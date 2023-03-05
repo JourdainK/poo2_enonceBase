@@ -1,9 +1,8 @@
 package bibliotheque.metier;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.time.Period;
+import java.util.*;
 
 public class Exemplaire {
 
@@ -115,28 +114,88 @@ public class Exemplaire {
     }
 
     public void envoiMailLecteurActuel(Mail mail){
-        //TODO envoi mail lecteur exemplaire
+        Location lastLoc;
+        Lecteur lectAtm;
+        String mailLectAtm;
+
+        lastLoc = lloc.get(lloc.size()-1);
+        lectAtm = lastLoc.getLoueur();
+        mailLectAtm = lectAtm.getMail();
+
+        System.out.println("Envoi du mail à " + lectAtm.getNom() + " " + lectAtm.getPrenom());
+        System.out.println("Adresse email du lecteur/lectrice : " + lectAtm.getMail());
+        System.out.println("--- Mail ---\n");
+        System.out.println(mail);
+
+        lastLoc = null;
+        lectAtm = null;
     }
     public void envoiMailLecteurs(Mail mail){
-        //TODO envoi mail lecteurs exemplaire
+        //TODO check / ask /test if works !!!! not sure about the map => idea was to avoid getting twice the same client in the list -> should do that beofre adding to the list !
+        List<Lecteur> listAllLect = new ArrayList<>();
+        Map<Integer,String> mMailLect = new HashMap<>();
+        int tmpId;
+        String tmpMail;
+
+        for(Location l:lloc){
+            tmpId = l.getLoueur().getNumlecteur();
+            tmpMail = l.getLoueur().getMail();
+            System.out.println(tmpMail);
+            mMailLect.put(tmpId,tmpMail);
+        }
+
+        //https://stackoverflow.com/questions/46898/how-do-i-efficiently-iterate-over-each-entry-in-a-java-map
+        //? https://www.baeldung.com/java-email
+        for(Map.Entry<Integer,String> entry : mMailLect.entrySet()){
+            System.out.println("Envoie du mail à : " + entry.getValue());
+            System.out.println("---- mail ----");
+            System.out.println(mail);
+        }
+
+        listAllLect = null;
+        mMailLect = null;
+
     }
 
     public boolean enRetard(){
-        //TODO enretard exeplaire
-        return false;
+        LocalDate tday = LocalDate.now();
+
+        Location lastLoca = lloc.get(lloc.size()-1);
+        if(lastLoca.getDateRestitution().isBefore(tday)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public int joursRetard(){
-        //TODO jours retard exemplaire
-        return 0;
+        if(enRetard()){
+            int daysLate;
+            LocalDate today = LocalDate.now();
+            Location lastLocat = lloc.get(lloc.size()-1);
+            Period p = lastLocat.getDateRestitution().until(today);
+            daysLate = ((p.getYears()*12)*30) + (p.getMonths()*30) + p.getDays();
+
+            return daysLate;
+        }
+        else {
+            return 0;
+        }
+
     }
 
 
     public boolean enLocation(){
-        //TODO en location exemplaires
-        return false;
+        LocalDate tod = LocalDate.now();
+        Location lastLtion = lloc.get(lloc.size()-1);
+        if(!this.enRetard() && lastLtion.getDateRestitution().isAfter(tod)){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
-
-
 
 }
