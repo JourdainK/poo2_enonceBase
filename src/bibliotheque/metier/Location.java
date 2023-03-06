@@ -1,6 +1,7 @@
 package bibliotheque.metier;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 public class Location {
@@ -14,6 +15,15 @@ public class Location {
         this.dateRestitution = dateRestitution;
         this.loueur = loueur;
         this.exemplaire = exemplaire;
+        if(this.getExemplaire().getOuvrage() instanceof Livre){
+            this.dateRestitution = dateLocation.plusDays(15);
+        } else if (this.getExemplaire().getOuvrage() instanceof DVD) {
+            this.dateRestitution = dateLocation.plusDays(3);
+        }
+        else{
+            //cd
+            this.dateRestitution = dateLocation.plusDays(7);
+        }
         this.loueur.getLloc().add(this);
         this.exemplaire.getLloc().add(this);
     }
@@ -71,6 +81,7 @@ public class Location {
 
     @Override
     public String toString() {
+        //TODO check old version / compare
         return "Location{" +
                 "dateLocation=" + dateLocation +
                 ", dateRestitution=" + dateRestitution +
@@ -80,10 +91,19 @@ public class Location {
     }
 
     public double calculerAmende(){
-        //TODO calcul amende location sur base dote restitution : la durée du prêt est de 15 jours pour les livres, 3 jours pour les DVD et 7 jours pour les CD
-        return 0;
+        //dateRestitution -> selon instance of calculée directement selon cd, dvd, livres
+        Period diff;
+        double amende;
+        int jRetard = 0;
+
+        diff = this.dateRestitution.until(LocalDate.now());
+        jRetard = ((diff.getYears()*12)*30) + (diff.getMonths()*30) + diff.getDays();
+        amende = this.getExemplaire().getOuvrage().amendeRetard(jRetard);
+
+        return amende;
+
     }
     public void enregistrerRetour(){
-        //TODO enregistrer retour => la date de restitution devient égale à la date actuelle
+        this.dateRestitution = LocalDate.now();
     }
 }
