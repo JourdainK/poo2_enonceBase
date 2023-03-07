@@ -5,18 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class DVD extends Ouvrage{
+public class DVD extends Ouvrage {
 
     private long code;
     private String dureeTotale;
     private byte nbreBonus;
-    private List<String> autresLangues=new ArrayList<>();
-    private List<String> sousTitres=new ArrayList<>();
-    public DVD(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre,long code,String dureeTotale,byte nbreBonus) {
+    private List<String> autresLangues = new ArrayList<>();
+    private List<String> sousTitres = new ArrayList<>();
+
+    public DVD(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre, long code, String dureeTotale, byte nbreBonus) {
         super(titre, ageMin, dateParution, TypeOuvrage.DVD, prixLocation, langue, genre);
-        this.code=code;
-       this.dureeTotale=dureeTotale;
-       this.nbreBonus=nbreBonus;
+        this.code = code;
+        this.dureeTotale = dureeTotale;
+        this.nbreBonus = nbreBonus;
     }
 
     public long getCode() {
@@ -71,6 +72,7 @@ public class DVD extends Ouvrage{
     public int hashCode() {
         return Objects.hash(code);
     }
+
     @Override
     public double amendeRetard(int njours) {
         double fine;
@@ -79,6 +81,7 @@ public class DVD extends Ouvrage{
 
         return fine;
     }
+
     @Override
     public String toString() {
         return "\n-- DVD --\n" + super.toString() +

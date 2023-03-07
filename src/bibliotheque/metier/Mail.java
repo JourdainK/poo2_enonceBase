@@ -37,10 +37,9 @@ public class Mail {
 
     @Override
     public String toString() {
-        return "Mail{" +
-                "objet='" + objet + '\'' +
-                ", message='" + message + '\'' +
-                ", dateEnvoi='" + dateEnvoi + '\'' +
-                '}';
+        return "\n--- Mail ---" +
+                "\nObjet : " + objet +
+                "\nMessage : " + message +
+                "\nDate d'envoi" + dateEnvoi;
     }
 }

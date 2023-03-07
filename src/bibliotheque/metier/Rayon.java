@@ -68,8 +68,7 @@ public class Rayon {
     }
 
     public List<Exemplaire>listerExemplaires(){
-        //TODO lister exemplaires rayon
-        return null;
+        return lex;
     }
 
 

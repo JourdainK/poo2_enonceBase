@@ -131,7 +131,7 @@ public class Exemplaire {
         lectAtm = null;
     }
     public void envoiMailLecteurs(Mail mail){
-        //TODO check / ask /test if works !!!! not sure about the map => idea was to avoid getting twice the same client in the list -> should do that beofre adding to the list !
+        //TODO check / ask /test if works !!!! not sure about the map => idea was to avoid getting twice the same client in the list -> should do that before adding to the list !
         List<Lecteur> listAllLect = new ArrayList<>();
         Map<Integer,String> mMailLect = new HashMap<>();
         int tmpId;

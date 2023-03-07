@@ -81,7 +81,6 @@ public class Location {
 
     @Override
     public String toString() {
-        //TODO check old version / compare
         return "Location{" +
                 "dateLocation=" + dateLocation +
                 ", dateRestitution=" + dateRestitution +
