@@ -1,23 +1,23 @@
 package bibliotheque.metier;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class DVD extends Ouvrage {
+public class DVD extends Ouvrage{
 
     private long code;
-    private String dureeTotale;
+    private LocalTime dureeTotale;
     private byte nbreBonus;
-    private List<String> autresLangues = new ArrayList<>();
-    private List<String> sousTitres = new ArrayList<>();
-
-    public DVD(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre, long code, String dureeTotale, byte nbreBonus) {
+    private List<String> autresLangues=new ArrayList<>();
+    private List<String> sousTitres=new ArrayList<>();
+    public DVD(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre, long code, LocalTime dureeTotale, byte nbreBonus) {
         super(titre, ageMin, dateParution, TypeOuvrage.DVD, prixLocation, langue, genre);
-        this.code = code;
-        this.dureeTotale = dureeTotale;
-        this.nbreBonus = nbreBonus;
+        this.code=code;
+       this.dureeTotale=dureeTotale;
+       this.nbreBonus=nbreBonus;
     }
 
     public long getCode() {
@@ -28,11 +28,11 @@ public class DVD extends Ouvrage {
         this.code = code;
     }
 
-    public String getDureeTotale() {
+    public LocalTime getDureeTotale() {
         return dureeTotale;
     }
 
-    public void setDureeTotale(String dureeTotale) {
+    public void setDureeTotale(LocalTime dureeTotale) {
         this.dureeTotale = dureeTotale;
     }
 
@@ -72,23 +72,25 @@ public class DVD extends Ouvrage {
     public int hashCode() {
         return Objects.hash(code);
     }
-
     @Override
     public double amendeRetard(int njours) {
-        double fine;
 
-        fine = njours * 2;
+        return njours * 1.50;
+    }
 
-        return fine;
+    @Override
+    public int njlocmax() {
+        return 3;
     }
 
     @Override
     public String toString() {
-        return "\n-- DVD --\n" + super.toString() +
-                "\nCode : " + code +
-                "\nDurée Totale : " + dureeTotale +
-                "\nSous titres :" + sousTitres +
-                "\n Nombre de langues : " + autresLangues +
-                "\nNombre de bonus : " + nbreBonus;
+        return super.toString()+"DVD{" +
+                "code=" + code +
+                ", dureeTotale='" + dureeTotale + '\'' +
+                ", nbreBonus=" + nbreBonus +
+                ", autresLangues=" + autresLangues +
+                ", sousTitres=" + sousTitres +
+                "} " ;
     }
 }

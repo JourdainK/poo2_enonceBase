@@ -2,6 +2,7 @@ package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Location {
@@ -15,15 +16,6 @@ public class Location {
         this.dateRestitution = dateRestitution;
         this.loueur = loueur;
         this.exemplaire = exemplaire;
-        if(this.getExemplaire().getOuvrage() instanceof Livre){
-            this.dateRestitution = dateLocation.plusDays(15);
-        } else if (this.getExemplaire().getOuvrage() instanceof DVD) {
-            this.dateRestitution = dateLocation.plusDays(3);
-        }
-        else{
-            //cd
-            this.dateRestitution = dateLocation.plusDays(7);
-        }
         this.loueur.getLloc().add(this);
         this.exemplaire.getLloc().add(this);
     }
@@ -90,19 +82,17 @@ public class Location {
     }
 
     public double calculerAmende(){
-        //dateRestitution -> selon instance of calculée directement selon cd, dvd, livres
-        Period diff;
-        double amende;
-        int jRetard = 0;
-
-        diff = this.dateRestitution.until(LocalDate.now());
-        jRetard = ((diff.getYears()*12)*30) + (diff.getMonths()*30) + diff.getDays();
-        amende = this.getExemplaire().getOuvrage().amendeRetard(jRetard);
-
-        return amende;
-
+         if(dateRestitution!=null){
+           LocalDate dateLim = dateLocation.plusDays(exemplaire.getOuvrage().njlocmax());
+           if(dateRestitution.isAfter(dateLim)){
+               int njretard = (int)ChronoUnit.DAYS.between(dateLim, dateRestitution);
+               return exemplaire.getOuvrage().amendeRetard(njretard);
+           }
+       }
+        return 0;
     }
+
     public void enregistrerRetour(){
-        this.dateRestitution = LocalDate.now();
+       if(dateRestitution==null) dateRestitution=LocalDate.now();//test sur nul pour éviter d'enregistrer retour 2 fois
     }
 }

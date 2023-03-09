@@ -1,8 +1,10 @@
 package bibliotheque.metier;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.*;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Exemplaire {
 
@@ -12,13 +14,17 @@ public class Exemplaire {
     private Ouvrage ouvrage;
     private Rayon rayon;
 
+    private String etat;
+
+
     private List<Location> lloc= new ArrayList<>();
 
 
-    public Exemplaire(String matricule, String descriptionEtat,Ouvrage ouvrage) {
+    public Exemplaire(String matricule, String descriptionEtat,Ouvrage ouvrage){
         this.matricule = matricule;
         this.descriptionEtat=descriptionEtat;
         this.ouvrage = ouvrage;
+
         this.ouvrage.getLex().add(this);
     }
 
@@ -90,112 +96,61 @@ public class Exemplaire {
     }
 
     public void modifierEtat(String etat){
-        this.descriptionEtat = etat;
+       setDescriptionEtat(etat);
     }
 
     public Lecteur lecteurActuel(){
-        Lecteur lectAtm;
-        lectAtm = lloc.get(lloc.size()-1).getLoueur();
-        LocalDate restit= lloc.get(lloc.size()-1).getDateRestitution();
-
-        if(restit != null){
-            return lectAtm;
-        }
-        else{
-            System.out.println("Pas de lecteur actuel");
-            return null;
-        }
-
+        if(enLocation()) return lloc.get(lloc.size()-1).getLoueur();
+        return null;
     }
     public List<Lecteur> lecteurs(){
-        List<Lecteur> lectsList;
-
+        List<Lecteur> ll = new ArrayList<>();
+        for(Location l : lloc){
+            if(ll.contains(l)) continue; //par la suite utiliser set
+            ll.add(l.getLoueur());
+        }
         return null;
     }
 
     public void envoiMailLecteurActuel(Mail mail){
-        Location lastLoc;
-        Lecteur lectAtm;
-        String mailLectAtm;
-
-        lastLoc = lloc.get(lloc.size()-1);
-        lectAtm = lastLoc.getLoueur();
-        mailLectAtm = lectAtm.getMail();
-
-        System.out.println("Envoi du mail à " + lectAtm.getNom() + " " + lectAtm.getPrenom());
-        System.out.println("Adresse email du lecteur/lectrice : " + lectAtm.getMail());
-        System.out.println("--- Mail ---\n");
-        System.out.println(mail);
-
-        lastLoc = null;
-        lectAtm = null;
+        if(lecteurActuel()!=null) System.out.println("envoi de "+mail+ " à "+lecteurActuel().getMail());
+        else System.out.println("aucune location en cours");
     }
     public void envoiMailLecteurs(Mail mail){
-        //TODO check / ask /test if works !!!! not sure about the map => idea was to avoid getting twice the same client in the list -> should do that before adding to the list !
-        List<Lecteur> listAllLect = new ArrayList<>();
-        Map<Integer,String> mMailLect = new HashMap<>();
-        int tmpId;
-        String tmpMail;
-
-        for(Location l:lloc){
-            tmpId = l.getLoueur().getNumlecteur();
-            tmpMail = l.getLoueur().getMail();
-            System.out.println(tmpMail);
-            mMailLect.put(tmpId,tmpMail);
-        }
-
-        //https://stackoverflow.com/questions/46898/how-do-i-efficiently-iterate-over-each-entry-in-a-java-map
-        //? https://www.baeldung.com/java-email
-        for(Map.Entry<Integer,String> entry : mMailLect.entrySet()){
-            System.out.println("Envoie du mail à : " + entry.getValue());
-            System.out.println("---- mail ----");
-            System.out.println(mail);
-        }
-
-        listAllLect = null;
-        mMailLect = null;
-
-    }
-
-    public boolean enRetard(){
-        LocalDate tday = LocalDate.now();
-
-        Location lastLoca = lloc.get(lloc.size()-1);
-        if(lastLoca.getDateRestitution().isBefore(tday)){
-            return true;
+        List<Lecteur>ll=lecteurs();
+        if(ll.isEmpty()){
+            System.out.println("aucun lecteur enregistré");
         }
         else{
-            return false;
+            for(Lecteur l: ll){
+                System.out.println("envoi de "+mail+ " à "+l.getMail());
+            }
         }
+    }
+
+    public boolean enRetard(){ //par retard on entend pas encore restitué et en retard
+        if(lloc.isEmpty()) return false;
+        Location l = lloc.get(lloc.size()-1); //la location en cours est la dernière  de la liste, sauf si elle est terminée
+        if(l.getDateRestitution()==null && l.getDateLocation().plusDays(ouvrage.njlocmax()).isAfter(LocalDate.now())) return true;
+        return false;
     }
 
     public int joursRetard(){
-        if(enRetard()){
-            int daysLate;
-            LocalDate today = LocalDate.now();
-            Location lastLocat = lloc.get(lloc.size()-1);
-            Period p = lastLocat.getDateRestitution().until(today);
-            daysLate = ((p.getYears()*12)*30) + (p.getMonths()*30) + p.getDays();
-
-            return daysLate;
-        }
-        else {
-            return 0;
-        }
-
+        if(!enRetard()) return 0;
+        Location l = lloc.get(lloc.size()-1);//la location en cours est la dernière de la liste
+        LocalDate dateLim = l.getDateLocation().plusDays(ouvrage.njlocmax());
+        int njretard = (int)ChronoUnit.DAYS.between(dateLim, LocalDate.now());
+        return njretard;
     }
 
 
     public boolean enLocation(){
-        LocalDate tod = LocalDate.now();
-        Location lastLtion = lloc.get(lloc.size()-1);
-        if(!this.enRetard() && lastLtion.getDateRestitution().isAfter(tod)){
-            return true;
-        }
-        else{
-            return false;
-        }
-
+        if(lloc.isEmpty()) return false;
+        Location l = lloc.get(lloc.size()-1);//la location en cours est la dernière de la liste
+        if(l.getDateRestitution()==null) return true;
+        return false;
     }
+
+
 
 }
