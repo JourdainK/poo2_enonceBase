@@ -71,5 +71,16 @@ public class Rayon {
         return lex;
     }
 
+    public boolean isExempIn(Exemplaire ex){
+        boolean isIn = false;
+
+        for(Exemplaire e:lex){
+            if(ex.equals(e)){
+                isIn = true;
+            }
+        }
+
+        return isIn;
+    }
 
 }

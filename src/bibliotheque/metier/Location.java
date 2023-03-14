@@ -24,6 +24,8 @@ public class Location {
         this.loueur = loueur;
         this.exemplaire = exemplaire;
         this.dateLocation=LocalDate.now();
+        this.loueur.getLloc().add(this);
+        this.exemplaire.getLloc().add(this);
     }
 
     public LocalDate getDateLocation() {

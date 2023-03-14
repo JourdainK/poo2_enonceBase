@@ -112,4 +112,16 @@ public class Auteur {
         }
         return lot;
     }
+
+    public boolean isInList(Ouvrage ouv){
+        boolean isIn = false;
+
+        for(Ouvrage o:louvrage){
+            if(o.equals(ouv)){
+                isIn = true;
+            }
+        }
+
+        return isIn;
+    }
 }
