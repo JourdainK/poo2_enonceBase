@@ -84,7 +84,7 @@ public class Gestion {
     private void menu() {
         List options = new ArrayList<>(Arrays.asList("auteurs","ouvrages","exemplaires","rayons","lecteurs","locations","restitution","fin"));
       do{
-        int choix = choixListe(options);
+        int choix = Utilitaire.choixListe(options);
 
             switch (choix){
                 case 1 :gestAuteurs(); break;
@@ -197,7 +197,7 @@ public class Gestion {
         do{
             choixEx = choixListe(lex);
             if(!r.isExempIn(lex.get(choixEx-1))){
-               r.addExemplaire(lex.get(choixEx-1));
+                r.addExemplaire(lex.get(choixEx-1));
             }
             else{
                 System.out.println("Cet exemplaire est déja présent dans le rayon ");
@@ -216,11 +216,10 @@ public class Gestion {
         System.out.println("etat  ");
         String etat=sc.next();
         System.out.println("ouvrage ");
-        int choix = choixListe(louv);
+        int choix = Utilitaire.choixListe(louv);
         Exemplaire ex = new Exemplaire(mat,etat,louv.get(choix-1));
         lex.add(ex);
         System.out.println("exemplaire créé");
-
         Collections.sort(lrayon, new SortRayonByCode());
 
         int choixRayon;
@@ -229,7 +228,6 @@ public class Gestion {
             lrayon.get(choixRayon-1).addExemplaire(ex);
         }
         else System.out.println("Cet exemplaire est déja présent dans le rayon");
-
     }
 
     private void gestOuvrages() {
@@ -271,7 +269,8 @@ public class Gestion {
                             System.out.println("code : ");
                             long code= sc.nextLong();
                             System.out.println("nombre de plages :");
-                            byte nbrePlages= sc.nextByte();
+                            byte nbrePlages= sc.nextByte();sc.skip("\n");
+                            System.out.println("durée en H M S : ");
                             LocalTime dureeTotale = Utilitaire.lecTime();
                             o=new CD(titre,ageMin,dp,ploc,langue,genre,code,nbrePlages,dureeTotale);
                             ;break;
@@ -301,7 +300,7 @@ public class Gestion {
 
         TypeOuvrage[] tto = TypeOuvrage.values();
         List<TypeOuvrage> lto = new ArrayList<>(Arrays.asList(tto));
-        int choix = choixListe(lto);
+        int choix = Utilitaire.choixListe(lto);
         Ouvrage o = null;
 
      /*switch(choix) {
@@ -345,29 +344,27 @@ public class Gestion {
         Auteur a  = new Auteur(nom,prenom,nat);
         laut.add(a);
         System.out.println("écrivain créé");
+           int choixOuv;
+           int keepOn;
+           String keepOn1;
 
-        int choixOuv;
-        int keepOn;
-        String keepOn1;
-
-        Collections.sort(louv, new SortOuvrageByTitle());
-        do{
-            choixOuv=choixListe(louv);
-            if(!a.isInList(louv.get(choixOuv-1))){
-                a.addOuvrage(louv.get(choixOuv-1));
-            }
-            else{
-                System.out.println("Ce livre est déja présent dans la liste d'ouvrages de l'auteur");
-            }
-            System.out.println("Voulez-vous ajouter un autre ouvrage à l'auteur " + a.getNom() + " " + a.getPrenom() + " ? \n1. Oui\n2. Non");
-            keepOn1 = saisie("[1-2]{1}","Veuillez saisir 1 pour continuer, 2 pour arreter.");
-            keepOn = Integer.parseInt(keepOn1);
-        }while(keepOn!=2);
+           Collections.sort(louv, new SortOuvrageByTitle());
+           do{
+               choixOuv=choixListe(louv);
+               if(!a.isInList(louv.get(choixOuv-1))){
+                   a.addOuvrage(louv.get(choixOuv-1));
+               }
+               else{
+                   System.out.println("Ce livre est déja présent dans la liste d'ouvrages de l'auteur");
+               }
+               System.out.println("Voulez-vous ajouter un autre ouvrage à l'auteur " + a.getNom() + " " + a.getPrenom() + " ? \n1. Oui\n2. Non");
+               keepOn1 = saisie("[1-2]{1}","Veuillez saisir 1 pour continuer, 2 pour arreter.");
+               keepOn = Integer.parseInt(keepOn1);
+           }while(keepOn!=2);
            Collections.sort(a.getLouvrage(), new SortOuvrageByTitle());
            System.out.println("Test livre ouvrage de l'auteur " + a);
            System.out.println("");
-        System.out.println(a.getLouvrage());
-
+           System.out.println(a.getLouvrage());
     }
 
     public static void main(String[] args) {
