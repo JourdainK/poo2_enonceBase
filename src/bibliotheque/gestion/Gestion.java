@@ -7,8 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
-import static bibliotheque.utilitaires.Utilitaire.choixListe;
-import static bibliotheque.utilitaires.Utilitaire.saisie;
+import static bibliotheque.utilitaires.Utilitaire.*;
 
 public class Gestion {
     Scanner sc = new Scanner(System.in);
@@ -231,7 +230,8 @@ public class Gestion {
     }
 
     private void gestOuvrages() {
-      /*  Ouvrage o = null;
+        /*
+        Ouvrage o = null;
         System.out.println("titre");
         String titre= sc.nextLine();
         System.out.println("age minimum");
@@ -282,11 +282,18 @@ public class Gestion {
                             o=new DVD(titre,ageMin,dp,ploc,langue,genre,code,dureeTotale,nbreBonus);
                             System.out.println("autres langues");
                             List<String> langues = new ArrayList<>(Arrays.asList("anglais","français","italien","allemand","fin"));
+                            HashSet<String> languages = new HashSet<>(langues);
+                            boolean check=false;
                             do{
-                                choix=Utilitaire.choixListe(langues);
-                                if(choix==langues.size())break;
-                                ((DVD)o).getAutresLangues().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
-                            }while(true);
+
+                                String langToAdd;
+                                langToAdd = getLangInHashset(languages);
+                                if(langToAdd==null){
+                                    check=true;
+                                }
+
+                            }while(!check);
+
                            System.out.println("sous-titres");
                             do{
                              choix=Utilitaire.choixListe(langues);

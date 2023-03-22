@@ -37,7 +37,7 @@ public class LecteurPresenter {
         List<Lecteur> lecteurs = model.getLecteurs();
         view.setListDatas(lecteurs);
     }
-
+e
     public boolean modify(Lecteur lecteur) {
         boolean ok = model.modify(lecteur);
         if(ok){

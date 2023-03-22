@@ -2,6 +2,7 @@ package bibliotheque.utilitaires;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
@@ -63,5 +64,38 @@ public class Utilitaire {
         int m = Integer.parseInt(hms[1]);
         int s = Integer.parseInt(hms[2]);
         return LocalTime.of(h,m,s);
+    }
+
+    public static void printLangues(HashSet<String> langues){
+        int i=1;
+        for(String l : langues){
+            System.out.println((i++) + " - " + l);
+        }
+    }
+
+    public static String getLangInHashset(HashSet<String> langues){
+        int i = 1;
+        int choix;
+        String choice;
+        boolean check=false;
+        StringBuffer err = new StringBuffer("Veuillez saisir un nombre compris entre 1 et " + langues.size());
+        String errMess = String.valueOf(err);
+
+
+        do{
+            printLangues(langues);
+            System.out.println("Votre choix : ");
+            choice = saisie("[0-9]*",errMess);
+            choix = Integer.parseInt(choice);
+            for(String l : langues){
+                if(choix == i){
+                    check = true;
+                    return l;
+                }
+                i++;
+            }
+        }while(!check);
+
+        return null;
     }
 }

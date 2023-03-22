@@ -60,7 +60,6 @@ public class LecteurViewConsole implements LecteurViewInterface {
     }
 
     private void modifier() {
-        //TODO choisir elt et demander les nouvelles valeurs puis appeler méthode maj(lecteur) (à développer) du presenter
         Lecteur tmpLect;
         int choiceLect;
 
