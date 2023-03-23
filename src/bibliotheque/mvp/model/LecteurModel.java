@@ -60,6 +60,7 @@ public class LecteurModel implements DAOLecteur,SpecialLecteur {
         addLecteur(lec);
     }
 
+
     @Override
     public List<Exemplaire> exemplairesEnLocation(Lecteur l) {
         return l.listerExemplairesEnLocation();
