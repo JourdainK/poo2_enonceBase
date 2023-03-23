@@ -145,16 +145,4 @@ public abstract class Ouvrage {
         }
         return lex2;
     }
-
-    public boolean isAuthorIn(Auteur aut){
-        boolean isIn = false;
-
-        for(Auteur a:lauteurs){
-            if(aut.equals(a)){
-                isIn = true;
-            }
-        }
-
-        return isIn;
-    }
 }

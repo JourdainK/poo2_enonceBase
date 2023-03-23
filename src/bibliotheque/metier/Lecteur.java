@@ -128,5 +128,4 @@ public class Lecteur {
         }
        return stex;
     }
-
 }

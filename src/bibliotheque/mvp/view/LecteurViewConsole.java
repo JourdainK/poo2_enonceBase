@@ -1,5 +1,6 @@
 package bibliotheque.mvp.view;
 
+import bibliotheque.metier.Exemplaire;
 import bibliotheque.metier.Lecteur;
 import bibliotheque.mvp.presenter.LecteurPresenter;
 import bibliotheque.utilitaires.Utilitaire;
@@ -29,7 +30,7 @@ public class LecteurViewConsole implements LecteurViewInterface {
     @Override
     public void setListDatas(List<Lecteur> lecteurs) {
         this.llec = lecteurs;
-        Utilitaire.affListe(llec);
+        affListe(llec);
         menu();
     }
 
@@ -38,8 +39,13 @@ public class LecteurViewConsole implements LecteurViewInterface {
         System.out.println("information:" + msg);
     }
 
+    @Override
+    public void affList(List<Exemplaire> lex) {
+        affListe(lex);
+    }
+
     public void menu() {
-        List options = new ArrayList<>(Arrays.asList("ajouter", "retirer", "modifier", "fin"));
+        List options = new ArrayList<>(Arrays.asList("ajouter", "retirer", "rechercher","modifier","special","fin"));
         do {
             int ch = choixListe(options);
 
@@ -51,66 +57,52 @@ public class LecteurViewConsole implements LecteurViewInterface {
                     retirer();
                     break;
                 case 3:
-                    modifier();
+                    rechercher();
                     break;
                 case 4:
-                    System.exit(0);
+                    modifier();
+                    break;
+                case 5:
+                    special();
+                    break;
+                case 6:
+                    return;
             }
         } while (true);
     }
 
+    private void rechercher() {
+        System.out.println("numLecteur : ");
+        int idLecteur = sc.nextInt();
+        presenter.search(idLecteur);
+    }
+
     private void modifier() {
-        Lecteur tmpLect;
-        int choiceLect;
-
-        choiceLect = choixListe(llec);
-        tmpLect = llec.get(choiceLect-1);
-        System.out.println("Séléctionné (VIEW) : " + tmpLect);
-
-        System.out.println("Que voulez-vous modifier ? ");
-        List<String> listOption = new ArrayList<>(Arrays.asList("Modifier nom","Modifier prénom","Modifier date de naissance","Moidifier adresse","Modifier mail","Modifier Téléphone"));
-        int choiceOption = choixListe(listOption);
-        switch (choiceOption){
-            case 1 :
-                System.out.println("Saisir le nouveau nom : ");
-                String newnom = sc.nextLine();
-                tmpLect.setNom(newnom);
-                break;
-            case 2 :
-                System.out.println("Saisir le nouveau prénom : ");
-                String newpren = sc.nextLine();
-                tmpLect.setPrenom(newpren);
-                break;
-            case 3 :
-                System.out.println("Saisir la date de naissance : ");
-                LocalDate newBirth = lecDate();
-                tmpLect.setDn(newBirth);
-                break;
-            case 4 :
-                System.out.println("Saisir la nouvelle adresse");
-                String newAdre = sc.nextLine();
-                tmpLect.setAdresse(newAdre);
-                break;
-            case 5 :
-                System.out.println("Saisir le nouveau mail : ");
-                String newmail = sc.nextLine();
-                tmpLect.setMail(newmail);
-            case 6 :
-                System.out.println("Saisir le nouveau n° de téléphone : ");
-                String newPhone = sc.nextLine();
-                tmpLect.setTel(newPhone);
-                break;
-
-        }
-
-        presenter.modify(tmpLect);
-
+        int choix = choixElt(llec);
+        Lecteur l = llec.get(choix-1);
+        String nom = modifyIfNotBlank("nom",l.getNom());
+        String prenom = modifyIfNotBlank("prenom",l.getPrenom());
+        String date = modifyIfNotBlank("date de naissance",getDateFrench(l.getDn()));
+        String[] jma = date.split(" ");
+        int j = Integer.parseInt(jma[0]);
+        int m = Integer.parseInt(jma[1]);
+        int a = Integer.parseInt(jma[2]);
+        LocalDate dn = LocalDate.of(a, m, j);
+        String adr = modifyIfNotBlank("adresse",l.getAdresse());
+        String mail= modifyIfNotBlank("mail",l.getMail());
+        String tel =modifyIfNotBlank("tel",l.getTel());
+        Lecteur lec = new Lecteur(l.getNumlecteur(), nom, prenom, dn, adr, mail, tel);
+        presenter.update(lec);
+        llec=presenter.getAll();//rafraichissement
+        Utilitaire.affListe(llec);
     }
 
     private void retirer() {
-        int choix = Utilitaire.choixElt(llec);
+        int choix = choixElt(llec);
         Lecteur lecteur = llec.get(choix-1);
         presenter.removeLecteur(lecteur);
+        llec=presenter.getAll();//rafraichissement
+        Utilitaire.affListe(llec);
     }
 
 
@@ -133,6 +125,32 @@ public class LecteurViewConsole implements LecteurViewInterface {
         String tel = sc.nextLine();
         Lecteur lec = new Lecteur(0, nom, prenom, dn, adr, mail, tel);
         presenter.addLecteur(lec);
+        llec=presenter.getAll();//rafraichissement
+        Utilitaire.affListe(llec);
     }
-}
+    private void special() {
+        int choix =  choixElt(llec);
+        Lecteur lec = llec.get(choix-1);
+            do {
+                System.out.println("1.Exemplaire en location\n2.Exemplaires loués\n3.menu principal");
+                System.out.println("choix : ");
+                int ch = sc.nextInt();
+                sc.skip("\n");
+                switch (ch) {
+                    case 1:
+                        presenter.exemplairesEnLocation(lec);
+                        break;
+                    case 2:
+                        presenter.exemplairesLoues(lec);
+                        break;
+                    case 3: return;
+                    default:
+                        System.out.println("choix invalide recommencez ");
+                }
+            } while (true);
+
+
+        }
+    }
+
 

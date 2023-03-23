@@ -1,5 +1,6 @@
 package bibliotheque.mvp.view;
 
+import bibliotheque.metier.Exemplaire;
 import bibliotheque.metier.Lecteur;
 import bibliotheque.mvp.presenter.LecteurPresenter;
 
@@ -14,4 +15,5 @@ public interface LecteurViewInterface {
     public void affMsg(String msg);
 
 
+    void affList(List<Exemplaire> lex);
 }

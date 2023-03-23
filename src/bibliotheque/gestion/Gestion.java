@@ -5,9 +5,10 @@ import bibliotheque.utilitaires.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
-
-import static bibliotheque.utilitaires.Utilitaire.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class Gestion {
     Scanner sc = new Scanner(System.in);
@@ -99,57 +100,19 @@ public class Gestion {
     }
 
     private void gestRestitution() {
-        List<Exemplaire> exemplLoue = new ArrayList<>();
-
-        int choix = -1;
-        for(Exemplaire l:lex){
-            if(l.enLocation()){
-                exemplLoue.add(l);
-            }
-        }
-
-        Collections.sort(exemplLoue, new SortExempByName());
-
-        choix = choixListe(exemplLoue);
-        exemplLoue.get(choix-1).modifierEtat("Disponible");
-
-        int choiceState;
-        String choiceState1;
-
-        do{
-            System.out.println("Changer l'état du livre : \n1.Oui\n2.Non");
-            choiceState1 = saisie("[1-2]{1}","Erreur, veuillez saisir 1 pour oui , 2 pour non");
-            choiceState = Integer.parseInt(choiceState1);
-        }while(choiceState < 1 || choiceState > 2);
-        if(choiceState==1){
-            String newState;
-            System.out.println("Saisir l'état du Livre : ");
-            newState = sc.nextLine();
-            exemplLoue.get(choix-1).setDescriptionEtat(newState);
-
-            System.out.println("Nouvel état de l'exemplaire : " + newState);
-        }
-
-        System.out.println("L'exemplaire de " + exemplLoue.get(choix-1).getOuvrage().getTitre() + "\t\tMatricule " + exemplLoue.get(choix-1).getMatricule() + "\nStatut changé : Disponible");
+        //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
     }
 
     private void gestLocations() {
         int choix;
-
-        List<Exemplaire> freeExempl = new ArrayList<>();
-        for(Exemplaire l :lex){
-            if(!l.enLocation()){
-                freeExempl.add(l);
-            }
-        }
-        Collections.sort(freeExempl, new SortExemByMatricule());
-        choix = choixListe(freeExempl);
+        //TODO ne lister que les exemplaires libres et les trier par matricule
+        choix = Utilitaire.choixListe(lex);
         if(lex.get(choix-1).enLocation()){
             System.out.println("exemplaire en location");
             return;
         }
         Exemplaire ex = lex.get(choix-1);
-        choix= choixListe(llect);
+        choix=Utilitaire.choixListe(llect);
         Lecteur lec = llect.get(choix-1);
         lloc.add(new Location(lec,ex));
     }
@@ -188,25 +151,7 @@ public class Gestion {
         Rayon r = new Rayon(code,genre);
         System.out.println("rayon créé");
 
-        Collections.sort(lex,new SortExempByName());
-        int choixEx;
-        int keepOn;
-        String keepOn1;
-
-        do{
-            choixEx = choixListe(lex);
-            if(!r.isExempIn(lex.get(choixEx-1))){
-                r.addExemplaire(lex.get(choixEx-1));
-            }
-            else{
-                System.out.println("Cet exemplaire est déja présent dans le rayon ");
-            }
-            System.out.println("Voulez-vous ajouter un autre exemplaire au rayon ?\n1. Oui\n2. Non");
-            keepOn1 = saisie("[1-2]{1}","Veuillez saisir 1 pour continuer, 2 pour arreter");
-            keepOn = Integer.parseInt(keepOn1);
-        }while(keepOn!=2);
-
-        lrayon.add(r);
+        //TODO attribuer exemplaire, les exemplaires sont triés par ordre de titre de l'ouvrage , empêcher doublons sur l'exemplaire
     }
 
     private void gestExemplaires() {
@@ -219,19 +164,11 @@ public class Gestion {
         Exemplaire ex = new Exemplaire(mat,etat,louv.get(choix-1));
         lex.add(ex);
         System.out.println("exemplaire créé");
-        Collections.sort(lrayon, new SortRayonByCode());
-
-        int choixRayon;
-        choixRayon = choixListe(lrayon);
-        if(!lrayon.get(choixRayon-1).isExempIn(ex)){
-            lrayon.get(choixRayon-1).addExemplaire(ex);
-        }
-        else System.out.println("Cet exemplaire est déja présent dans le rayon");
+        //TODO attribuer rayon , les rayons sont triès par ordre de code
     }
 
     private void gestOuvrages() {
-        /*
-        Ouvrage o = null;
+      /*  Ouvrage o = null;
         System.out.println("titre");
         String titre= sc.nextLine();
         System.out.println("age minimum");
@@ -282,18 +219,11 @@ public class Gestion {
                             o=new DVD(titre,ageMin,dp,ploc,langue,genre,code,dureeTotale,nbreBonus);
                             System.out.println("autres langues");
                             List<String> langues = new ArrayList<>(Arrays.asList("anglais","français","italien","allemand","fin"));
-                            HashSet<String> languages = new HashSet<>(langues);
-                            boolean check=false;
                             do{
-
-                                String langToAdd;
-                                langToAdd = getLangInHashset(languages);
-                                if(langToAdd==null){
-                                    check=true;
-                                }
-
-                            }while(!check);
-
+                                choix=Utilitaire.choixListe(langues);
+                                if(choix==langues.size())break;
+                                ((DVD)o).getAutresLangues().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
+                            }while(true);
                            System.out.println("sous-titres");
                             do{
                              choix=Utilitaire.choixListe(langues);
@@ -319,26 +249,7 @@ public class Gestion {
         o = lof.get(choix-1).create();
         louv.add(o);
         System.out.println("ouvrage créé");
-        Collections.sort(laut, new SortAuteurByName());
-        int choixAut;
-        int keepOn;
-        String keepOn1;
-
-
-        do{
-            System.out.println("Attribuer des auteurs à l'ouvrage : ");
-            choixAut = choixListe(laut);
-            if(!o.isAuthorIn(laut.get(choixAut-1))){
-                o.getLauteurs().add(laut.get(choixAut-1));
-            }
-            else{
-                System.out.println("cet auteur est déjà dans la liste de cet ouvrage");
-            }
-            System.out.println("Ajouter un autre auteur à l'ouvrage ? \n1. Oui\n2. Non");
-            keepOn1 = saisie("[1-2]{1}","Veuillez saisir 1 pour continuer, 2 pour arreter");
-            keepOn = Integer.parseInt(keepOn1);
-        }while(keepOn!=2);
-
+        //TODO attribuer auteurs, les auteur sont triés par odre de nom et prénom, empêcher doublons
     }
 
        private void gestAuteurs() {
@@ -351,27 +262,7 @@ public class Gestion {
         Auteur a  = new Auteur(nom,prenom,nat);
         laut.add(a);
         System.out.println("écrivain créé");
-           int choixOuv;
-           int keepOn;
-           String keepOn1;
-
-           Collections.sort(louv, new SortOuvrageByTitle());
-           do{
-               choixOuv=choixListe(louv);
-               if(!a.isInList(louv.get(choixOuv-1))){
-                   a.addOuvrage(louv.get(choixOuv-1));
-               }
-               else{
-                   System.out.println("Ce livre est déja présent dans la liste d'ouvrages de l'auteur");
-               }
-               System.out.println("Voulez-vous ajouter un autre ouvrage à l'auteur " + a.getNom() + " " + a.getPrenom() + " ? \n1. Oui\n2. Non");
-               keepOn1 = saisie("[1-2]{1}","Veuillez saisir 1 pour continuer, 2 pour arreter.");
-               keepOn = Integer.parseInt(keepOn1);
-           }while(keepOn!=2);
-           Collections.sort(a.getLouvrage(), new SortOuvrageByTitle());
-           System.out.println("Test livre ouvrage de l'auteur " + a);
-           System.out.println("");
-           System.out.println(a.getLouvrage());
+        //TODO attribuer ouvrages , les ouvrages sont triés par ordre de titre
     }
 
     public static void main(String[] args) {

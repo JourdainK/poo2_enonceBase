@@ -2,6 +2,7 @@ package bibliotheque.utilitaires;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
@@ -97,5 +98,19 @@ public class Utilitaire {
         }while(!check);
 
         return null;
+    }
+
+
+    public static String getDateFrench(LocalDate d){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d MM yyyy");
+        return dtf.format(d);
+    }
+
+    public static String modifyIfNotBlank(String label,String oldValue){
+        System.out.println(label+" : "+oldValue);
+        System.out.print("nouvelle valeur (enter si pas de changement) : ");
+        String newValue= sc.nextLine();
+        if(newValue.isBlank()) return oldValue;
+        return newValue;
     }
 }
