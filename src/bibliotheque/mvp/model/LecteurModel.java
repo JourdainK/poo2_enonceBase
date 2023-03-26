@@ -56,18 +56,34 @@ public class LecteurModel implements DAOLecteur,SpecialLecteur {
     private void populate(){
         Lecteur lec = new Lecteur(0,"Dupont","Jean", LocalDate.of(2000,1,4),"Mons","jean.dupont@mail.com","0458774411");
         addLecteur(lec);
-        lec = new Lecteur(0,"Durant","Aline",LocalDate.of(1980,10,10),"Binche","aline.durant@mail.com","045874444");
+        lec = new Lecteur(1,"Durant","Aline",LocalDate.of(1980,10,10),"Binche","aline.durant@mail.com","045874444");
         addLecteur(lec);
     }
 
 
     @Override
     public List<Exemplaire> exemplairesEnLocation(Lecteur l) {
-        return l.listerExemplairesEnLocation();
+        List<Exemplaire> lExempEnLocat = new ArrayList<>();
+
+        for(Location lo: l.getLloc()){
+            if(lo.getExemplaire().enLocation()){
+                lExempEnLocat.add(lo.getExemplaire());
+            }
+        }
+
+        return lExempEnLocat;
     }
 
     @Override
     public List<Exemplaire> exemplairesLoues(Lecteur l) {
-        return new ArrayList<>(l.listerExemplairesLoues());
+        List<Exemplaire> lExempLoues = new ArrayList<>();
+
+        for(Location loc : l.getLloc()){
+            if(!lExempLoues.contains(loc.getExemplaire())){
+                lExempLoues.add(loc.getExemplaire());
+            }
+        }
+
+        return lExempLoues;
     }
 }

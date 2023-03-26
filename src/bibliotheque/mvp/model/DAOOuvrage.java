@@ -12,7 +12,7 @@ public interface DAOOuvrage {
 
     Ouvrage updateOuvrage(Ouvrage ouv);
 
-    Ouvrage readOuvrage(Ouvrage ouv);
+    Ouvrage readOuvrage(String title);
 
     List<Ouvrage> getOuvrages();
 }

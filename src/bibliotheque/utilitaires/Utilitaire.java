@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Utilitaire {
     private static Scanner sc = new Scanner(System.in);
@@ -67,14 +68,14 @@ public class Utilitaire {
         return LocalTime.of(h,m,s);
     }
 
-    public static void printLangues(HashSet<String> langues){
+    public static void printLangues(Set<String> langues){
         int i=1;
         for(String l : langues){
             System.out.println((i++) + " - " + l);
         }
     }
 
-    public static String getLangInHashset(HashSet<String> langues){
+    public static String getLangInHashset(Set<String> langues){
         int i = 1;
         int choix;
         String choice;
