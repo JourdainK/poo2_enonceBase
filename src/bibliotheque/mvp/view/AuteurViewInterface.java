@@ -14,4 +14,6 @@ public interface AuteurViewInterface {
 
     public void affList(List<Exemplaire> lex);
 
+    public void affMsg(String msg);
+
 }

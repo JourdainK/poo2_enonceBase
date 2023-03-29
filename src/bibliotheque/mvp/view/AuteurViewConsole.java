@@ -11,17 +11,16 @@ public class AuteurViewConsole implements AuteurViewInterface{
     //TODO methods auteur View
 
     @Override
-    public void setPresenter(AuteurPresenter presenter) {
-
-    }
+    public void setPresenter(AuteurPresenter presenter) { }
 
     @Override
-    public void setListDatas(List<Auteur> auteurs) {
-
-    }
+    public void setListDatas(List<Auteur> auteurs) { }
 
     @Override
-    public void affList(List<Exemplaire> lex) {
+    public void affList(List<Exemplaire> lex) { }
 
-    }
+    @Override
+    public void affMsg(String msg) { }
+
+
 }

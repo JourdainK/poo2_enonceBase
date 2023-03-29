@@ -13,6 +13,6 @@ public interface OuvrageViewInterface {
 
     public void affMsg(String msg);
 
-    void affList(List<Ouvrage> louv);
+    public void affList(List<Ouvrage> louv);
 
 }
