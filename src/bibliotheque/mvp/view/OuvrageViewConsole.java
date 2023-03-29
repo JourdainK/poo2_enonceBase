@@ -214,10 +214,4 @@ public class OuvrageViewConsole implements OuvrageViewInterface{
        }
     }
 
-
-
-
-
-
-
 }

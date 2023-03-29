@@ -36,6 +36,15 @@ public class Utilitaire {
         return choix;
     }
 
+    //no particular order -> choose by their id / other unique attr
+    public static void affSet(Set set){
+        for(Object s : set){
+            System.out.println("\t - " + s);
+        }
+    }
+
+
+
     public static String saisie(String regex, String message) {
         boolean check = false;
         String phrase;

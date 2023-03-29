@@ -10,7 +10,7 @@ import java.util.List;
 public interface SpecialAuteur {
     List<Ouvrage> listerOuvrages(Auteur aut);
 
-    List<Ouvrage> listerOuvrages(TypeOuvrage to, TypeLivre tl);
+    List<Ouvrage> listerOuvrages(Auteur aut,TypeOuvrage to, TypeLivre tl);
 
     List<Ouvrage> listerOuvrages(String genre);
 }

@@ -72,12 +72,14 @@ public class LecteurViewConsole implements LecteurViewInterface {
     }
 
     private void rechercher() {
-        System.out.println("numLecteur : ");
+        Utilitaire.affListe(llec);
+        System.out.println("Saisir le numéro du lecteur : ");
         int idLecteur = sc.nextInt();
         presenter.search(idLecteur);
     }
 
     private void modifier() {
+        Utilitaire.affListe(llec);
         int choix = choixElt(llec);
         Lecteur l = llec.get(choix-1);
         String nom = modifyIfNotBlank("nom",l.getNom());
@@ -129,6 +131,7 @@ public class LecteurViewConsole implements LecteurViewInterface {
         Utilitaire.affListe(llec);
     }
     private void special() {
+        Utilitaire.affListe(llec);
         int choix =  choixElt(llec);
         Lecteur lec = llec.get(choix-1);
             do {
