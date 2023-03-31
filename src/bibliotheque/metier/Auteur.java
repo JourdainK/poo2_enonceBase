@@ -17,6 +17,7 @@ public class Auteur {
         this.nationalite = nationalite;
     }
 
+
     public String getNom() {
         return nom;
     }
@@ -56,21 +57,20 @@ public class Auteur {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Auteur auteur = (Auteur) o;
-        return Objects.equals(nom, auteur.nom) && Objects.equals(prenom, auteur.prenom) && Objects.equals(nationalite, auteur.nationalite);
+        return Objects.equals(nom.toLowerCase(), auteur.nom.toLowerCase()) && Objects.equals(prenom.toLowerCase(), auteur.prenom.toLowerCase()) && Objects.equals(nationalite.toLowerCase(), auteur.nationalite.toLowerCase());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nom, prenom, nationalite);
+        return Objects.hash(nom.toLowerCase(), prenom.toLowerCase(), nationalite.toLowerCase());
     }
 
     @Override
     public String toString() {
-        return "Auteur{" +
-                "nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", nationalite='" + nationalite + '\'' +
-                '}';
+        return "Auteur : " +
+                "\nNom :" + nom +
+                "\t\tPrénom :" + prenom +
+                "\t\tNeationalité :" + nationalite;
     }
 
     public void addOuvrage(Ouvrage o ){

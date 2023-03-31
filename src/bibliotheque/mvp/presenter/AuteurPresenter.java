@@ -4,6 +4,7 @@ import bibliotheque.metier.Auteur;
 import bibliotheque.mvp.model.DAOAuteur;
 import bibliotheque.mvp.model.DAOLecteur;
 import bibliotheque.mvp.view.AuteurViewConsole;
+import bibliotheque.mvp.view.AuteurViewInterface;
 import bibliotheque.mvp.view.LecteurViewInterface;
 
 import java.util.List;
@@ -12,9 +13,9 @@ public class AuteurPresenter {
 
     private DAOAuteur model;
 
-    private AuteurViewConsole view;
+    private AuteurViewInterface view;
 
-    public AuteurPresenter(DAOAuteur model, AuteurViewConsole view){
+    public AuteurPresenter(DAOAuteur model, AuteurViewInterface view){
         this.model = model;
         this.view = view;
         this.view.setPresenter(this);
@@ -52,6 +53,33 @@ public class AuteurPresenter {
             view.setListDatas(lAut);
         }
     }
+
+    //have to create a tmpAut to verify if it's already in
+    public Auteur readAuteur(Auteur aut){
+        Auteur tmpAuteur = model.readAuteur(aut);
+        boolean check = false;
+        if(tmpAuteur!=null){
+            view.affMsg("Cet auteur n'est pas enregistré");
+            check = true;
+            return tmpAuteur;
+        }
+        else {
+            view.affMsg(tmpAuteur.toString());
+            return tmpAuteur;
+        }
+    }
+
+    public List<Auteur> lAuthorByName(String name){
+        List<Auteur> lauthor = model.listAuthorByName(name);
+        if(lauthor==null){
+            view.affMsg("Pas d'auteur(s) trouvé avec ce nom");
+            return null;
+        }
+        else return lauthor;
+    }
+
+    //TODO specials-> crud all classes are done
+
 
 
 

@@ -1,15 +1,10 @@
 package bibliotheque.mvp;
 
-import bibliotheque.mvp.model.DAOLecteur;
-import bibliotheque.mvp.model.DAOOuvrage;
-import bibliotheque.mvp.model.LecteurModel;
-import bibliotheque.mvp.model.OuvrageModel;
+import bibliotheque.mvp.model.*;
+import bibliotheque.mvp.presenter.AuteurPresenter;
 import bibliotheque.mvp.presenter.LecteurPresenter;
 import bibliotheque.mvp.presenter.OuvragePresenter;
-import bibliotheque.mvp.view.LecteurViewConsole;
-import bibliotheque.mvp.view.LecteurViewInterface;
-import bibliotheque.mvp.view.OuvrageViewConsole;
-import bibliotheque.mvp.view.OuvrageViewInterface;
+import bibliotheque.mvp.view.*;
 import bibliotheque.utilitaires.Utilitaire;
 
 import java.util.Arrays;
@@ -23,10 +18,14 @@ public class GestBiblio {
     private DAOLecteur lm;
     private LecteurViewInterface lv;
     private LecteurPresenter lp;
+
     private DAOOuvrage om;
     private OuvrageViewInterface ov;
     private OuvragePresenter op;
 
+    private DAOAuteur am;
+    private AuteurViewInterface av;
+    private AuteurPresenter ap;
 
     public void gestion(){
         lm = new LecteurModel();
@@ -35,9 +34,12 @@ public class GestBiblio {
         om = new OuvrageModel();
         ov = new OuvrageViewConsole();
         op = new OuvragePresenter(om, ov);
+        am = new AuteurModel();
+        av = new AuteurViewConsole();
+        ap = new AuteurPresenter(am,av);
 
 
-        List<String> loptions = Arrays.asList("lecteurs","ouvrages","fin");
+        List<String> loptions = Arrays.asList("Lecteurs","Ouvrages","Auteurs" ,"fin");
         do {
             int ch = Utilitaire.choixListe(loptions);
             switch (ch){
@@ -45,7 +47,9 @@ public class GestBiblio {
                     break;
                 case 2 : op.start();
                     break;
-                case 3 : System.exit(0);
+                case 3 : ap.start();
+                    break;
+                case 4 : System.exit(0);
             }
         }while(true);
     }

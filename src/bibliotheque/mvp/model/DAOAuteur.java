@@ -16,4 +16,6 @@ public interface DAOAuteur {
 
     List<Auteur> getAuteurs();
 
+    List<Auteur> listAuthorByName(String name);
+
 }

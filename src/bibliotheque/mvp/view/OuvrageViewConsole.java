@@ -51,7 +51,7 @@ public class OuvrageViewConsole implements OuvrageViewInterface{
     public void menu(){
         affMsg("-- menu Ouvrage --");
         int choix = -1;
-        List options = new ArrayList<>(Arrays.asList("Ajouter","Retirer","Rechercher","Modifier","Retour"));
+        List options = new ArrayList<>(Arrays.asList("Ajouter","Effacer","Rechercher","Modifier","Retour"));
         do{
             affListe(options);
             choix = choixElt(options);

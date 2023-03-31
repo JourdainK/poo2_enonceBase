@@ -49,6 +49,7 @@ public class Utilitaire {
         boolean check = false;
         String phrase;
 
+
         do {
             phrase = sc.nextLine();
             if (phrase.matches(regex)) {

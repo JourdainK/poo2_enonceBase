@@ -65,6 +65,16 @@ public class AuteurModel implements DAOAuteur, SpecialAuteur {
         }
     }
 
+    public List<Auteur> listAuthorByName(String name){
+        List<Auteur> lAuthorByName = new ArrayList<>();
+        for(Auteur a : lAuthor){
+            if(a.getNom().toLowerCase().equals(name.toLowerCase())){
+                lAuthorByName.add(a);
+            }
+        }
+        return lAuthorByName;
+    }
+
     @Override
     public List<Auteur> getAuteurs() {
         return lAuthor;
@@ -95,6 +105,7 @@ public class AuteurModel implements DAOAuteur, SpecialAuteur {
         return lOuvrageSorted;
     }
 
+    //TODO redo specials when all cruds are done
     @Override
     public List<Ouvrage> listerOuvrages(String genre) {
         Set<Ouvrage> sOuvr = new HashSet<>();
