@@ -12,10 +12,13 @@ public class DVDFactory extends OuvrageFactory{
     public Ouvrage addDetail(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre){
         System.out.println("code : ");
         long code= sc.nextLong();
+        sc.skip("\n");
+        System.out.println("Saisir la durée");
         LocalTime dureeTotale=Utilitaire.lecTime();
+        System.out.println("Saisir le nombre de bonus : ");
         byte nbreBonus= sc.nextByte();sc.skip("\n");
         DVD dvd =new DVD(titre,ageMin,dateParution,prixLocation,langue,genre,code,dureeTotale,nbreBonus);
-        System.out.println("autres langues");
+        System.out.println("autres langues :");
         List<String> langues = new ArrayList<>(Arrays.asList("anglais","français","italien","allemand","fin"));
         int choix;
         do{
@@ -23,7 +26,7 @@ public class DVDFactory extends OuvrageFactory{
             if(choix==langues.size())break;
             dvd.getAutresLangues().add(langues.get(choix-1));//TODO gérer msg d'erreur en cas de doublon
         }while(true);
-        System.out.println("sous-titres");
+        System.out.println("sous-titres :");
         do{
             choix=Utilitaire.choixListe(langues);
             if(choix==langues.size())break;

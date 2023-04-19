@@ -4,7 +4,7 @@ import bibliotheque.metier.Lecteur;
 import bibliotheque.metier.Ouvrage;
 import bibliotheque.metier.TypeOuvrage;
 import bibliotheque.mvp.presenter.OuvragePresenter;
-import bibliotheque.utilitaires.Utilitaire;
+import bibliotheque.utilitaires.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,6 +12,7 @@ import java.util.*;
 
 import static bibliotheque.utilitaires.Utilitaire.*;
 import static bibliotheque.metier.TypeOuvrage.*;
+import static java.util.Arrays.*;
 
 public class OuvrageViewConsole implements OuvrageViewInterface{
 
@@ -51,7 +52,7 @@ public class OuvrageViewConsole implements OuvrageViewInterface{
     public void menu(){
         affMsg("-- menu Ouvrage --");
         int choix = -1;
-        List options = new ArrayList<>(Arrays.asList("Ajouter","Effacer","Rechercher","Modifier","Retour"));
+        List options = new ArrayList<>(asList("Ajouter","Effacer","Rechercher","Modifier","Retour"));
         do{
             affListe(options);
             choix = choixElt(options);
@@ -66,81 +67,17 @@ public class OuvrageViewConsole implements OuvrageViewInterface{
 
     }
 
+    //had help from Jayson Desclin -> understanding factories
     public void ajouter(){
+        List<TypeOuvrage> typeOuv = new ArrayList<>(asList(TypeOuvrage.values()));
+        int choix;
+        choix = Utilitaire.choixListe(typeOuv);
+        Ouvrage ouv;
 
-        System.out.print("\nEntrer un titre : ");
-        String title = sc.nextLine();
+        List<OuvrageFactory> lOuvrages = new ArrayList<>(asList(new LivreFactory(),new CDFactory(),new DVDFactory()));
+        ouv = lOuvrages.get(choix-1).create();
 
-        int ageMini = -1;
-        do{
-            System.out.print("\nEntrer l'âge minimum : ");
-            String ageMin = saisie("[0-9]*","Veuillez saisir un nombre");
-            ageMini = Integer.parseInt(ageMin);
-            if(ageMini < 0) System.out.println("l'age doit être supérieur à 1");
-        }while(ageMini < 0);
-
-        System.out.print("\nEntrer la date de parution : ");
-        LocalDate dateParu = lecDate();
-        //LocalDate dateParuFr = LocalDate.parse(getDateFrench(dateParu));
-
-        TypeOuvrage to=null;
-        int choiceTyOuv = -1;
-        do{
-            System.out.println("Choix du type d'ouvrage : ");
-            System.out.println("1." + LIVRE + "\n2." + CD + "\n3." + DVD);
-            String choiceTo = saisie("[1-3]{1}","Veuillez saisir un nombre compris entre 1 et 3");
-            choiceTyOuv = Integer.parseInt(choiceTo);
-        }while(choiceTyOuv < 1 || choiceTyOuv > 3);
-
-        switch (choiceTyOuv){
-            case 1 -> to = LIVRE;
-            case 2 -> to = CD;
-            case 3 -> to = DVD;
-        }
-        double price = -1;
-
-        do{
-            System.out.print("\nSaisir le prix de la location : ");
-            String price1 = saisie("[0-9]{0,10}[.][0-9]{0,2}|[0-9]{0,10}","Veuillez saisir un nombre réels :");
-            price = Double.parseDouble(price1);
-        }while(price < 0);
-
-        Set<String> langue = new HashSet<>(Arrays.asList("anglais","français","italien","allemand"));
-        String chosenLang = getLangInHashset(langue);
-
-        System.out.print("\nSaisir le genre : ");
-        String genre = sc.nextLine();
-
-        //TODO check teacher version -> understand why to was causing problem...
-        //followed suggestions of IntelliJ (must be wrong)
-
-        Ouvrage ouvrage = new Ouvrage(title, ageMini, dateParu, to, price, chosenLang, genre) {
-            @Override
-            public double amendeRetard(int njours) {
-                if(to.equals(DVD)){
-                    return 2;
-                } else if (to.equals(CD)) {
-                    return 1.5;
-
-                }
-                else return 1;
-            }
-
-            @Override
-            public int njlocmax() {
-                if(to.equals(DVD)){
-                    return 5;
-                } else if (to.equals(CD)) {
-                    return 7;
-
-                }
-                else return 14;
-            }
-        };
-
-        presenter.addOuvrage(ouvrage);
-        lOuvr = presenter.getAll();
-        affList(lOuvr);
+        presenter.addOuvrage(ouv);
     }
 
 
@@ -160,7 +97,7 @@ public class OuvrageViewConsole implements OuvrageViewInterface{
         affListe(lOuvr);
         choix = choixElt(lOuvr);
         Ouvrage toModif = lOuvr.get(choix-1);
-        List<String> option = new ArrayList<>(Arrays.asList("Age minimum","Date de parution : ","Prix de la location","Langue","Genre"));
+        List<String> option = new ArrayList<>(asList("Age minimum","Date de parution : ","Prix de la location","Langue","Genre"));
         do{
             affListe(option);
             int choixModif = choixElt(option);
@@ -184,7 +121,7 @@ public class OuvrageViewConsole implements OuvrageViewInterface{
                     break;
                 case 4 :
                     System.out.println("choix de la nouvel langue : ");
-                    Set<String> langue = new HashSet<>(Arrays.asList("anglais","français","italien","allemand"));
+                    Set<String> langue = new HashSet<>(asList("anglais","français","italien","allemand"));
                     String chosenLang = getLangInHashset(langue);
                     toModif.setLangue(chosenLang);
                     break;

@@ -24,8 +24,7 @@ public class AuteurViewConsole implements AuteurViewInterface{
     @Override
     public void setListDatas(List<Auteur> auteurs) {
         this.lAuteur = auteurs;
-        affListe(lAuteur);
-        //todo test - affListe -> delete after testing
+        //affListe(lAuteur);
         menu();
     }
 
@@ -43,6 +42,7 @@ public class AuteurViewConsole implements AuteurViewInterface{
         int choix = -1;
 
         do{
+            affListe(option);
             choix = choixElt(option);
 
             switch (choix){
@@ -86,13 +86,12 @@ public class AuteurViewConsole implements AuteurViewInterface{
         Auteur autDelete = lAuteur.get(choix-1);
         presenter.removeAuteur(autDelete);
         lAuteur = presenter.getAll();
-        //TODO delete after testing
-        affListe(lAuteur);
+        autDelete = null;
     }
 
 
     public void modifAuteur(){
-        //TODO add options -> delete _ add ouvrage ?
+
         int choix;
         int keepOn = -1;
         System.out.println(" -- Modifier auteur --");
@@ -126,8 +125,7 @@ public class AuteurViewConsole implements AuteurViewInterface{
 
         presenter.updateAuteur(chosenAuteur);
         lAuteur = presenter.getAll();
-        //TODO delete after testing
-        affAuteur();
+        System.out.println("Modification :\n" + chosenAuteur);
     }
 
     public void recherAuthorByName(){

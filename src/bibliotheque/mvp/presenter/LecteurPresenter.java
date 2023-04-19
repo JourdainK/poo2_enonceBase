@@ -44,7 +44,7 @@ public class LecteurPresenter {
     }
     public void update(Lecteur lecteur) {
         Lecteur l  =model.updateLecteur(lecteur);
-        if(l==null) view.affMsg("mise à jour infrucueuse");
+        if(l==null) view.affMsg("mise à jour infructueuse");
         else view.affMsg("mise à jour effectuée : "+l);
         //view.setListDatas(model.getClients());//désactivé pour éviter appels imbriqués
     }
