@@ -9,8 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import static bibliotheque.utilitaires.Utilitaire.choixListe;
-import static bibliotheque.utilitaires.Utilitaire.saisie;
+import static bibliotheque.utilitaires.Utilitaire.*;
 
 public class RayonViewConsole implements RayonViewInterface{
     private RayonPresenter presenter;
@@ -39,7 +38,7 @@ public class RayonViewConsole implements RayonViewInterface{
 
     @Override
     public void affList(List<Rayon> lrayons) {
-        Utilitaire.affListe(lrayons);
+        affListe(lrayons);
     }
 
 
@@ -47,15 +46,15 @@ public class RayonViewConsole implements RayonViewInterface{
         List<String> loptions = new ArrayList<>(Arrays.asList("Afficher les rayons","Ajouter","Effacer","Rechercher","Modifier","Retour"));
         int choix;
         do{
-            Utilitaire.affListe(loptions);
+            System.out.println("");
             choix = choixListe(loptions);
 
             switch (choix){
-                case 1 -> affList(lRayons);
-                case 2 -> System.out.println("Ajouter");
-                case 3 -> System.out.println("effacer");
-                case 4 -> System.out.println("rechercher");
-                case 5 -> System.out.println("modifier");
+                case 1 -> affListe(lRayons);
+                case 2 -> ajouterRayon();
+                case 3 -> effacerRayon();
+                case 4 -> searchRayon();
+                case 5 -> modifierRayon();
             }
         }while(choix!=6);
 
@@ -63,7 +62,7 @@ public class RayonViewConsole implements RayonViewInterface{
 
     public void ajouterRayon(){
         System.out.println("Saisir le code du rayon : ");
-        String codeRayon = saisie("[0-9]{0,3},[a-zA-Z]{0,2}","Veuillez saisir un code de rayon type (1A, 10B ect)\nSaisir le code du rayon : ");
+        String codeRayon = sc.nextLine();
         System.out.println("Saisir le genre du rayon : ");
         String genre = sc.nextLine();
 
@@ -72,12 +71,40 @@ public class RayonViewConsole implements RayonViewInterface{
         lRayons = presenter.getAll();
     }
 
+    public void effacerRayon(){
+        affListe(lRayons);
+        int choix = choixElt(lRayons);
+        Rayon rayToDelete = lRayons.get(choix-1);
+        System.out.println("Rayon qui sera effacé : \n" + rayToDelete);
+        presenter.removeRayon(rayToDelete);
+        //rafraichissement
+        lRayons = presenter.getAll();
+        affListe(lRayons);
+    }
+
+    public void searchRayon(){
+        System.out.println("Saisir le code du rayon : ");
+        String codeSearch = sc.nextLine();
+        presenter.readRayon(codeSearch);
+    }
+
+    public void modifierRayon(){
+        affList(lRayons);
+        int choix = choixElt(lRayons);
+        Rayon rayonTomodif = lRayons.get(choix-1);
+
+        System.out.println("Saisir le genre du rayon : ");
+        String newGenre = sc.nextLine();
+        rayonTomodif.setGenre(newGenre);
+        presenter.updateRayon(rayonTomodif);
+        lRayons = presenter.getAll();
+        affList(lRayons);
+    }
+
     /*
+    //TODO specials rayon
     private voir special() {
 
     }
      */
-
-
-    
 }

@@ -28,7 +28,7 @@ public class RayonPresenter {
         List<Rayon> lRayons = model.getRayons();
     }
 
-    public void removeLecteur(Rayon rayon){
+    public void removeRayon(Rayon rayon){
         boolean check = model.removeRayon(rayon);
         if(check) view.affMsg("Rayon effacé");
         else view.affMsg("Erreur, rayon non effacé");
@@ -40,5 +40,10 @@ public class RayonPresenter {
         else view.affMsg("Mise à jour effectuée");
     }
 
+    public void readRayon(String codeRayon){
+        Rayon ray = model.readRayon(codeRayon);
+        if(ray==null) view.affMsg("Pas de rayon trouvé");
+        else view.affMsg(ray.toString());
+    }
     //TODO rayon specials
 }

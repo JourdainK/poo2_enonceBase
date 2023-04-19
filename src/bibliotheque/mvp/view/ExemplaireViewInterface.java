@@ -8,4 +8,5 @@ import java.util.List;
 public interface ExemplaireViewInterface {
     public void setPresenter(ExemplairePresenter presenter);
     public void setListDatas(List<Exemplaire> lexemp);
+    public void affMsg(String msg);
 }

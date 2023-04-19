@@ -28,7 +28,6 @@ public class RayonModel implements DAORayon {
 
     @Override
     public Rayon updateRayon(Rayon rayon) {
-        String idRayon = rayon.getCodeRayon();
         int pos = lRayons.indexOf(rayon);
         if(pos < 0) {
             return null;
@@ -55,8 +54,13 @@ public class RayonModel implements DAORayon {
 
 
     public void populate(){
-        Rayon r1 = new Rayon("1M","Rock");
-        Rayon r2 = new Rayon("1D","Comédies");
-        Rayon r3 = new Rayon("1L","Essais");
+        Rayon r1 = new Rayon("1CR","Rock");
+        Rayon r2 = new Rayon("1LC","Comédies");
+        Rayon r3 = new Rayon("1LE","Essais");
+        Rayon r4 = new Rayon("1DC","Comédies");
+        lRayons.add(r1);
+        lRayons.add(r2);
+        lRayons.add(r3);
+        lRayons.add(r4);
     }
 }

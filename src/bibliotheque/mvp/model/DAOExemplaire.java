@@ -12,7 +12,7 @@ public interface DAOExemplaire {
 
     Exemplaire updateExemplaire(Exemplaire exemp);
 
-    Exemplaire readExemplaire(Exemplaire exemp);
+    Exemplaire readExemplaire(String matricule);
 
     List<Exemplaire> getExemplaires();
 
