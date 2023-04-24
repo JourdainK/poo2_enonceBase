@@ -1,5 +1,6 @@
 package bibliotheque.utilitaires;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -63,19 +64,31 @@ public class Utilitaire {
     }
 
     public static LocalDate lecDate(){
-        String[] jma = sc.nextLine().split(" ");
-        int j = Integer.parseInt(jma[0]);
-        int m = Integer.parseInt(jma[1]);
-        int a = Integer.parseInt(jma[2]);
-        return LocalDate.of(a,m,j);
+        try{
+            String[] jma = sc.nextLine().split(" ");
+            int j = Integer.parseInt(jma[0]);
+            int m = Integer.parseInt(jma[1]);
+            int a = Integer.parseInt(jma[2]);
+
+            return LocalDate.of(a,m,j);
+        }catch (Exception e){
+            System.out.println("Erreur lors de l'encodage de la date : " + e);
+            return null;
+        }
     }
 
     public static LocalTime lecTime(){
-        String[] hms = sc.nextLine().split(" ");
-        int h = Integer.parseInt(hms[0]);
-        int m = Integer.parseInt(hms[1]);
-        int s = Integer.parseInt(hms[2]);
-        return LocalTime.of(h,m,s);
+        try{
+            String[] hms = sc.nextLine().split(" ");
+            int h = Integer.parseInt(hms[0]);
+            int m = Integer.parseInt(hms[1]);
+            int s = Integer.parseInt(hms[2]);
+
+            return LocalTime.of(h,m,s);
+        }catch (Exception e){
+            System.out.println("Erreur lors de l'encodage " + e);
+            return null;
+        }
     }
 
     public static void printLangues(Set<String> langues){

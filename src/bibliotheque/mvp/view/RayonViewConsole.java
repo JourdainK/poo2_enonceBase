@@ -16,7 +16,6 @@ public class RayonViewConsole implements RayonViewInterface{
     private List<Rayon> lRayons;
     private Scanner sc = new Scanner(System.in);
 
-    //TODO Rayon view Console
     public RayonViewConsole(){
 
     }

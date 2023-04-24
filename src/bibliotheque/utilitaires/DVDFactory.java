@@ -10,13 +10,30 @@ import java.util.List;
 
 public class DVDFactory extends OuvrageFactory{
     public Ouvrage addDetail(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre){
-        System.out.println("code : ");
-        long code= sc.nextLong();
-        sc.skip("\n");
+        long code=0;
+       do{
+           try{
+               System.out.println("code : ");
+              // sc.skip("\n");
+               String codes = sc.nextLine();
+               code= Long.parseLong(codes);
+
+               break;
+           }catch(Exception e) {
+               System.out.println("Erreur le code encodé n'est pas un nombre");
+           }
+
+       }while(true);
+
         System.out.println("Saisir la durée");
         LocalTime dureeTotale=Utilitaire.lecTime();
-        System.out.println("Saisir le nombre de bonus : ");
-        byte nbreBonus= sc.nextByte();sc.skip("\n");
+        byte nbreBonus;
+        try{
+            System.out.println("Saisir le nombre de bonus : ");
+            nbreBonus= sc.nextByte();sc.skip("\n");
+        }catch (Exception e){
+            System.out.println("Erreur lors de l'encodage des bonus : " + e);
+        }
         DVD dvd =new DVD(titre,ageMin,dateParution,prixLocation,langue,genre,code,dureeTotale,nbreBonus);
         System.out.println("autres langues :");
         List<String> langues = new ArrayList<>(Arrays.asList("anglais","français","italien","allemand","fin"));
