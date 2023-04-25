@@ -36,7 +36,13 @@ public class DVDFactoryBeta {
         long code= sc.nextLong();
         LocalTime dureeTotale=Utilitaire.lecTime();
         byte nbreBonus= sc.nextByte();
-        DVD dvd =new DVD(titre,ageMin,dp,ploc,langue,genre,code,dureeTotale,nbreBonus);
+        DVD dvd = null;
+        try{
+            dvd =new DVD(titre,ageMin,dp,ploc,langue,genre,code,dureeTotale,nbreBonus);
+        }catch (Exception e){
+            System.out.println("Erreur lors de la création du DVD : " + e.getMessage());
+
+        }
         System.out.println("autres langues");
         List<String> langues = new ArrayList<>(Arrays.asList("anglais","français","italien","allemand","fin"));
         int choix;

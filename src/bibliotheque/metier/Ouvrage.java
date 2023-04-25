@@ -18,7 +18,9 @@ public abstract class Ouvrage {
     protected List<Exemplaire> lex = new ArrayList<>();
 
 
-    public Ouvrage(String titre, int ageMin, LocalDate dateParution, TypeOuvrage to, double prixLocation, String langue, String genre) {
+    public Ouvrage(String titre, int ageMin, LocalDate dateParution, TypeOuvrage to, double prixLocation, String langue, String genre) throws Exception{
+        if(titre.trim().equals("") || langue.trim().equals("") || genre.trim().equals("")) throw new Exception("Erreur d'encodage (Titre, langue ou genre))");
+        else if (ageMin < 0) throw new Exception("Erreur d'encodage, l'age minimum doit être supérieur ou égal à 0");
         this.titre = titre;
         this.ageMin = ageMin;
         this.dateParution = dateParution;

@@ -22,33 +22,47 @@ public class Gestion {
 
 
     public void populate(){
-        Auteur a = new Auteur("Verne","Jules","France");
-        laut.add(a);
+        Auteur a;
+        Livre l = null;
+        try{
+            a = new Auteur("Verne","Jules","France");
+            laut.add(a);
+            l = new Livre("Vingt mille lieues sous les mers",10, LocalDate.of(1880,1,1),1.50,"français","aventure","a125",350,TypeLivre.ROMAN,"histoire de sous-marin");
+            louv.add(l);
 
-        Livre l = new Livre("Vingt mille lieues sous les mers",10, LocalDate.of(1880,1,1),1.50,"français","aventure","a125",350,TypeLivre.ROMAN,"histoire de sous-marin");
-        louv.add(l);
-
-        a.addOuvrage(l);
-
-        a = new Auteur("Spielberg","Steven","USA");
-        laut.add(a);
-
-        DVD d = new DVD("AI",12,LocalDate.of(2000,10,1),2.50,"anglais","SF",4578l,LocalTime.of(2,0,0),(byte)2);
-        d.getAutresLangues().add("français");
-        d.getAutresLangues().add("italien");
-        d.getSousTitres().add("néerlandais");
-        louv.add(d);
-
-        a.addOuvrage(d);
-
-         a = new Auteur("Kubrick","Stanley","GB");
-        laut.add(a);
-
-        a.addOuvrage(d);
+            a.addOuvrage(l);
+        }catch (Exception e){
+            System.out.println("Erreur : " + e.getMessage());
+        }
 
 
-        CD c = new CD("The Compil 2023",0,LocalDate.of(2023,1,1),2,"English","POP",1245,(byte)20,LocalTime.of(1,40,0));
-        louv.add(c);
+        DVD d = null;
+        try{
+            a = new Auteur("Spielberg","Steven","USA");
+            laut.add(a);
+
+            d = new DVD("AI",12,LocalDate.of(2000,10,1),2.50,"anglais","SF",4578l,LocalTime.of(2,0,0),(byte)2);
+            d.getAutresLangues().add("français");
+            d.getAutresLangues().add("italien");
+            d.getSousTitres().add("néerlandais");
+            louv.add(d);
+            a.addOuvrage(d);
+            a = new Auteur("Kubrick","Stanley","GB");
+            laut.add(a);
+            a.addOuvrage(d);
+        }catch (Exception e){
+            System.out.println("Erreur : " + e.getMessage());
+        }
+
+        try{
+            CD c = new CD("The Compil 2023",0,LocalDate.of(2023,1,1),2,"English","POP",1245,(byte)20,LocalTime.of(1,40,0));
+            louv.add(c);
+        }catch (Exception e){
+            CD c = null;
+        }
+
+
+
 
         Rayon r = new Rayon("r12","aventure");
         lrayon.add(r);
@@ -259,9 +273,14 @@ public class Gestion {
         String prenom=sc.nextLine();
         System.out.println("nationalité");
         String nat=sc.nextLine();
-        Auteur a  = new Auteur(nom,prenom,nat);
-        laut.add(a);
-        System.out.println("écrivain créé");
+        try{
+            Auteur a  = new Auteur(nom,prenom,nat);
+            laut.add(a);
+            System.out.println("écrivain créé");
+        }catch (Exception e){
+            System.out.println("Erreur : " + e.getMessage());
+            e.printStackTrace();
+        }
         //TODO attribuer ouvrages , les ouvrages sont triés par ordre de titre
     }
 

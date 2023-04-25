@@ -66,10 +66,14 @@ public class AuteurViewConsole implements AuteurViewInterface{
         String autFname = sc.nextLine();
         System.out.print("\nSaisir la nationalité de l'auteur : ");
         String autNat = sc.nextLine();
-
-        Auteur tmpAut = new Auteur(autName, autFname, autNat);
-        presenter.addAuteur(tmpAut);
-        lAuteur = presenter.getAll();
+        try{
+            Auteur tmpAut = new Auteur(autName, autFname, autNat);
+            presenter.addAuteur(tmpAut);
+            lAuteur = presenter.getAll();
+        }catch (Exception e){
+            System.out.println("Erreur : " + e.getMessage());
+            e.printStackTrace();
+        }
         affListe(lAuteur);
     }
 

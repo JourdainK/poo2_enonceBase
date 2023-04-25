@@ -15,16 +15,34 @@ public class LivreFactory extends OuvrageFactory{
       public Ouvrage addDetail(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre){
         System.out.println("isbn ");
         String isbn = sc.next();
-        System.out.println("pages ");
-        int nbrePages = sc.nextInt();
-        sc.skip("\n");
+        int nbrePages;
+        try{
+            System.out.println("pages ");
+            nbrePages = sc.nextInt();
+            sc.skip("\n");
+        }catch (Exception e){
+            System.out.println("Erreur d'encodage du nombre de pages : " + e.getMessage());
+            System.out.println("Nombre de pages adapté à : 0");
+            nbrePages = 0;
+            //to delete
+            e.printStackTrace();
+        }
         TypeLivre[] ttl = TypeLivre.values();
         List<TypeLivre> ltl = new ArrayList<>(Arrays.asList(ttl));
         int choix = Utilitaire.choixListe(ltl);
         TypeLivre tl = ttl[choix-1];
         System.out.println("résumé du livre :");
         String resume = sc.nextLine();
-         Livre l=new Livre(titre,ageMin,dateParution,prixLocation,langue,genre,isbn,nbrePages,tl,resume);
-        return l;
+
+        //TODO ask if the code below is correct ( return inside catch ? )
+        try{
+            Livre l=new Livre(titre,ageMin,dateParution,prixLocation,langue,genre,isbn,nbrePages,tl,resume);
+            return l;
+        }catch (Exception e){
+            System.out.println("Erreur : " + e.getMessage());
+            //to delete for release
+            e.printStackTrace();
+            return null;
+        }
    }
 }

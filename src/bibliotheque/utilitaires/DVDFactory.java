@@ -25,29 +25,46 @@ public class DVDFactory extends OuvrageFactory{
 
        }while(true);
 
-        System.out.println("Saisir la durée");
+        System.out.println("Saisir la durée en H M S (heure minutes secondes :");
         LocalTime dureeTotale=Utilitaire.lecTime();
-        byte nbreBonus;
+
+        byte nbreBonus=0;
         try{
             System.out.println("Saisir le nombre de bonus : ");
             nbreBonus= sc.nextByte();sc.skip("\n");
         }catch (Exception e){
             System.out.println("Erreur lors de l'encodage des bonus : " + e);
         }
-        DVD dvd =new DVD(titre,ageMin,dateParution,prixLocation,langue,genre,code,dureeTotale,nbreBonus);
+        DVD dvd = null;
+        try{
+            dvd =new DVD(titre,ageMin,dateParution,prixLocation,langue,genre,code,dureeTotale,nbreBonus);
+        }catch (Exception e){
+            System.out.println("Erreur lors de la création du DVD : " + e.getMessage());
+            //to delete
+            e.printStackTrace();
+        }
         System.out.println("autres langues :");
         List<String> langues = new ArrayList<>(Arrays.asList("anglais","français","italien","allemand","fin"));
+
         int choix;
         do{
             choix=Utilitaire.choixListe(langues);
+            if(!dvd.getAutresLangues().contains(choix-1)){
+                dvd.getAutresLangues().add(langues.get(choix-1));//TODO gérer msg d'erreur en cas de doublon
+            }
+            else System.out.println("Erreur, choix déja présent dans la liste");
             if(choix==langues.size())break;
-            dvd.getAutresLangues().add(langues.get(choix-1));//TODO gérer msg d'erreur en cas de doublon
         }while(true);
+
         System.out.println("sous-titres :");
         do{
             choix=Utilitaire.choixListe(langues);
+            if(!dvd.getSousTitres().contains(langues.get(choix-1))){
+                dvd.getSousTitres().add(langues.get(choix-1));//TODO gérer msg d'erreur en cas de doublon
+            }
+            else System.out.println("Erreur, choix déja présent dans la liste");
+
             if(choix==langues.size())break;
-            dvd.getSousTitres().add(langues.get(choix-1));//TODO gérer msg d'erreur en cas de doublon
         }while(true);
         return dvd;
     }
