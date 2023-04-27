@@ -1,62 +1,47 @@
 package bibliotheque.mvp.view;
 
-import bibliotheque.metier.Exemplaire;
-import bibliotheque.metier.Ouvrage;
-import bibliotheque.mvp.presenter.ExemplairePresenter;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import bibliotheque.metier.*;
+import bibliotheque.utilitaires.Utilitaire;
 
 import static bibliotheque.utilitaires.Utilitaire.affListe;
-import static bibliotheque.utilitaires.Utilitaire.choixListe;
 
-public class ExemplaireViewConsole implements ExemplaireViewInterface{
-    private ExemplairePresenter presenter;
-    private List<Exemplaire> lExemplaires;
-    private List<Ouvrage> lOuvrages;
-    private Scanner sc = new Scanner(System.in);
-
-    public void ExemplaireViewConsole(){
-
-    }
-
-
+public class ExemplaireViewConsole extends AbstractViewConsole<Exemplaire> {
     @Override
-    public void setPresenter(ExemplairePresenter presenter) {
-        this.presenter = presenter;
+    protected void rechercher() {
+
     }
 
     @Override
-    public void setListDatas(List<Exemplaire> lexemp) {
-        this.lExemplaires = lexemp;
-        menu();
+    protected void modifier() {
+
     }
 
-    public void affMsg(String msg){
-        System.out.println("Information : " + msg);
+    @Override
+    protected void ajouter() {
+        System.out.println("matricule ");
+        String mat=sc.next();
+        System.out.println("etat  ");
+        String etat=sc.next();
+        System.out.println("ouvrage ");
+        //TODO choisir ouvrage
+        Ouvrage obidon = null;
+        try {
+            obidon = new Livre("zzz",0,null,1,"","","",1, TypeLivre.ROMAN,"");
+        } catch (Exception e) {
+            System.out.println("erreur :"+e);
+        }
+        Exemplaire ex = null;
+        try {
+            ex = new Exemplaire(mat,etat,obidon);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        presenter.add(ex);
+        //TODO attribuer rayon , les rayons sont triès par ordre de code
     }
 
-    public void menu(){
-        List<String> option = new ArrayList<>(Arrays.asList("Afficher les exemplaires","Ajouter","Effacer","Modifier","Rechercher","Retour"));
-        int choix;
-
-        do{
-            System.out.println("");
-            choix = choixListe(option);
-
-            switch (choix){
-                case 1 -> affListe(lExemplaires);
-                case 2 -> System.out.println("ajouter");
-                case 3 -> System.out.println("Effacer");
-                case 4 -> System.out.println("Modifier");
-                case 5 -> System.out.println("Rechercher");
-            }
-        }while(choix!=option.size());
-    }
-
-    public void ajoutExemplaire(){
+    @Override
+    protected void special() {
 
     }
 }

@@ -1,48 +1,19 @@
 package bibliotheque.mvp.presenter;
 
 import bibliotheque.metier.Exemplaire;
-import bibliotheque.mvp.model.DAOExemplaire;
-import bibliotheque.mvp.view.ExemplaireViewInterface;
+import bibliotheque.metier.Lecteur;
+import bibliotheque.mvp.model.DAO;
+import bibliotheque.mvp.model.SpecialLecteur;
+import bibliotheque.mvp.view.ViewInterface;
 
 import java.util.List;
 
-public class ExemplairePresenter {
-    private DAOExemplaire model;
+public class ExemplairePresenter extends Presenter<Exemplaire> {
 
-    private ExemplaireViewInterface view;
 
-    public ExemplairePresenter(DAOExemplaire model, ExemplaireViewInterface view){
-        this.model=model;
-        this.view=view;
-        this.view.setPresenter(this);
+    public ExemplairePresenter(DAO<Exemplaire> model, ViewInterface<Exemplaire> view) {
+        super(model,view);
     }
 
-    public void start(){ view.setListDatas(getAll());}
-
-    public List<Exemplaire> getAll(){ return model.getExemplaires(); }
-
-    public void addExemplaire(Exemplaire exemplaire){
-        Exemplaire exemp = model.addExemplaire(exemplaire);
-        if(exemp!=null) view.affMsg("Création de l'exemplaire : " + exemplaire);
-        else view.affMsg("Erreur lors de l'ajout de l'exemplaire");
-    }
-
-    public void removeExemplaire(Exemplaire exemplaire){
-        boolean check = model.removeExemplaire(exemplaire);
-        if(check) view.affMsg("Exemplaire effacé");
-        else view.affMsg("Erreur lors de l'effacement de l'exemplaire");
-    }
-
-    public void updateExemplaire(Exemplaire exemplaire){
-        Exemplaire exemp = model.updateExemplaire(exemplaire);
-        if(exemp==null) view.affMsg("Erreur lors de la mise à jour");
-        else view.affMsg(exemp.toString());
-    }
-
-    public void readExemplaire(String matricule){
-        Exemplaire exemp = model.readExemplaire(matricule);
-        if(exemp==null) view.affMsg("Pas d'exemplaire trouvé");
-        else view.affMsg(exemp.toString());
-    }
 
 }

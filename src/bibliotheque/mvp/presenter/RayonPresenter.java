@@ -1,49 +1,11 @@
 package bibliotheque.mvp.presenter;
 
-import bibliotheque.metier.Lecteur;
 import bibliotheque.metier.Rayon;
-import bibliotheque.mvp.model.DAORayon;
-import bibliotheque.mvp.view.RayonViewInterface;
+import bibliotheque.mvp.model.DAO;
+import bibliotheque.mvp.view.ViewInterface;
 
-import java.util.List;
-
-public class RayonPresenter {
-    private DAORayon model;
-    private RayonViewInterface view;
-
-    public RayonPresenter(DAORayon model,RayonViewInterface view){
-        this.model = model;
-        this.view = view;
-        this.view.setPresenter(this);
+public class RayonPresenter extends Presenter<Rayon> {
+    public RayonPresenter(DAO<Rayon> model, ViewInterface<Rayon> view) {
+        super(model, view);
     }
-
-    public void start(){ view.setListDatas(getAll());}
-
-    public List<Rayon> getAll(){ return model.getRayons(); }
-
-    public void addRayon(Rayon rayon){
-        Rayon ray = model.addrayon(rayon);
-        if(ray!=null) view.affMsg("Création du rayon : " + ray);
-        else view.affMsg("Erreur lors de la création du rayon");
-        List<Rayon> lRayons = model.getRayons();
-    }
-
-    public void removeRayon(Rayon rayon){
-        boolean check = model.removeRayon(rayon);
-        if(check) view.affMsg("Rayon effacé");
-        else view.affMsg("Erreur, rayon non effacé");
-    }
-
-    public void updateRayon(Rayon rayon){
-        Rayon ray = model.updateRayon(rayon);
-        if(ray==null) view.affMsg("Erreur : mise à jour annulée");
-        else view.affMsg("Mise à jour effectuée");
-    }
-
-    public void readRayon(String codeRayon){
-        Rayon ray = model.readRayon(codeRayon);
-        if(ray==null) view.affMsg("Pas de rayon trouvé");
-        else view.affMsg(ray.toString());
-    }
-    //TODO rayon specials
 }

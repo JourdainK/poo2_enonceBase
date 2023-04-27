@@ -11,7 +11,6 @@ public class CD extends Ouvrage{
 
     public CD(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre, long code, byte nbrePlages, LocalTime dureeTotale) throws Exception{
         super(titre, ageMin, dateParution, TypeOuvrage.CD, prixLocation, langue, genre);
-        if(nbrePlages < 1) throw new Exception("Erreur, le nombre de piste doit être supérieur ou égal à 1");
         this.code=code;
         this.nbrePlages=nbrePlages;
         this.dureeTotale=dureeTotale;
@@ -72,4 +71,6 @@ public class CD extends Ouvrage{
                 ", dureeTotale='" + dureeTotale + '\'' +
                 "} " ;
     }
+
+
 }

@@ -1,16 +1,12 @@
 package bibliotheque.mvp.model;
 
-import bibliotheque.metier.Auteur;
-import bibliotheque.metier.Ouvrage;
-import bibliotheque.metier.TypeLivre;
-import bibliotheque.metier.TypeOuvrage;
+import bibliotheque.metier.*;
 
 import java.util.List;
 
 public interface SpecialAuteur {
-    List<Ouvrage> listerOuvrages(Auteur aut);
+public List<Ouvrage>  listerOuvrages(Auteur a);
+public List<Livre> listerLivre(Auteur a,TypeLivre tl);
 
-    List<Ouvrage> listerOuvrages(Auteur aut,TypeOuvrage to, TypeLivre tl);
-
-    List<Ouvrage> listerOuvrages(String genre);
+public List<Ouvrage> listerOuvrages(Auteur a, String genre);
 }

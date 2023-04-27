@@ -1,16 +1,57 @@
 package bibliotheque.utilitaires;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Utilitaire {
     private static Scanner sc = new Scanner(System.in);
+
+    public static int lireInt(){
+        int n=0;
+        do{
+           try {
+               String ns = sc.nextLine();
+               n=Integer.parseInt(ns);
+               return n;
+           }
+           catch(NumberFormatException e){
+               System.out.println("valeur numérique incorrecte");
+           }
+
+        } while(true);
+    }
+
+    public static long lireLong(){
+        long n=0;
+        do{
+            try {
+                String ns = sc.nextLine();
+                n=Long.parseLong(ns);
+                return n;
+            }
+            catch(NumberFormatException e){
+                System.out.println("valeur numérique incorrecte");
+            }
+
+        } while(true);
+    }
+    public static double lireDouble(){
+        double n=0;
+        do{
+            try {
+                String ns = sc.nextLine();
+                n=Double.parseDouble(ns);
+                return n;
+            }
+            catch(NumberFormatException e){
+                System.out.println("valeur numérique incorrecte");
+            }
+
+        } while(true);
+    }
     public static int choixListe(List l){
        affListe(l);
        return choixElt(l);
@@ -25,105 +66,43 @@ public class Utilitaire {
 
     public static int choixElt(List l){
         int choix;
-        String choix1;
         do {
             System.out.println("choix :");
-            choix1 = saisie("[0-9]*","Veuillez saisir un nombre");
-            choix = Integer.parseInt(choix1);
-            if(choix <1 || choix > l.size()){
-                System.out.println("Erreur le nombre doit être compris entre 1 et " + l.size());
-            }
+            choix = lireInt();
+
         } while(choix <1 || choix > l.size());
         return choix;
     }
 
-    //no particular order -> choose by their id / other unique attr
-    public static void affSet(Set set){
-        for(Object s : set){
-            System.out.println("\t - " + s);
-        }
-    }
-
-
-
-    public static String saisie(String regex, String message) {
-        boolean check = false;
-        String phrase;
-
-
-        do {
-            phrase = sc.nextLine();
-            if (phrase.matches(regex)) {
-                check = true;
-            } else {
-                System.out.println(message);
-            }
-
-        } while (!check);
-        return phrase;
-    }
-
     public static LocalDate lecDate(){
-        try{
+        do {
             String[] jma = sc.nextLine().split(" ");
-            int j = Integer.parseInt(jma[0]);
-            int m = Integer.parseInt(jma[1]);
-            int a = Integer.parseInt(jma[2]);
-
-            return LocalDate.of(a,m,j);
-        }catch (Exception e){
-            System.out.println("Erreur lors de l'encodage de la date : " + e);
-            return null;
-        }
+            try {
+                int j = Integer.parseInt(jma[0]);
+                int m = Integer.parseInt(jma[1]);
+                int a = Integer.parseInt(jma[2]);
+                return LocalDate.of(a, m, j);
+            } catch (Exception e) {
+                System.out.println("date incorrecte");
+            }
+        }while (true);
     }
 
     public static LocalTime lecTime(){
-        try{
-            String[] hms = sc.nextLine().split(" ");
-            int h = Integer.parseInt(hms[0]);
-            int m = Integer.parseInt(hms[1]);
-            int s = Integer.parseInt(hms[2]);
-
-            return LocalTime.of(h,m,s);
-        }catch (Exception e){
-            System.out.println("Erreur lors de l'encodage " + e);
-            return null;
+        do {
+           try {
+               String[] hms = sc.nextLine().split(" ");
+               int h = Integer.parseInt(hms[0]);
+               int m = Integer.parseInt(hms[1]);
+               int s = Integer.parseInt(hms[2]);
+               return LocalTime.of(h, m, s);
+           }
+           catch (Exception e){
+               System.out.println("temps incorrect");
+           }
         }
+        while (true);
     }
-
-    public static void printLangues(Set<String> langues){
-        int i=1;
-        for(String l : langues){
-            System.out.println((i++) + " - " + l);
-        }
-    }
-
-    public static String getLangInHashset(Set<String> langues){
-        int i = 1;
-        int choix;
-        String choice;
-        boolean check=false;
-        StringBuffer err = new StringBuffer("Veuillez saisir un nombre compris entre 1 et " + langues.size());
-        String errMess = String.valueOf(err);
-
-
-        do{
-            printLangues(langues);
-            System.out.println("Votre choix : ");
-            choice = saisie("[0-9]*",errMess);
-            choix = Integer.parseInt(choice);
-            for(String l : langues){
-                if(choix == i){
-                    check = true;
-                    return l;
-                }
-                i++;
-            }
-        }while(!check);
-
-        return null;
-    }
-
 
     public static String getDateFrench(LocalDate d){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d MM yyyy");
@@ -137,4 +116,5 @@ public class Utilitaire {
         if(newValue.isBlank()) return oldValue;
         return newValue;
     }
+
 }

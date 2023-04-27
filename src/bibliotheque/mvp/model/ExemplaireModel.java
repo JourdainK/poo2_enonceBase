@@ -1,60 +1,49 @@
 package bibliotheque.mvp.model;
 
 import bibliotheque.metier.Exemplaire;
-import bibliotheque.metier.Ouvrage;
+import bibliotheque.metier.Lecteur;
+import bibliotheque.metier.Rayon;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ExemplaireModel implements DAOExemplaire{
-    private List<Exemplaire> lExemplaires = new ArrayList<>();
-
-    private ExemplaireModel(){
+public class ExemplaireModel extends AbstractModel<Exemplaire> implements SpecialExemplaire {
+    @Override
+    public void modifierEtat(Exemplaire ex, String etat) {
 
     }
 
     @Override
-    public Exemplaire addExemplaire(Exemplaire exemp) {
-        boolean check = lExemplaires.contains(exemp);
-        if(!check){
-            lExemplaires.add(exemp);
-            return exemp;
-        }
-        else return null;
+    public Lecteur LecteurActuel(Exemplaire ex) {
+        return ex.lecteurActuel();
     }
 
     @Override
-    public boolean removeExemplaire(Exemplaire exemp) {
-        return lExemplaires.remove(exemp);
+    public List<Lecteur> lecteurs(Exemplaire ex) {
+        return ex.lecteurs();
     }
 
     @Override
-    public Exemplaire updateExemplaire(Exemplaire exemp) {
-        int pos = lExemplaires.indexOf(exemp);
-
-        if(pos < 0){
-            return null;
-        } else{
-            lExemplaires.set(pos,exemp);
-            return exemp;
-        }
+    public void envoiMailLecteurActuel(Exemplaire ex) {
+     //TODO envoi mail lecteur
     }
 
     @Override
-    public Exemplaire readExemplaire(String matricule) {
-        for(Exemplaire e : lExemplaires){
-            if(e.getMatricule().equals(matricule)){
-                return e;
-            }
-        }
-        return null;
+    public void envoiMailLecteurs(Exemplaire ex) {
+     //TODO envoi mail lecteurs
     }
 
     @Override
-    public List<Exemplaire> getExemplaires() {
-        return lExemplaires;
+    public boolean enRetard(Exemplaire ex) {
+        return ex.enRetard();
     }
 
+    @Override
+    public int joursRetard(Exemplaire ex) {
+        return ex.joursRetard();
+    }
 
-    //TODO specials
+    @Override
+    public boolean enLocation(Exemplaire ex) {
+        return ex.enLocation();
+    }
 }

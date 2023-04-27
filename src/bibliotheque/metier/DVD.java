@@ -4,20 +4,18 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
-public class DVD extends Ouvrage {
+public class DVD extends Ouvrage{
 
     private long code;
     private LocalTime dureeTotale;
     private byte nbreBonus;
-    private Set<String> autresLangues = new HashSet<>();
-    private Set<String> sousTitres = new HashSet<>();
-
+    private Set<String> autresLangues=new HashSet<>();
+    private Set<String> sousTitres=new HashSet<>();
     public DVD(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre, long code, LocalTime dureeTotale, byte nbreBonus) throws Exception {
         super(titre, ageMin, dateParution, TypeOuvrage.DVD, prixLocation, langue, genre);
-        if(nbreBonus < 0) throw new Exception("Erreur d'encodage, le nombre de bonus doit être supérieur ou égal à 0");
-        this.code = code;
-        this.dureeTotale = dureeTotale;
-        this.nbreBonus = nbreBonus;
+        this.code=code;
+       this.dureeTotale=dureeTotale;
+       this.nbreBonus=nbreBonus;
     }
 
     public long getCode() {
@@ -72,7 +70,6 @@ public class DVD extends Ouvrage {
     public int hashCode() {
         return Objects.hash(code);
     }
-
     @Override
     public double amendeRetard(int njours) {
 
@@ -86,12 +83,12 @@ public class DVD extends Ouvrage {
 
     @Override
     public String toString() {
-        return super.toString() + "DVD{" +
+        return super.toString()+"DVD{" +
                 "code=" + code +
                 ", dureeTotale='" + dureeTotale + '\'' +
                 ", nbreBonus=" + nbreBonus +
                 ", autresLangues=" + autresLangues +
                 ", sousTitres=" + sousTitres +
-                "} ";
+                "} " ;
     }
 }
