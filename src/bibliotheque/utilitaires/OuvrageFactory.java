@@ -16,7 +16,7 @@ public  abstract class OuvrageFactory {
        System.out.println("age minimum");
        int ageMin= lireInt();
        System.out.println("date de parution");
-       LocalDate dp= Utilitaire.lecDate();
+       LocalDate dp= lecDate();
        System.out.println("prix de location");
        double ploc = lireDouble();
        System.out.println("langue");

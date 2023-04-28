@@ -1,6 +1,5 @@
 package bibliotheque.metier;
 
-import bibliotheque.utilitaires.Identifiable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,6 @@ public class Rayon  {
                 '}';
     }
     public void addExemplaire(Exemplaire e){
-        lex.add(e);
         e.setRayon(this);
     }
 

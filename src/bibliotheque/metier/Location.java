@@ -1,9 +1,9 @@
 package bibliotheque.metier;
 
-import bibliotheque.utilitaires.Identifiable;
+
 
 import java.time.LocalDate;
-import java.time.Period;
+
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
@@ -29,6 +29,8 @@ public class Location {
         this.loueur = loueur;
         this.exemplaire = exemplaire;
         this.dateLocation=LocalDate.now();
+        this.loueur.getLloc().add(this);
+        this.exemplaire.getLloc().add(this);
     }
 
     public LocalDate getDateLocation() {

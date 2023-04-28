@@ -1,6 +1,6 @@
 package bibliotheque.metier;
 
-import bibliotheque.utilitaires.Identifiable;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -129,7 +129,6 @@ public abstract class Ouvrage {
         a.getLouvrage().remove(this);
     }
     public void addExemplaire(Exemplaire e){
-        lex.add(e);
         e.setOuvrage(this);
     }
 

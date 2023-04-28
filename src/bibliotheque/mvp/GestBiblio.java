@@ -62,6 +62,14 @@
             locm = new LocationModel();
             locv = new LocationViewConsole();
             locp = new LocationPresenter(locm,locv);//création et injection de dépendance
+
+            ((SpecialLocationPresenter)locp).setExemplairePresenter(ep);
+            ((SpecialLocationPresenter)locp).setLecteurPresenter(lp);
+
+            ((SpecialOuvragePresenter)op).setAuteurPresenter(ap);
+
+            ((SpecialExemplairePresenter)ep).setOuvragePresenter(op);
+            ((SpecialExemplairePresenter)ep).setRayonPresenter(rp);
     try {
         populate();
     }
@@ -146,11 +154,8 @@
 
             Location loc = new Location(LocalDate.of(2023,2,1),LocalDate.of(2023,3,1),lm.getAll().get(0),em.getAll().get(0));
             locm.add(loc);
-            loc.setDateRestitution(LocalDate.of(2023,2,4));
 
-
-
-            loc = new Location(LocalDate.of(2023,2,5),LocalDate.of(2023,3,5),lm.getAll().get(1),em.getAll().get(1));
+            loc = new Location(LocalDate.of(2023,2,5),null,lm.getAll().get(1),em.getAll().get(1));
             locm.add(loc);
 
         }
