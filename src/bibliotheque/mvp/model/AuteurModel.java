@@ -8,6 +8,7 @@ import bibliotheque.metier.TypeLivre;
 import java.util.List;
 
 public class AuteurModel extends AbstractModel<Auteur> implements SpecialAuteur {
+
     @Override
     public List<Ouvrage> listerOuvrages(Auteur a) {
         return a.listerOuvrages();

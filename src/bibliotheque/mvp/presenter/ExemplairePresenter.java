@@ -7,7 +7,9 @@ import bibliotheque.metier.Rayon;
 import bibliotheque.mvp.model.DAO;
 import bibliotheque.mvp.model.SpecialExemplaire;
 import bibliotheque.mvp.view.ViewInterface;
+import bibliotheque.utilitaires.SortExemplaire;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ExemplairePresenter extends Presenter<Exemplaire> implements SpecialExemplairePresenter {
@@ -21,6 +23,13 @@ public class ExemplairePresenter extends Presenter<Exemplaire> implements Specia
         super(model,view);
     }
 
+    @Override
+    public List<Exemplaire> getAll(){
+        List<Exemplaire> ldatas;
+        ldatas = model.getAll();
+        Collections.sort(ldatas, new SortExemplaire());
+        return ldatas;
+    }
 
     @Override
     public void setOuvragePresenter(Presenter<Ouvrage> ouvragePresenter){

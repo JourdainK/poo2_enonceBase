@@ -6,6 +6,10 @@ import bibliotheque.metier.Ouvrage;
 import bibliotheque.mvp.model.DAO;
 import bibliotheque.mvp.model.SpecialOuvrage;
 import bibliotheque.mvp.view.ViewInterface;
+import bibliotheque.utilitaires.SortOuvrages;
+
+import java.util.Collections;
+import java.util.List;
 
 
 public class OuvragePresenter extends Presenter<Ouvrage> implements SpecialOuvragePresenter{
@@ -16,6 +20,13 @@ public class OuvragePresenter extends Presenter<Ouvrage> implements SpecialOuvra
         this.auteurPresenter = auteurPresenter;
     }
 
+    @Override
+    public List<Ouvrage> getAll(){
+        List<Ouvrage> ldatas;
+        ldatas = model.getAll();
+        Collections.sort(ldatas, new SortOuvrages());
+        return  ldatas;
+    }
     @Override
     public Auteur choixAuteur(){
        return  auteurPresenter.selection();

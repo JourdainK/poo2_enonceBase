@@ -32,9 +32,7 @@ public class RayonModelV2 implements DAO<Rayon> ,SpecialRayon{
     }
 
     @Override
-    public List<Rayon> getAll() {
-        return ldatas;
-    }
+    public List<Rayon> getAll() { return ldatas; }
 
     public Rayon add(Rayon nl) {
         if (ldatas.contains(nl)) return null;

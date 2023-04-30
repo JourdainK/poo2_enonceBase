@@ -21,6 +21,7 @@ public class LivreFactory extends OuvrageFactory{
         List<TypeLivre> ltl = new ArrayList<>(Arrays.asList(ttl));
         int choix = Utilitaire.choixListe(ltl);
         TypeLivre tl = ttl[choix-1];
+        sc.skip("\n");
         System.out.println("résumé du livre :");
         String resume = sc.nextLine();
           Livre l= null;

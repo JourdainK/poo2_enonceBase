@@ -6,15 +6,16 @@ import bibliotheque.metier.Lecteur;
 
 import bibliotheque.mvp.presenter.LecteurPresenter;
 import bibliotheque.mvp.presenter.SpecialLecteurPresenter;
+import bibliotheque.utilitaires.SortLecteurs;
 
 import static bibliotheque.utilitaires.Utilitaire.*;
 
 import java.time.LocalDate;
-
+import java.util.Collections;
+import java.util.List;
 
 
 public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements SpecialLecteurViewConsole {
-
 
   protected  void rechercher() {
       try{

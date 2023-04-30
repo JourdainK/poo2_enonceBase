@@ -5,7 +5,10 @@ import bibliotheque.metier.Lecteur;
 import bibliotheque.mvp.model.DAO;
 import bibliotheque.mvp.model.SpecialLecteur;
 import bibliotheque.mvp.view.ViewInterface;
+import bibliotheque.utilitaires.SortLecteurs;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LecteurPresenter extends Presenter<Lecteur> implements SpecialLecteurPresenter {
@@ -15,7 +18,13 @@ public class LecteurPresenter extends Presenter<Lecteur> implements SpecialLecte
         super(model,view);
     }
 
-
+    @Override
+    public List<Lecteur> getAll(){
+        List<Lecteur> ldatas;
+        ldatas = model.getAll();
+        Collections.sort(ldatas, new SortLecteurs());
+        return ldatas;
+    }
     @Override
     public void exemplairesEnLocation(Lecteur l) {
         List<Exemplaire> lex =   ((SpecialLecteur)model).exemplairesEnLocation(l);
