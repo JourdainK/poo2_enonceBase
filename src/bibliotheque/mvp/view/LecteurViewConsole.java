@@ -4,15 +4,12 @@ package bibliotheque.mvp.view;
 import bibliotheque.metier.Lecteur;
 
 
-import bibliotheque.mvp.presenter.LecteurPresenter;
 import bibliotheque.mvp.presenter.SpecialLecteurPresenter;
-import bibliotheque.utilitaires.SortLecteurs;
 
 import static bibliotheque.utilitaires.Utilitaire.*;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
+import java.util.Map;
 
 
 public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements SpecialLecteurViewConsole {
@@ -105,7 +102,7 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements 
         int choix =  choixElt(ldatas);
         Lecteur lec = ldatas.get(choix-1);
             do {
-                System.out.println("1.Exemplaire en location\n2.Exemplaires loués\n3.menu principal");
+                System.out.println("1.Exemplaire en location\n2.Exemplaires loués\n3.Recherche spéciales\n4.menu principal");
                 System.out.println("choix : ");
                 int ch = lireInt();
                  switch (ch) {
@@ -115,7 +112,10 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements 
                     case 2:
                         exemplairesLoues(lec);
                         break;
-                    case 3: return;
+                     case 3 :
+                         rechercheMap();
+                         break;
+                    case 4: return;
                     default:
                         System.out.println("choix invalide recommencez ");
                 }
@@ -132,6 +132,20 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements 
     @Override
     public void exemplairesLocation(Lecteur lec) {
         ((SpecialLecteurPresenter)presenter).exemplairesEnLocation(lec);
+    }
+
+    public void rechercheMap(){
+
+      Map<String, Lecteur> mdatas = presenter.getMapAll();
+
+        System.out.println("Saisir l'email : ");
+        String email = sc.nextLine();
+
+        if(mdatas.containsKey(email)){
+            Lecteur lect = mdatas.get(email);
+            System.out.println(lect);
+        }
+        else System.out.println("pas de lecteur correspondant à cet email (" + email+")");
     }
 }
 

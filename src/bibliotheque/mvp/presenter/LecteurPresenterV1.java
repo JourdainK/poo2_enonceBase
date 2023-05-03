@@ -8,6 +8,7 @@ import bibliotheque.mvp.view.LecteurViewInterface;
 import bibliotheque.mvp.view.ViewInterface;
 
 import java.util.List;
+import java.util.Map;
 
 public class LecteurPresenterV1  {
 

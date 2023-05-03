@@ -6,9 +6,9 @@ import bibliotheque.metier.Ouvrage;
 import bibliotheque.mvp.model.DAO;
 import bibliotheque.mvp.model.SpecialOuvrage;
 import bibliotheque.mvp.view.ViewInterface;
-import bibliotheque.utilitaires.SortOuvrages;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -22,9 +22,15 @@ public class OuvragePresenter extends Presenter<Ouvrage> implements SpecialOuvra
 
     @Override
     public List<Ouvrage> getAll(){
+        final int sens = 1;
         List<Ouvrage> ldatas;
         ldatas = model.getAll();
-        Collections.sort(ldatas, new SortOuvrages());
+        Collections.sort(ldatas, new Comparator<Ouvrage>() {
+            @Override
+            public int compare(Ouvrage o1, Ouvrage o2) {
+                return o1.getTitre().compareToIgnoreCase(o2.getTitre()) * sens;
+            }
+        });
         return  ldatas;
     }
     @Override

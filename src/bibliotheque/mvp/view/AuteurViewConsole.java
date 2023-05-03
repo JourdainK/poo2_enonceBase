@@ -1,14 +1,10 @@
 package bibliotheque.mvp.view;
 
 import bibliotheque.metier.*;
-import bibliotheque.mvp.presenter.AuteurPresenter;
-import bibliotheque.mvp.presenter.LecteurPresenter;
 import bibliotheque.mvp.presenter.SpecialAuteurPresenter;
-import bibliotheque.utilitaires.SortEcrivain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static bibliotheque.utilitaires.Utilitaire.*;

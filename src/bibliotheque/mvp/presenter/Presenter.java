@@ -4,6 +4,7 @@ import bibliotheque.mvp.model.DAO;
 import bibliotheque.mvp.view.ViewInterface;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract class Presenter<T> {
     protected  DAO<T> model;
@@ -52,5 +53,9 @@ public abstract class Presenter<T> {
 
     public T selection(){
        return  view.selectionner(model.getAll());
+    }
+
+    public Map<String,T> getMapAll() {
+       return model.getMapAll();
     }
 }

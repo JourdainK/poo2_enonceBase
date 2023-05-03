@@ -1,4 +1,4 @@
-package bibliotheque.utilitaires;
+package bibliotheque.utilitaires.comparators;
 
 import bibliotheque.metier.Auteur;
 

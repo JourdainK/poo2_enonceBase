@@ -54,6 +54,7 @@ public class LecteurModelV1 implements DAOLecteur,SpecialLecteur {
         return null;
     }
 
+
     @Override
     public List<Lecteur> getLecteurs() {
         return lecteurs;

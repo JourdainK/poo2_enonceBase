@@ -5,11 +5,8 @@ import bibliotheque.metier.Lecteur;
 import bibliotheque.mvp.model.DAO;
 import bibliotheque.mvp.model.SpecialLecteur;
 import bibliotheque.mvp.view.ViewInterface;
-import bibliotheque.utilitaires.SortLecteurs;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class LecteurPresenter extends Presenter<Lecteur> implements SpecialLecteurPresenter {
 
@@ -20,9 +17,17 @@ public class LecteurPresenter extends Presenter<Lecteur> implements SpecialLecte
 
     @Override
     public List<Lecteur> getAll(){
+        final int sens = -1;
         List<Lecteur> ldatas;
         ldatas = model.getAll();
-        Collections.sort(ldatas, new SortLecteurs());
+        Collections.sort(ldatas, new Comparator<Lecteur>() {
+            @Override
+            public int compare(Lecteur o1, Lecteur o2) {
+                int nameCompare = o1.getNom().compareToIgnoreCase(o2.getNom())*sens;
+                int prenCompare = o2.getPrenom().compareToIgnoreCase(o2.getPrenom())*sens;
+                return (nameCompare==0)? prenCompare : nameCompare;
+            }
+        });
         return ldatas;
     }
     @Override
@@ -37,4 +42,9 @@ public class LecteurPresenter extends Presenter<Lecteur> implements SpecialLecte
         if(lex==null || lex.isEmpty()) view.affMsg("aucun exemplaire trouvé");
         else view.affList(lex);
     }
+
+    public Map<String, Lecteur> getMapAll(){
+        Map<String, Lecteur> mdatas = new HashMap<>();
+        mdatas = model.getMapAll();
+        return mdatas;}
 }

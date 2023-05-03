@@ -7,9 +7,9 @@ import bibliotheque.metier.Rayon;
 import bibliotheque.mvp.model.DAO;
 import bibliotheque.mvp.model.SpecialExemplaire;
 import bibliotheque.mvp.view.ViewInterface;
-import bibliotheque.utilitaires.SortExemplaire;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ExemplairePresenter extends Presenter<Exemplaire> implements SpecialExemplairePresenter {
@@ -27,7 +27,12 @@ public class ExemplairePresenter extends Presenter<Exemplaire> implements Specia
     public List<Exemplaire> getAll(){
         List<Exemplaire> ldatas;
         ldatas = model.getAll();
-        Collections.sort(ldatas, new SortExemplaire());
+        Collections.sort(ldatas, new Comparator<Exemplaire>() {
+            @Override
+            public int compare(Exemplaire o1, Exemplaire o2) {
+                return o1.getMatricule().compareToIgnoreCase(o2.getMatricule());
+            }
+        });
         return ldatas;
     }
 
@@ -104,4 +109,5 @@ public class ExemplairePresenter extends Presenter<Exemplaire> implements Specia
        boolean enLoc =  ((SpecialExemplaire)model).enLocation(ex);
        view.affMsg(enLoc?"en location":"pas en location");
     }
+
 }
