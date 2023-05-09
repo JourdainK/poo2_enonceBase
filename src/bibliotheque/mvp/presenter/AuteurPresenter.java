@@ -17,17 +17,21 @@ public class AuteurPresenter extends Presenter<Auteur> implements SpecialAuteurP
         final int sens = 1;
         List<Auteur> ldatas;
         ldatas = model.getAll();
-        Collections.sort(ldatas, new Comparator<Auteur>() {
-            @Override
-            public int compare(Auteur o1, Auteur o2) {
-                int NameCompare = o1.getNom().compareToIgnoreCase(o2.getNom()) * sens;
-                int PrenCompare = o1.getPrenom().compareToIgnoreCase(o2.getPrenom()) * sens;
 
-                return (NameCompare == 0)? PrenCompare: NameCompare;
-            }
+        Comparator<Auteur> cmp = (a1,a2)-> a1.getNom().compareToIgnoreCase(a2.getNom());
+        cmp = cmp.thenComparing((a1,a2)->a1.getPrenom().compareToIgnoreCase(a2.getPrenom()));
+        ldatas.sort(cmp);
+
+        /*
+        Collections.sort(ldatas, (o1, o2) -> {
+            int NameCompare = o1.getNom().compareToIgnoreCase(o2.getNom()) * sens;
+            int PrenCompare = o1.getPrenom().compareToIgnoreCase(o2.getPrenom()) * sens;
+
+            return (NameCompare == 0)? PrenCompare: NameCompare;
         });
+         */
 
-        return null;
+        return ldatas;
     }
 
     public AuteurPresenter(DAO<Auteur> model, ViewInterface<Auteur> view) {

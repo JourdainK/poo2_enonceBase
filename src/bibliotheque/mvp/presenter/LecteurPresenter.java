@@ -17,9 +17,13 @@ public class LecteurPresenter extends Presenter<Lecteur> implements SpecialLecte
 
     @Override
     public List<Lecteur> getAll(){
-        final int sens = -1;
+        //final int sens = -1;
         List<Lecteur> ldatas;
         ldatas = model.getAll();
+        Comparator<Lecteur> cmp = (l1,l2)-> l1.getNom().compareToIgnoreCase(l2.getNom());
+        cmp = cmp.thenComparing((l1,l2)->l1.getPrenom().compareToIgnoreCase(l2.getPrenom()));
+        ldatas.sort(cmp);
+        /*
         Collections.sort(ldatas, new Comparator<Lecteur>() {
             @Override
             public int compare(Lecteur o1, Lecteur o2) {
@@ -28,6 +32,8 @@ public class LecteurPresenter extends Presenter<Lecteur> implements SpecialLecte
                 return (nameCompare==0)? prenCompare : nameCompare;
             }
         });
+
+         */
         return ldatas;
     }
     @Override

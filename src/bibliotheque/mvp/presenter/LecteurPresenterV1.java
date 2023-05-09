@@ -7,6 +7,8 @@ import bibliotheque.mvp.model.SpecialLecteur;
 import bibliotheque.mvp.view.LecteurViewInterface;
 import bibliotheque.mvp.view.ViewInterface;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +28,20 @@ public class LecteurPresenterV1  {
     }
 
     public List<Lecteur> getAll(){
-        return model.getAll();
+        List<Lecteur> ldatas = model.getAll();
+        Comparator<Lecteur> cmp = (l1, l2)-> l1.getNom().compareToIgnoreCase(l2.getNom());
+        cmp = cmp.thenComparing((l1,l2)->l1.getPrenom().compareToIgnoreCase(l2.getPrenom()));
+        ldatas.sort(cmp);
+        /*
+        Collections.sort(ldatas, (o1, o2) -> {
+            int nameCompare = o1.getNom().compareToIgnoreCase(o2.getNom());
+            int prenCompare = o2.getPrenom().compareToIgnoreCase(o2.getPrenom());
+            return (nameCompare==0)? prenCompare : nameCompare;
+        });
+
+         */
+
+        return ldatas;
     }
 
     public void add(Lecteur elt) {

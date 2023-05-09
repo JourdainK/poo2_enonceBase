@@ -25,12 +25,16 @@ public class OuvragePresenter extends Presenter<Ouvrage> implements SpecialOuvra
         final int sens = 1;
         List<Ouvrage> ldatas;
         ldatas = model.getAll();
+        ldatas.sort((Ouvrage o1, Ouvrage o2) -> o1.getTitre().compareToIgnoreCase(o2.getTitre()));
+       /*
         Collections.sort(ldatas, new Comparator<Ouvrage>() {
             @Override
             public int compare(Ouvrage o1, Ouvrage o2) {
                 return o1.getTitre().compareToIgnoreCase(o2.getTitre()) * sens;
             }
         });
+
+        */
         return  ldatas;
     }
     @Override

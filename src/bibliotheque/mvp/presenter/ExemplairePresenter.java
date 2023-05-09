@@ -27,12 +27,14 @@ public class ExemplairePresenter extends Presenter<Exemplaire> implements Specia
     public List<Exemplaire> getAll(){
         List<Exemplaire> ldatas;
         ldatas = model.getAll();
-        Collections.sort(ldatas, new Comparator<Exemplaire>() {
-            @Override
-            public int compare(Exemplaire o1, Exemplaire o2) {
+        ldatas.sort((e1, e2) -> e1.getMatricule().compareToIgnoreCase(e2.getMatricule()));
+
+        /*
+        Collections.sort(ldatas, (o1, o2) -> {
                 return o1.getMatricule().compareToIgnoreCase(o2.getMatricule());
-            }
         });
+
+         */
         return ldatas;
     }
 

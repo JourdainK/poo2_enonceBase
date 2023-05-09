@@ -3,6 +3,9 @@ package bibliotheque.metier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
 import static bibliotheque.metier.TypeOuvrage.*;
 
 
@@ -92,9 +95,11 @@ public class Auteur  {
 
     public List<Ouvrage> listerOuvrages(TypeOuvrage to){
         List<Ouvrage> lot = new ArrayList<>();
-        for(Ouvrage o : louvrage){
-            if(o.getTo().equals(to)) lot.add(o);
-        }
+
+        louvrage.stream()
+                .filter(s->s.equals(to))
+                .forEach(a->lot.add(a));
+
         return lot;
     }
     public List<Livre> listerLivres(TypeLivre tl){
