@@ -104,12 +104,19 @@ public class Auteur  {
     }
     public List<Livre> listerLivres(TypeLivre tl){
         List<Livre>ll = new ArrayList<>();
+        //TODO check , not sure about that
+        louvrage.stream()
+                .filter(l->equals(tl))
+                .forEach(l->ll.add((Livre) l));
+        /*
         for(Ouvrage o : louvrage){
             if(o.getTo().equals(LIVRE)) {
                 Livre l = (Livre)o;
                 if(l.getTl().equals(tl)) ll.add(l);
             }
         }
+
+         */
         return ll;
     }
     public List<Ouvrage> listerOuvrages(String genre){
