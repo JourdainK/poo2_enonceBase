@@ -57,27 +57,32 @@ public class LecteurModel extends AbstractModel<Lecteur> implements SpecialLecte
             System.out.println("Problème d'accès : " + e.getMessage());
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        int i = 0;
-        while(ldat.get(i) !=null){
-            List<String> oneLect = ldat.subList(0,7);
-            int id = Integer.parseInt(oneLect.get(0));
-            String nom = oneLect.get(1);
-            String pren = oneLect.get(2);
 
-            LocalDate dn = LocalDate.parse(oneLect.get(3),formatter);
-            String adr = oneLect.get(4);
-            String mail = oneLect.get(5);
-            String tel = oneLect.get(6);
-            try{
-                tmpLect = new Lecteur(id,nom,pren,dn,adr,mail,tel);
-                System.out.println("Test tmplect  : " + tmpLect);
-                sLect.add(tmpLect);
-            }catch (Exception e){
-                System.out.println("Erreur lors de la création du lecteur fichier : " + e);
+        try{
+            while(ldat.get(0) !=null  || ldat.get(0).isEmpty()){
+                List<String> oneLect = ldat.subList(0,7);
+                int id = Integer.parseInt(oneLect.get(0));
+                String nom = oneLect.get(1);
+                String pren = oneLect.get(2);
+
+                LocalDate dn = LocalDate.parse(oneLect.get(3),formatter);
+                String adr = oneLect.get(4);
+                String mail = oneLect.get(5);
+                String tel = oneLect.get(6);
+                try{
+                    tmpLect = new Lecteur(id,nom,pren,dn,adr,mail,tel);
+                    System.out.println("Test tmplect  : " + tmpLect);
+                    sLect.add(tmpLect);
+                }catch (Exception e){
+                    System.out.println("Erreur lors de la création du lecteur fichier : " + e);
+                }
+                for(int j = 0; j < 7; j++){
+                    ldat.remove(0);
+                }
             }
-            for(int j = 0; j < 6; j++){
-                ldat.remove(oneLect.get(j));
-            }
+
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("Erreur => " + e.getMessage());
         }
         List<Lecteur> llect = new ArrayList<>(sLect);
         for(Lecteur l: llect){
