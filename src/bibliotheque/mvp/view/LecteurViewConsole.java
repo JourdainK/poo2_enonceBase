@@ -106,7 +106,7 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements 
         int choix =  choixElt(ldatas);
         Lecteur lec = ldatas.get(choix-1);
 
-        List options = new ArrayList<>(Arrays.asList("Exemplaire en location","Exemplaires loués","recherche par mail","fin"));
+        List options = new ArrayList<>(Arrays.asList("Exemplaire en location","Exemplaires loués","recherche par mail","Par fichier","fin"));
         do {
             int ch = choixListe(options);
                  switch (ch) {
@@ -119,7 +119,10 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements 
                      case 3:
                          lecParMail();
                          break;
-                    case 4: return;
+                     case 4 :
+                         lectFicher();
+                         break;
+                    case 5: return;
                     default:
                         System.out.println("choix invalide recommencez ");
                 }
@@ -144,6 +147,11 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements 
         System.out.print("mail recherché : ");
         String mail= sc.next();
         ((SpecialLecteurPresenter)presenter).lecParMail(mail);
+    }
+
+    public void lectFicher(){
+        System.out.println("Lecteur par fichiers : ");
+        ((LecteurPresenter)presenter).lectFichier();
     }
 }
 

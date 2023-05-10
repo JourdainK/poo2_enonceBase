@@ -1,10 +1,9 @@
 package bibliotheque.mvp.model;
 
-import bibliotheque.metier.Exemplaire;
-import bibliotheque.metier.Lecteur;
-import bibliotheque.metier.Rayon;
+import bibliotheque.metier.*;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 
 public class ExemplaireModel extends AbstractModel<Exemplaire> implements SpecialExemplaire {
     @Override
@@ -24,12 +23,46 @@ public class ExemplaireModel extends AbstractModel<Exemplaire> implements Specia
 
     @Override
     public void envoiMailLecteurActuel(Exemplaire ex) {
-     //TODO envoi mail lecteur
+        Lecteur lect = ex.lecteurActuel();
+        String mailLect = lect.getMail();
+        List<Location> loclect = lect.getLloc();
+        StringBuilder phlocations = new StringBuilder();
+        phlocations.append("Vous avez loués les exemplaires suivants : ");
+        for(Location l:loclect){
+            phlocations.append(l.toString());
+            phlocations.append("\n");
+        }
+        LocalDate today = LocalDate.now();
+        String tod = today.toString();
+        String locs = phlocations.toString();
+        Mail mail = new Mail("Information", locs, tod);
+        mail.envoi(lect.getMail());
     }
 
     @Override
     public void envoiMailLecteurs(Exemplaire ex) {
-     //TODO envoi mail lecteurs
+     Set<Lecteur> llec = new HashSet<>();
+     List<Location> lloc = ex.getLloc();
+
+     for(Location l : lloc){
+         llec.add(l.getLoueur());
+     }
+
+     StringBuilder phr = new StringBuilder();
+     phr.append("Vouez avez loué : \nNuméro de matricule : ");
+     phr.append(ex.getMatricule());
+     phr.append("\n");
+     phr.append(ex.getOuvrage().getTitre());
+     phr.append("\n");
+     phr.append("La bibliothèque");
+     String titre = phr.toString();
+     LocalDate today = LocalDate.now();
+     String to = today.toString();
+     for(Lecteur le : llec){
+         Mail mail = new Mail("Information", titre,to);
+         mail.envoi(le.getMail());
+     }
+
     }
 
     @Override

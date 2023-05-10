@@ -1,5 +1,10 @@
 package bibliotheque.metier;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class Mail {
     private String objet;
     private String message;
@@ -42,5 +47,26 @@ public class Mail {
                 ", message='" + message + '\'' +
                 ", dateEnvoi='" + dateEnvoi + '\'' +
                 '}';
+    }
+
+    public void envoi(String mailDestinataire){
+        File mailFile;
+        StringBuilder ph = new StringBuilder();
+        ph.append("C:\\Users\\Kevin\\IdeaProjects\\poo2_enonceBase\\src\\bibliotheque\\utilitaires\\mails\\");
+        ph.append(mailDestinataire);
+        ph.append(".txt");
+
+        String pathfile = ph.toString();
+        mailFile = new File(pathfile);
+
+        //add true to mailFile, true -> append new mail to old mails
+        try(FileWriter out = new FileWriter(mailFile, true)){
+            PrintWriter pw = new PrintWriter(out);
+            pw.println(this.objet);
+            pw.println(this.message);
+            pw.println("La Bibliothèque");
+        }catch (IOException e){
+            System.out.println("");
+        }
     }
 }

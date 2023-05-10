@@ -3,6 +3,7 @@ package bibliotheque.mvp.presenter;
 import bibliotheque.metier.Exemplaire;
 import bibliotheque.metier.Lecteur;
 import bibliotheque.mvp.model.DAO;
+import bibliotheque.mvp.model.LecteurModel;
 import bibliotheque.mvp.model.SpecialLecteur;
 import bibliotheque.mvp.view.ViewInterface;
 
@@ -36,4 +37,14 @@ public class LecteurPresenter extends Presenter<Lecteur> implements SpecialLecte
         if(l==null) view.affMsg("aucun lecteur pour ce mail");
         else view.affMsg("lecteur trouvé :" +l);
     }
+
+    public void lectFichier() {
+        List<Lecteur> llec= ((LecteurModel)model).lectFichier();
+        if(llec == null) view.affMsg("Aucun lecteur pour ce fichier");
+        else {
+            view.affList(llec);
+        }
+    }
+
+
 }

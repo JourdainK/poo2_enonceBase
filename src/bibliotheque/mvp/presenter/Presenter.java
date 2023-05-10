@@ -18,7 +18,6 @@ public abstract class Presenter<T> {
     }
 
     public void start() {
-
         view.setListDatas(getAll(),cmp);
     }
 

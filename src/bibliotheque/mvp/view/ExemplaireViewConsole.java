@@ -140,6 +140,7 @@ public class ExemplaireViewConsole extends AbstractViewConsole<Exemplaire> imple
 
    @Override
    public void mailLecteurs(Exemplaire ex) {
+
         ((SpecialExemplairePresenter)presenter).envoiMailLecteurs(ex);
     }
 
