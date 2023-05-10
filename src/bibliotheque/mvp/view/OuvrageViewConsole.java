@@ -8,30 +8,15 @@ import bibliotheque.utilitaires.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static bibliotheque.utilitaires.Utilitaire.*;
 import static bibliotheque.utilitaires.Utilitaire.modifyIfNotBlank;
 
 public class OuvrageViewConsole extends AbstractViewConsole<Ouvrage> implements SpecialOuvrageViewConsole {
-
-    /*
-    @Override
-    public void setListDatas(List<Ouvrage> ldatas){
-        this.ldatas = ldatas;
-        Collections.sort(this.ldatas, new SortOuvrages());
-        affList(ldatas);
-        menu();
-    }
-
-     */
-
     @Override
     protected void rechercher() {
-        affListe(ldatas);
-        int choix = choixElt(ldatas);
-        presenter.search(ldatas.get(choix-1));
+      //TODO rechercher ouvrage
     }
 
     @Override

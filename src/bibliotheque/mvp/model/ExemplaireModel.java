@@ -5,7 +5,6 @@ import bibliotheque.metier.Lecteur;
 import bibliotheque.metier.Rayon;
 
 import java.util.List;
-import java.util.Map;
 
 public class ExemplaireModel extends AbstractModel<Exemplaire> implements SpecialExemplaire {
     @Override
@@ -46,11 +45,5 @@ public class ExemplaireModel extends AbstractModel<Exemplaire> implements Specia
     @Override
     public boolean enLocation(Exemplaire ex) {
         return ex.enLocation();
-    }
-
-    @Override
-    public Map<String, Exemplaire> getMapAll() {
-        //TODO
-        return null;
     }
 }

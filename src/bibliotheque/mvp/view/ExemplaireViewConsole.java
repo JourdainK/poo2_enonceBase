@@ -63,7 +63,6 @@ public class ExemplaireViewConsole extends AbstractViewConsole<Exemplaire> imple
         presenter.add(ex);
        Rayon r = ((ExemplairePresenter)presenter).choixRayon();
        ex.setRayon(r);
-        ldatas=presenter.getAll();//rafraichissement
     }
 
     @Override

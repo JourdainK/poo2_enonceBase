@@ -2,10 +2,7 @@
 
     import bibliotheque.mvp.presenter.Presenter;
 
-    import java.util.ArrayList;
-    import java.util.Arrays;
-    import java.util.List;
-    import java.util.Scanner;
+    import java.util.*;
 
     import static bibliotheque.utilitaires.Utilitaire.*;
 
@@ -20,8 +17,9 @@
         }
 
         @Override
-        public void setListDatas(List<T> ldatas) {
+        public void setListDatas(List<T> ldatas, Comparator<T> cmp) {
             this.ldatas = ldatas;
+            this.ldatas.sort(cmp);
             affListe(ldatas);
             menu();
         }

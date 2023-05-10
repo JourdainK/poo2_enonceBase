@@ -6,7 +6,6 @@ import bibliotheque.metier.Rayon;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class RayonModelV2 implements DAO<Rayon> ,SpecialRayon{
 
@@ -33,11 +32,8 @@ public class RayonModelV2 implements DAO<Rayon> ,SpecialRayon{
     }
 
     @Override
-    public List<Rayon> getAll() { return ldatas; }
-
-    @Override
-    public Map<String, Rayon> getMapAll() {
-        return null;
+    public List<Rayon> getAll() {
+        return ldatas;
     }
 
     public Rayon add(Rayon nl) {

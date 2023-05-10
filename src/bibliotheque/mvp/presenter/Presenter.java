@@ -3,25 +3,29 @@ package bibliotheque.mvp.presenter;
 import bibliotheque.mvp.model.DAO;
 import bibliotheque.mvp.view.ViewInterface;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 public abstract class Presenter<T> {
     protected  DAO<T> model;
     protected  ViewInterface<T> view;
-
-    public Presenter(DAO<T> model, ViewInterface<T> view) {
+    protected Comparator<T> cmp;
+    public Presenter(DAO<T> model, ViewInterface<T> view,Comparator<T> cmp) {
         this.model = model;
         this.view = view;
         this.view.setPresenter(this);
+        this.cmp=cmp;
     }
 
     public void start() {
-       view.setListDatas(getAll());
+
+        view.setListDatas(getAll(),cmp);
     }
 
     public List<T> getAll(){
-        return model.getAll();
+        List<T> l = model.getAll();
+        l.sort(cmp);
+        return l;
     }
 
     public void add(T elt) {
@@ -53,9 +57,5 @@ public abstract class Presenter<T> {
 
     public T selection(){
        return  view.selectionner(model.getAll());
-    }
-
-    public Map<String,T> getMapAll() {
-       return model.getMapAll();
     }
 }

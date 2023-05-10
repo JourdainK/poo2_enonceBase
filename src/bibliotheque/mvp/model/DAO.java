@@ -1,7 +1,7 @@
 package bibliotheque.mvp.model;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public interface DAO<T> {
 
@@ -13,6 +13,4 @@ public interface DAO<T> {
     T read(T rech);
 
     List<T> getAll();
-
-    Map<String, T> getMapAll();
 }

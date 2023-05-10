@@ -11,21 +11,15 @@ import java.util.Map;
 public class LecteurModel extends AbstractModel<Lecteur> implements SpecialLecteur {
     private int numLecteur = 0;
     private List<Lecteur> lecteurs = new ArrayList<>();
-    private Map<String, Lecteur> mdatas = new HashMap<>();
-
-
+    private Map<String,Lecteur> hml= new HashMap<>();
     public Lecteur add(Lecteur nl){
         Lecteur l = super.add(nl);
-        if(l!=null) l.setNumlecteur(++numLecteur);
-        mdatas.put(nl.getMail(),nl);
+        if(l!=null) {
+            l.setNumlecteur(++numLecteur);
+            hml.put(l.getMail(),l);
+        }
         return  l;
     }
-
-    @Override
-    public Map<String, Lecteur> getMapAll() {
-        return mdatas;
-    }
-
 
     @Override
     public List<Exemplaire> exemplairesEnLocation(Lecteur l) {
@@ -35,5 +29,10 @@ public class LecteurModel extends AbstractModel<Lecteur> implements SpecialLecte
     @Override
     public List<Exemplaire> exemplairesLoues(Lecteur l) {
         return new ArrayList<>(l.listerExemplairesLoues());
+    }
+
+    @Override
+    public Lecteur lecParMail(String mail) {
+        return hml.get(mail);
     }
 }

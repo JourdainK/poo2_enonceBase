@@ -54,7 +54,6 @@ public class LecteurModelV1 implements DAOLecteur,SpecialLecteur {
         return null;
     }
 
-
     @Override
     public List<Lecteur> getLecteurs() {
         return lecteurs;
@@ -75,5 +74,10 @@ public class LecteurModelV1 implements DAOLecteur,SpecialLecteur {
     @Override
     public List<Exemplaire> exemplairesLoues(Lecteur l) {
         return new ArrayList<>(l.listerExemplairesLoues());
+    }
+
+    @Override
+    public Lecteur lecParMail(String mail) {
+        return null;
     }
 }

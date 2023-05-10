@@ -9,6 +9,7 @@
     import java.time.LocalDate;
     import java.time.LocalTime;
     import java.util.Arrays;
+    import java.util.Comparator;
     import java.util.List;
 
     public class GestBiblio {
@@ -41,27 +42,31 @@
         public void gestion(){
             lm = new LecteurModel();
             lv = new LecteurViewConsole();
-            lp = new LecteurPresenter(lm, lv);//création et injection de dépendance
+            Comparator<Lecteur> cmpl=(l1,l2)->l1.getNom().compareTo(l2.getNom());
+            cmpl=cmpl.thenComparing((l1,l2)-> l1.getPrenom().compareTo(l2.getPrenom()));
+            lp = new LecteurPresenter(lm, lv,cmpl);//création et injection de dépendance
 
             rm = new RayonModel();
             rv = new RayonViewConsole();
-            rp = new RayonPresenter(rm,rv);//création et injection de dépendance
+            rp = new RayonPresenter(rm,rv,(r1,r2)->r1.getGenre().compareTo(r2.getGenre()));//création et injection de dépendance
 
             om = new OuvrageModel();
             ov = new OuvrageViewConsole();
-            op = new OuvragePresenter(om,ov);//création et injection de dépendance
+            op = new OuvragePresenter(om,ov,(o1,o2)->o1.getTitre().compareTo(o2.getTitre()));//création et injection de dépendance
 
             em = new ExemplaireModel();
             ev = new ExemplaireViewConsole();
-            ep = new ExemplairePresenter(em,ev);//création et injection de dépendance
+            ep = new ExemplairePresenter(em,ev,(e1,e2)->e1.getMatricule().compareTo(e2.getMatricule()));//création et injection de dépendance
 
+            Comparator<Auteur> cmpa=(a1,a2)->a1.getNom().compareTo(a2.getNom());
+            cmpl=cmpl.thenComparing((a1,a2)-> a1.getPrenom().compareTo(a2.getPrenom()));
             am = new AuteurModel();
             av = new AuteurViewConsole();
-            ap = new AuteurPresenter(am,av);//création et injection de dépendance
+            ap = new AuteurPresenter(am,av,cmpa);//création et injection de dépendance
 
             locm = new LocationModel();
             locv = new LocationViewConsole();
-            locp = new LocationPresenter(locm,locv);//création et injection de dépendance
+            locp = new LocationPresenter(locm,locv,(loc1,loc2)->loc1.getDateLocation().compareTo(loc2.getDateLocation()));//création et injection de dépendance
 
             ((SpecialLocationPresenter)locp).setExemplairePresenter(ep);
             ((SpecialLocationPresenter)locp).setLecteurPresenter(lp);

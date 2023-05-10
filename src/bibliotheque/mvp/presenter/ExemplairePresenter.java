@@ -8,7 +8,6 @@ import bibliotheque.mvp.model.DAO;
 import bibliotheque.mvp.model.SpecialExemplaire;
 import bibliotheque.mvp.view.ViewInterface;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,24 +18,10 @@ public class ExemplairePresenter extends Presenter<Exemplaire> implements Specia
 
     private Presenter<Rayon> rayonPresenter;
 
-    public ExemplairePresenter(DAO<Exemplaire> model, ViewInterface<Exemplaire> view) {
-        super(model,view);
+    public ExemplairePresenter(DAO<Exemplaire> model, ViewInterface<Exemplaire> view, Comparator<Exemplaire>cmp) {
+        super(model,view,cmp);
     }
 
-    @Override
-    public List<Exemplaire> getAll(){
-        List<Exemplaire> ldatas;
-        ldatas = model.getAll();
-        ldatas.sort((e1, e2) -> e1.getMatricule().compareToIgnoreCase(e2.getMatricule()));
-
-        /*
-        Collections.sort(ldatas, (o1, o2) -> {
-                return o1.getMatricule().compareToIgnoreCase(o2.getMatricule());
-        });
-
-         */
-        return ldatas;
-    }
 
     @Override
     public void setOuvragePresenter(Presenter<Ouvrage> ouvragePresenter){
@@ -111,5 +96,4 @@ public class ExemplairePresenter extends Presenter<Exemplaire> implements Specia
        boolean enLoc =  ((SpecialExemplaire)model).enLocation(ex);
        view.affMsg(enLoc?"en location":"pas en location");
     }
-
 }

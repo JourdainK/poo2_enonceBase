@@ -4,15 +4,19 @@ package bibliotheque.mvp.view;
 import bibliotheque.metier.Lecteur;
 
 
+import bibliotheque.mvp.presenter.LecteurPresenter;
 import bibliotheque.mvp.presenter.SpecialLecteurPresenter;
 
 import static bibliotheque.utilitaires.Utilitaire.*;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements SpecialLecteurViewConsole {
+
 
   protected  void rechercher() {
       try{
@@ -101,10 +105,10 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements 
     protected  void special() {
         int choix =  choixElt(ldatas);
         Lecteur lec = ldatas.get(choix-1);
-            do {
-                System.out.println("1.Exemplaire en location\n2.Exemplaires loués\n3.Recherche spéciales\n4.menu principal");
-                System.out.println("choix : ");
-                int ch = lireInt();
+
+        List options = new ArrayList<>(Arrays.asList("Exemplaire en location","Exemplaires loués","recherche par mail","fin"));
+        do {
+            int ch = choixListe(options);
                  switch (ch) {
                     case 1:
                         exemplairesLocation(lec);
@@ -112,8 +116,8 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements 
                     case 2:
                         exemplairesLoues(lec);
                         break;
-                     case 3 :
-                         rechercheMap();
+                     case 3:
+                         lecParMail();
                          break;
                     case 4: return;
                     default:
@@ -134,18 +138,12 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements 
         ((SpecialLecteurPresenter)presenter).exemplairesEnLocation(lec);
     }
 
-    public void rechercheMap(){
-
-      Map<String, Lecteur> mdatas = presenter.getMapAll();
-
-        System.out.println("Saisir l'email : ");
-        String email = sc.nextLine();
-
-        if(mdatas.containsKey(email)){
-            Lecteur lect = mdatas.get(email);
-            System.out.println(lect);
-        }
-        else System.out.println("pas de lecteur correspondant à cet email (" + email+")");
+    @Override
+    public void lecParMail() {
+      //ajout pour forcer push
+        System.out.print("mail recherché : ");
+        String mail= sc.next();
+        ((SpecialLecteurPresenter)presenter).lecParMail(mail);
     }
 }
 
